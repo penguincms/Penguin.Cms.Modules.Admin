@@ -1,0 +1,23 @@
+﻿.table {
+    display: table;
+}
+
+.tr {
+    display: table-row;
+}
+
+.th {
+    display: table-header-group;
+}
+
+.tbody {
+    display: table-row-group;
+}
+
+.tfoot {
+    display: table-footer-group;
+}
+
+.td, .thead {
+    display: table-cell;
+}

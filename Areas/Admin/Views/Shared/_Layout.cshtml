@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+
+    Html.IncludeCSS("Admin");
+    Html.IncludeJS("Admin", "DynamicForm");
+    Html.IncludeCSS("MetaForm");
+    Html.IncludeJS("MetaForm");
+    Html.IncludeJS("/lib/JSTree/jstree");
+    Html.IncludeCSS("/lib/JSTree/themes/default/style");
+    Html.IncludeCSS("/lib/JSTree/themes/default-dark/style");
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+        <script src="~/lib/JSTree/jstree.js"></script>
+        <link href="~/lib/jquery-ui/jquery-ui.css" rel="stylesheet" />
+        <link href="~/lib/JSTree/themes/default/style.css" rel="stylesheet" />
+    </environment>
+
+    <environment exclude="Development">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+        <link href="~/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+        <script src="~/lib/JSTree/jstree.min.js"></script>
+        <link href="~/lib/JSTree/themes/default/style.min.css" rel="stylesheet" />
+    </environment>
+    <link href="~/css/cssTables.css" rel="stylesheet" />
+    <script src="~/js/loader.js"></script>
+    <link href="~/css/loader.css" rel="stylesheet" />
+    <script src="~/js/jquery.tabalert.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    //Move this to ViewPage?
+    string[] Messages = (TempData["Messages"] as string[]) ?? new string[0];
+    Guid dialog = Guid.NewGuid();
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Html.RenderIncludes()
+    <script src="~/js/Site.js"></script>
+    @RenderSection("Head", false)
+</head>
+<body id="Admin">
+    <div id="Header">
+        <a id="Banner" href="/">
+            <img src="~/images/logo.png" />
+        </a>
+        <nav class="desktopOnly">
+            <i class="material-icons md-24 ToggleLeftPane" icon-name="menu">menu</i>
+            <vc:navigation-menu name="Admin">
+            </vc:navigation-menu>
+        </nav>
+        <div class="mobileHeader mobileOnly">
+            <i class="material-icons md-24 ToggleLeftPane" icon-name="menu">menu</i>
+            <vc:navigation-menu name="Admin">
+            </vc:navigation-menu>
+        </div>
+    </div>
+    @if (Messages.Any())
+    {
+        <div id="@dialog">
+            @foreach (string s in Messages)
+            {
+                <span>@s</span>
+            }
+        </div>
+        <script>
+			$(function () {
+				$("#@dialog").dialog();
+			});
+        </script>
+    }
+    <div id="Body">
+        <div id="FullPane">
+        </div>
+        @section Head {
+            @RenderSection("Head", false)
+        }
+
+        <div id="LeftPane">
+            @if (IsSectionDefined("LeftPane"))
+            {
+                @RenderSection("LeftPane")
+            }
+            else
+            {
+                <partial name="LeftPane" />
+            }
+        </div>
+        <div id="RightPane">
+            @RenderBody()
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $(".ui-tabs").tabs();
+            });
+            $(".ui-accordion").accordion({
+                collapsible: true,
+                active: false
+            });
+        });
+    </script>
+</body>
+</html>

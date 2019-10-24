@@ -1,0 +1,39 @@
+﻿@import url("/Client/css/landscape.css") only screen and (min-aspect-ratio: 10/9);
+@import url("/Client/css/portrait.css") only screen and (max-aspect-ratio: 10/9);
+
+.pager .message {
+    display: block;
+    width: 100%;
+}
+
+.pager .pages {
+    text-align: right;
+    float: right;
+}
+
+.formRender name {
+    width: 100%;
+    display: block;
+    font-size: 24px;
+}
+
+@media screen and (min-aspect-ratio: 10/9) { /* landscape styles here */
+    .mobileOnly {
+        display: none;
+    }
+}
+
+@media screen and (max-aspect-ratio: 10/9) { /* portrait styles here */
+    .desktopOnly {
+        display: none;
+    }
+}
+
+/*Jquery UI Crap*/
+.ui-page-active {
+    outline: none;
+}
+
+.ui-loader.ui-corner-all.ui-body-a.ui-loader-default {
+    display: none;
+}

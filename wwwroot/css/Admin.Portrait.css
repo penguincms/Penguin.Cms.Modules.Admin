@@ -1,0 +1,60 @@
+﻿div#Edit .ui-tabs .ui-tabs-panel {
+    padding: 0px;
+}
+
+div#Edit .ui-tabs {
+    padding: 0px;
+}
+
+property[data-isroot="True"] > value {
+    padding: 0px;
+}
+
+ul.ui-tabs-nav {
+    display: flex;
+    padding: 0px !important;
+}
+
+    ul.ui-tabs-nav li.ui-tabs-tab {
+        flex-shrink: 1;
+        flex-grow: 1;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+
+        ul.ui-tabs-nav li.ui-tabs-tab a {
+            display: block;
+            padding: 10px 0px !important;
+            width: 100%;
+            text-align: center;
+        }
+
+body nav.desktopOnly {
+    display: none;
+}
+
+.mobileHeader {
+    width: 100%;
+    display: flex;
+    background-color: #1976D2;
+}
+
+    .mobileHeader > nav {
+        flex-grow: 1;
+    }
+
+        .mobileHeader > nav select {
+            width: 100%;
+            background-color: white;
+            border: 1px solid #1976D2;
+        }
+
+body#Admin #LeftPane {
+    display: none;
+    width: 100%;
+}
+
+.desktopOnly {
+    display: none;
+}

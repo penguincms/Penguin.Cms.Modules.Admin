@@ -1,0 +1,631 @@
+﻿@import url("/css/Admin.landscape.css") only screen and (min-aspect-ratio: 10/9);
+@import url("/css/Admin.portrait.css") only screen and (max-aspect-ratio: 10/9);
+
+/*
+    https://www.canva.com/learn/website-color-schemes/
+
+    Screen: #C5C1C0;
+    Steel: #0A1612
+    Denim: #2A3940
+    Marigold: #F7Ce3E
+
+*/
+i.ToggleLeftPane {
+    color: white;
+    flex-grow: 0;
+    flex-basis: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.DynamicList td {
+    max-height: 40px !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 1000px;
+}
+
+nav.desktopOnly {
+    background-color: #1976D2;
+    display: flex;
+}
+
+body {
+    color: #212121;
+    line-height: 34px;
+    font-size: 24px;
+    font-family: roboto, sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+ul#Admin {
+    width: 100%;
+    display: inline-block;
+}
+
+    ul#Admin > li {
+        display: inline-block;
+    }
+
+    ul#Admin li {
+        list-style: none;
+    }
+
+        ul#Admin li a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            padding: 0px 10px;
+        }
+
+ul#Admin {
+    background-color: #1976D2;
+}
+
+    ul#Admin ul {
+        display: none;
+    }
+
+html, body {
+    padding: 0px;
+    min-height: 100%;
+    margin: 0px;
+}
+
+ul#Admin li a.selected {
+    border-bottom: 2px solid rgba(139,195,74,1);
+}
+
+ul#Admin li a:hover {
+    background: #8BC34A !important;
+    border-bottom: 2px solid #8BC34A;
+}
+
+ul#Admin li a {
+    border-bottom: 2px solid transparent;
+}
+
+div#Banner {
+    height: 50px;
+    background-color: #1976D2;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+td.textarea {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 300px;
+    overflow: hidden;
+}
+
+#Admin #LeftPane {
+    display: flex;
+    flex-grow: 0;
+    background-color: #2196F3;
+    flex-basis: auto;
+    position: relative;
+}
+
+#admin div#Body {
+    display: flex;
+}
+
+body#Admin {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+#Admin div#Body {
+    display: flex;
+    flex-grow: 1;
+}
+
+#Admin div#Header {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+}
+
+#Admin div#RightPane {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 10;
+    flex-basis: 0px;
+    flex-shrink: 1;
+    overflow: auto;
+    min-height: auto;
+}
+
+#LeftPane ul,
+#LeftPane ul li {
+    color: white;
+    width: 100%;
+}
+
+    #LeftPane ul li:after {
+        content: ' ';
+        white-space: pre;
+        height: 1px;
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        line-height: 1px;
+        display: block;
+        background: linear-gradient(to right, #BBDEFB, #2196F3);
+    }
+
+#LeftPane > ul a {
+    color: white;
+    text-decoration: none;
+    box-sizing: border-box;
+    padding: 0px 16px;
+    width: 100%;
+    display: block;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
+
+#LeftPane a:hover {
+    background: rgba(139,195,74,1);
+}
+
+#LeftPane a.selected {
+    border-left: 4px solid rgba(139,195,74,1);
+    border-right: 4px solid rgba(139,195,74,1);
+}
+
+input, select {
+    min-height: 40px;
+    min-width: 25px;
+    font-size: 25px;
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 0px 10px;
+    vertical-align: middle;
+    background-color: transparent;
+}
+
+table th {
+    background-color: #C5C1C0;
+}
+
+tr:nth-child(odd) {
+    background-color: #f8f8f8;
+}
+
+.inline-row > * {
+    vertical-align: middle;
+}
+
+table {
+    overflow: scroll;
+    min-width: 100%;
+}
+
+i.material-icons {
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+a span {
+    vertical-align: middle;
+}
+
+.PropertyValidation {
+    height: 20px;
+}
+
+html {
+    display: flex;
+}
+
+.smalltext {
+    font-size: 16px;
+}
+
+.iconButton {
+    cursor: pointer;
+}
+
+img[onclick], i[onclick] {
+    cursor: pointer;
+}
+
+#DynamicFormSubmit {
+    margin-top: 12px;
+}
+
+.available-roles label {
+    width: 100% !important;
+    display: block !important;
+    text-align: left !important;
+}
+
+.form-actions.btn-group {
+    display: none !important;
+}
+
+#LeftPane a {
+    color: white;
+}
+
+.jstree {
+    width: 100%;
+}
+
+.vakata-context li > a {
+    line-height: 24px;
+    font-size: 18px;
+}
+
+    .vakata-context li > a > i:empty {
+        line-height: 24px !important;
+        height: 24px !important;
+        width: 24px;
+    }
+
+span.vakata-contextmenu-sep {
+    height: 24px !important;
+    font-size: 18px !important;
+}
+
+.jstree-default-dark {
+    background: transparent !important;
+}
+
+div#LeftPane {
+    overflow: hidden;
+}
+
+.pager .displayText {
+    width: 49%;
+}
+
+.pager .pages {
+    float: right;
+}
+
+.selectorValues .inline-row i {
+    position: absolute;
+    line-height: 36px;
+}
+
+.selectorValues .inline-row span {
+    padding-left: 24px;
+}
+
+#Banner img {
+    margin: 5px;
+}
+
+#Banner img {
+    height: 25px;
+}
+
+.CodeMirror {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.MacrosList {
+    max-height: 300px;
+    overflow-y: scroll;
+    font-size: 16px;
+    overflow-x: hidden;
+    line-height: 18px;
+}
+
+a#AddParameter p {
+    display: inline-block;
+    margin: 0px 10px;
+}
+
+a#AddParameter {
+    text-decoration: none;
+    flex-basis: 0;
+    flex-grow: 3;
+    padding: 0px 15px;
+}
+
+.newParam {
+    display: flex;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+input#NewParameterName {
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+input[type="submit"] {
+    border: 1px solid #c5c5c5;
+    background: #f6f6f6;
+    font-weight: normal;
+    color: #454545;
+    cursor: pointer;
+}
+
+form > input {
+    display: block;
+    border: 1px solid lightgrey;
+}
+
+.FileNavigationBar input[type="text"] {
+    width: 100%;
+    border: initial;
+    background-color: initial;
+}
+
+.pagerSearch {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+}
+
+    .pagerSearch button {
+        float: right;
+    }
+
+    .pagerSearch input[type='number'] {
+        width: 85px;
+    }
+
+    .pagerSearch input {
+        border: 1px solid lightgrey;
+    }
+
+.batchEditChk {
+    display: inline-block;
+    width: 25px !important;
+}
+
+span.iconRow {
+    cursor: pointer;
+    display: block;
+}
+
+    span.iconRow i {
+        width: 16px;
+        vertical-align: middle;
+    }
+
+.iconSelectionPanel {
+    border: 1px solid #505050;
+    overflow-y: scroll;
+    max-height: 200px;
+    padding: 10px;
+    margin-top: 10px;
+    vertical-align: middle;
+}
+
+span.macro {
+    display: block;
+}
+
+span.iconRow span {
+    vertical-align: middle;
+}
+
+.valuesList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+div#Messages {
+    height: 100%;
+}
+
+#RightPane .ui-tabs {
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+.MessageInfo {
+    display: flex;
+    font-size: 18px;
+    color: #626262;
+}
+
+    .MessageInfo .createdBy:before {
+        content: 'Posted By';
+    }
+
+    .MessageInfo .dateCreated:before {
+        content: '@';
+        margin-left: 10px;
+    }
+
+.messageChain {
+    margin-top: 15px;
+    border: 2px solid #d0d0d0;
+    border-radius: 10px;
+    padding: 0px 10px 10px 10px;
+    box-sizing: border-box;
+}
+
+#Messages textarea#Body {
+    width: 100%;
+    min-height: 200px;
+}
+
+div#AuditHistory {
+    padding: 0px;
+}
+
+i.jstree-icon.jstree-themeicon.jstree-themeicon-custom {
+    background-size: contain !important;
+}
+
+.dynamicPropertyList .propertiesList {
+    display: flex;
+    flex-grow: 1;
+}
+
+.dynamicPropertyList .listValue {
+    display: flex;
+}
+
+.searchContainer i {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    display: flex;
+    top: 0;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.listValue a.delete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.searchContainer {
+    position: relative;
+}
+
+.deleteContainer:hover ~ .propertiesList {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.deleteContainer ~ .propertiesList {
+    border: 2px solid transparent;
+    border-radius: 10px;
+}
+
+.formRow {
+    width: 100%;
+}
+
+    .formRow textarea {
+        width: 100%;
+        min-height: 300px;
+    }
+
+#LeftPane ul li:last-child:after {
+    display: none;
+}
+
+#LeftPane ul.jstree-container-ul li:after {
+    display: none;
+}
+
+#LeftPane .jstree {
+    margin-right: 20px;
+}
+
+property[data-propertytype="Dynamic.SqlStoredProc"] ~ .list td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+property[data-propertytype="Dynamic.SqlStoredProc"] ~ .list {
+    overflow-x: scroll;
+    max-width: 100%;
+}
+
+property[data-propertytype="Dynamic.SqlStoredProc"] > name {
+    display: none;
+}
+
+property[data-propertytype="Dynamic.SqlStoredProc"] > value {
+    display: flex;
+    padding: 0px;
+}
+
+property[data-propertytype="Dynamic.SqlStoredProc"] ~ .list .editColumn,
+property[data-propertytype="Dynamic.SqlStoredProc"] ~ .list .selectColumn {
+    display: none;
+}
+
+h3 .reportTitle {
+    margin: 0px;
+    padding: 2px;
+    background: #f0f0f0;
+    border: 1px solid #a0a0a0;
+    color: #404040;
+    font-family: monospace;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    cursor: pointer;
+}
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 10px;
+        border-radius: 6px;
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        font-size: 16px;
+        z-index: 1;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+.parameterConstraint {
+    display: flex;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+property[data-type="SQL"] value,
+property[data-type="Lambda"] value {
+    padding: 0px;
+}
+
+property[data-type="SQL"] pre.CodeMirror-line,
+property[data-type="Lambda"] pre.CodeMirror-line,
+property[data-type="Lambda"] .CodeMirror-cursor,
+property[data-type="SQL"] .CodeMirror-cursor,
+property[data-type="Lambda"] .CodeMirror-selected,
+property[data-type="SQL"] .CodeMirror-selected {
+    margin-left: 25px !important;
+}
+
+input#showDisabled:checked ~ form [data-disabled] {
+    display: inline-block;
+}
+
+.fileUploader img {
+    max-width: 100%;
+    max-height: 25vh;
+    margin: 0 auto;
+}
+
+.previewImage {
+    text-align: center;
+}

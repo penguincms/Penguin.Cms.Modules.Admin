@@ -1,0 +1,1 @@
+﻿ace.config.set('basePath', '/Content/Packages/Ace')
