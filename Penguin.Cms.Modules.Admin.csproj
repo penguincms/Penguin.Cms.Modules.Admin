@@ -20,12 +20,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.0.0" />
     <PackageReference Include="Penguin.Cms.Entities" Version="3.0.3" />
+    <PackageReference Include="Penguin.Cms.Modules.Core" Version="1.0.0" />
     <PackageReference Include="Penguin.Cms.Web" Version="1.0.0" />
     <PackageReference Include="Penguin.Reflection.Serialization" Version="3.0.6" />
     <PackageReference Include="Penguin.Web.Security" Version="2.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Penguin.Cms.Modules.Core\Penguin.Cms.Modules.Core.csproj" />
   </ItemGroup>
   <Import Project="Penguin.Projects.Shared\Penguin.Projects.Shared.csproj" />
 </Project>
