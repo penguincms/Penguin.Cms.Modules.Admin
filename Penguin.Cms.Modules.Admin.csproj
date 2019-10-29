@@ -10,8 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="wwwroot\**\*" />
-    <PackageReference Include="Penguin.Cms.Modules.Core" Version="1.0.0-T9LXGUJ" />
-    <PackageReference Include="Penguin.Web.Security" Version="2.0.0-T9LXGUJ" />
+    <PackageReference Include="Penguin.Web.Security" Version="2.0.1-T9M1HHH" />
+    <PackageReference Include="Penguin.Cms.Modules.Core" Version="1.0.1-T9M1K2Y" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\**\*" />
