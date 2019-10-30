@@ -1,0 +1,25 @@
+﻿@using System.Reflection;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+This page is hardcoded to the EF provider for no reason aside from the lack of need to extend it at this point.
+If the database table does not exist, the user provided must have permissions to create the table
+
+    <form action="/Admin/Setup/SetConnectionString">
+        <label>Database Name</label><br />
+        <input name="DatabaseName" value="@(Assembly.GetEntryAssembly().GetName().Name.Replace(".", "_"))" /><br />
+        <br />
+        <label>Server Path</label><br />
+        <input name="Server" value="." /><br />
+        <br />
+        <label>User (Blank for integrated)</label><br />
+        <input name="User" /><br />
+
+        <label>Password (if not integrated)</label><br />
+        <input name="Password" /><br />
+        <br />
+        <input type="submit" />
+    </form>
