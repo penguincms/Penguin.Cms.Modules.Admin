@@ -115,7 +115,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
             }
             else
             {
-                (ConnectionStrings[Penguin.Persistence.Abstractions.Constants.Strings.CONNECTION_STRING_NAME] as JProperty).Value = connectionString;
+                ConnectionStrings[Penguin.Persistence.Abstractions.Constants.Strings.CONNECTION_STRING_NAME] = connectionString;
             }
 
             System.IO.File.WriteAllText(HostBuilder.ApplicationConfig, config.ToString());
