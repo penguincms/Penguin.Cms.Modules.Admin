@@ -51,19 +51,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(ToCheck))
-                {
-                    connection.Open();
-                }
-
-                IPersistenceContextMigrator migrator = ServiceProvider.GetService<IPersistenceContextMigrator>();
-
-                if(migrator is null)
-                {
-                    throw new Exception($"{nameof(IPersistenceContextMigrator)} was returned null from the internal service provider");
-                }
-
-                migrator.Migrate();
+                Startup.ConfigureDatabase();
 
             } catch(Exception ex)
             {
