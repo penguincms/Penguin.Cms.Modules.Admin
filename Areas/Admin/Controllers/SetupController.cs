@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Penguin.Persistence.Abstractions;
+using System.Linq;
 
 namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 {
@@ -49,15 +50,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             toReturn.ConnectionString = ToCheck;
 
-            try
-            {
-                Startup.ConfigureDatabase();
-
-            } catch(Exception ex)
-            {
-                toReturn.Exception = ex;
-                return toReturn;
-            }
+            toReturn.Exceptions = Startup.Exceptions.ToList();
 
             return toReturn;
             
@@ -81,7 +74,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             ConnectionStringSetupModel checkModel = CheckModel(connectionString);
 
-            if(checkModel.Exception != null)
+            if(checkModel.Exceptions.Any())
             {
                 return View("Index", checkModel);
             }

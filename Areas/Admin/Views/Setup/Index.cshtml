@@ -1,6 +1,7 @@
 ﻿@model Penguin.Cms.Modules.Admin.Areas.Admin.Models.ConnectionStringSetupModel
 @using Penguin.Extensions.Exceptions;
 @using System.Reflection;
+@using Penguin.Cms.Web.Mvc;
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -35,18 +36,23 @@ If the database table does not exist, the user provided must have permissions to
     <input type="submit" />
 </form>
 
-@if (Model.Exception != null)
+@foreach (StartupException ex in Model.Exceptions)
 {
-    <div>
-        <label style="color: red;">
-            Recursive Message
-        </label>
-        <span style="color: red;">@Model.Exception.RecursiveMessage()</span>
-    </div>
-    <div>
-        <label style="color: red;">
-            Recursive Stack Trace
-        </label>
-        <span style="color: red;">@Model.Exception.RecursiveStackTrace()</span>
+    <div style="padding: 25px;">
+
+        <span>@ex.Time</span>
+        <div>
+            <label style="color: red;">
+                Recursive Message
+            </label>
+            <span style="color: red;">@ex.Exception.RecursiveMessage()</span>
+        </div>
+        <div>
+            <label style="color: red;">
+                Recursive Stack Trace
+            </label>
+            <span style="color: red;">@ex.Exception.RecursiveStackTrace()</span>
+        </div>
+
     </div>
 }
