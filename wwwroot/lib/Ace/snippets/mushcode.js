@@ -3,7 +3,6 @@ define("ace/snippets/mushcode",["require","exports","module"], function(require,
 
 exports.snippetText = "";
 exports.scope = "mushcode";
-
 });
                 (function() {
                     window.require(["ace/snippets/mushcode"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "mushcode";
                         }
                     });
                 })();
-            

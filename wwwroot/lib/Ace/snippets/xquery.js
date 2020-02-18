@@ -64,7 +64,6 @@ snippet module\n\
 	module namespace ${1:ns} = \"${2:http://www.example.com}\";\n\
 ";
 exports.scope = "xquery";
-
 });
                 (function() {
                     window.require(["ace/snippets/xquery"], function(m) {
@@ -73,4 +72,3 @@ exports.scope = "xquery";
                         }
                     });
                 })();
-            

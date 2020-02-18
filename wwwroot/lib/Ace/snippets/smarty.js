@@ -3,7 +3,6 @@ define("ace/snippets/smarty",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "smarty";
-
 });
                 (function() {
                     window.require(["ace/snippets/smarty"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "smarty";
                         }
                     });
                 })();
-            

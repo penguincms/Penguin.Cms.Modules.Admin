@@ -35,7 +35,6 @@ snippet enum\n\
 	}\n\
 ";
 exports.scope = "graphqlschema";
-
 });
                 (function() {
                     window.require(["ace/snippets/graphqlschema"], function(m) {
@@ -44,4 +43,3 @@ exports.scope = "graphqlschema";
                         }
                     });
                 })();
-            

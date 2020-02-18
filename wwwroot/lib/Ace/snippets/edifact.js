@@ -1,6 +1,6 @@
 define("ace/snippets/edifact",["require","exports","module"], function(require, exports, module) {
     "use strict";
-    
+
     exports.snippetText = "## Access Modifiers\n\
 snippet u\n\
 	UN\n\
@@ -243,7 +243,6 @@ snippet unless\n\
 	(unless=${1:param});${2}\n\
 ";
     exports.scope = "edifact";
-    
 });
                 (function() {
                     window.require(["ace/snippets/edifact"], function(m) {
@@ -252,4 +251,3 @@ snippet unless\n\
                         }
                     });
                 })();
-            

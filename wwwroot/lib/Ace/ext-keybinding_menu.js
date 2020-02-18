@@ -96,22 +96,21 @@ module.exports.overlayPage = function overlayPage(editor, contentElement, top, r
 
     var wrapper = dom.createElement("div");
     wrapper.style.position = "relative";
-    
+
     var closeButton = dom.createElement("div");
     closeButton.className = "ace_closeButton";
     closeButton.addEventListener('click', function() {
         closer.click();
     });
-    
+
     wrapper.appendChild(closeButton);
     contentContainer.appendChild(wrapper);
-    
+
     contentContainer.appendChild(contentElement);
     closer.appendChild(contentContainer);
     document.body.appendChild(closer);
     editor.blur();
 };
-
 });
 
 define("ace/ext/menu_tools/get_editor_keyboard_shortcuts",["require","exports","module","ace/lib/keys"], function(require, exports, module) {
@@ -136,13 +135,12 @@ module.exports.getEditorKeybordShortcuts = function(editor) {
                 } else {
                     commandMap[command] = {key: key, command: command};
                     keybindings.push(commandMap[command]);
-                }         
+                }
             });
         }
     });
     return keybindings;
 };
-
 });
 
 define("ace/ext/keybinding_menu",["require","exports","module","ace/editor","ace/ext/menu_tools/overlay_page","ace/ext/menu_tools/get_editor_keyboard_shortcuts"], function(require, exports, module) {
@@ -155,7 +153,7 @@ define("ace/ext/keybinding_menu",["require","exports","module","ace/editor","ace
             var kb = getEditorKeybordShortcuts(editor);
             var el = document.createElement('div');
             var commands = kb.reduce(function(previous, current) {
-                return previous + '<div class="ace_optionsMenuEntry"><span class="ace_optionsMenuCommand">' 
+                return previous + '<div class="ace_optionsMenuEntry"><span class="ace_optionsMenuCommand">'
                     + current.command + '</span> : '
                     + '<span class="ace_optionsMenuKey">' + current.key + '</span></div>';
             }, '');
@@ -177,7 +175,6 @@ define("ace/ext/keybinding_menu",["require","exports","module","ace/editor","ace
             }
         }]);
     };
-
 });
                 (function() {
                     window.require(["ace/ext/keybinding_menu"], function(m) {
@@ -186,4 +183,3 @@ define("ace/ext/keybinding_menu",["require","exports","module","ace/editor","ace
                         }
                     });
                 })();
-            

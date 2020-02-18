@@ -1,5 +1,4 @@
 define("ace/theme/sqlserver",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = false;
 exports.cssClass = "ace-sqlserver";
 exports.cssText = ".ace-sqlserver .ace_gutter {\
@@ -143,4 +142,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

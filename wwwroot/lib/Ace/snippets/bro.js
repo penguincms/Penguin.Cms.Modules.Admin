@@ -3,7 +3,6 @@ define("ace/snippets/bro",["require","exports","module"], function(require, expo
 
 exports.snippetText =undefined;
 exports.scope = "";
-
 });
                 (function() {
                     window.require(["ace/snippets/bro"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "";
                         }
                     });
                 })();
-            

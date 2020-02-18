@@ -5,7 +5,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var VBScriptHighlightRules = function() {
-
     var keywordMapper = this.createKeywordMapper({
         "keyword.control.asp":  "If|Then|Else|ElseIf|End|While|Wend|For|To|Each|Case|Select|Return"
             + "|Continue|Do|Until|Loop|Next|With|Exit|Function|Property|Type|Enum|Sub|IIf",
@@ -167,7 +166,6 @@ var VBScriptHighlightRules = function() {
         }
     ]
 };
-
 };
 
 oop.inherits(VBScriptHighlightRules, TextHighlightRules);
@@ -189,9 +187,8 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-       
     this.lineCommentStart = ["'", "REM"];
-    
+
     this.$id = "ace/mode/vbscript";
 }).call(Mode.prototype);
 
@@ -204,4 +201,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

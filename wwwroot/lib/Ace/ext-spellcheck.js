@@ -63,7 +63,6 @@ require("../config").defineOptions(Editor.prototype, "editor", {
         value: true
     }
 });
-
 });
                 (function() {
                     window.require(["ace/ext/spellcheck"], function(m) {
@@ -72,4 +71,3 @@ require("../config").defineOptions(Editor.prototype, "editor", {
                         }
                     });
                 })();
-            

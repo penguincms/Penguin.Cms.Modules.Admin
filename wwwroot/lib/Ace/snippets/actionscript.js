@@ -160,7 +160,6 @@ snippet FlxSprite\n\
 \n\
 ";
 exports.scope = "actionscript";
-
 });
                 (function() {
                     window.require(["ace/snippets/actionscript"], function(m) {
@@ -169,4 +168,3 @@ exports.scope = "actionscript";
                         }
                     });
                 })();
-            

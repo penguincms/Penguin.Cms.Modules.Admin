@@ -102,7 +102,6 @@ snippet trim\n\
 	${fn:trim(${1:string})}\n\
 ";
 exports.scope = "jsp";
-
 });
                 (function() {
                     window.require(["ace/snippets/jsp"], function(m) {
@@ -111,4 +110,3 @@ exports.scope = "jsp";
                         }
                     });
                 })();
-            

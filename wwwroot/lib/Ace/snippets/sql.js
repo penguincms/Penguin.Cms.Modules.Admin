@@ -29,7 +29,6 @@ snippet s*\n\
 	select * from ${1:table}\n\
 ";
 exports.scope = "sql";
-
 });
                 (function() {
                     window.require(["ace/snippets/sql"], function(m) {
@@ -38,4 +37,3 @@ exports.scope = "sql";
                         }
                     });
                 })();
-            

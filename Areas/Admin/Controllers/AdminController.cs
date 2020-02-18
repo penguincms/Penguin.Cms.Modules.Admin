@@ -11,7 +11,6 @@ using Penguin.Persistence.Repositories.Interfaces;
 using Penguin.Reflection;
 using Penguin.Reflection.Serialization.Abstractions.Interfaces;
 using Penguin.Reflection.Serialization.Constructors;
-using Penguin.Security.Abstractions.Attributes;
 using Penguin.Security.Abstractions.Constants;
 using Penguin.Security.Abstractions.Interfaces;
 using Penguin.Web.Security.Attributes;
@@ -29,12 +28,6 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
     [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
     public class AdminController : ModuleController
     {
-        public class QueryResults
-        {
-            public IEnumerable<object> Results { get; set; }
-            public int TotalCount { get; set; }
-        }
-
         public static MetaConstructor Constructor
         {
             get
@@ -51,6 +44,12 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
         }
 
         protected IServiceProvider ServiceProvider { get; set; }
+
+        public class QueryResults
+        {
+            public IEnumerable<object> Results { get; set; }
+            public int TotalCount { get; set; }
+        }
 
         public AdminController(IServiceProvider serviceProvider)
         {

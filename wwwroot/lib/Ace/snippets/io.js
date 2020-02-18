@@ -65,7 +65,6 @@ exports.snippets = [
     }
 ];
 exports.scope = "io";
-
 });
                 (function() {
                     window.require(["ace/snippets/io"], function(m) {
@@ -74,4 +73,3 @@ exports.scope = "io";
                         }
                     });
                 })();
-            

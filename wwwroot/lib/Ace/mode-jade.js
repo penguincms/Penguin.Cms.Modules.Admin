@@ -15,7 +15,6 @@ var pseudoElements = exports.pseudoElements = "(\\:+)\\b(after|before|first-lett
 var pseudoClasses  = exports.pseudoClasses =  "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
 
 var CssHighlightRules = function() {
-
     var keywordMapper = this.createKeywordMapper({
         "support.function": supportFunction,
         "support.constant": supportConstant,
@@ -180,7 +179,6 @@ var CssHighlightRules = function() {
             token : "constant.language.escape",
             regex : /\\([a-fA-F\d]{1,6}|[^a-fA-F\d])/
         }]
-
     };
 
     this.normalizeRules();
@@ -189,7 +187,6 @@ var CssHighlightRules = function() {
 oop.inherits(CssHighlightRules, TextHighlightRules);
 
 exports.CssHighlightRules = CssHighlightRules;
-
 });
 
 define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -203,7 +200,7 @@ var DocCommentHighlightRules = function() {
         "start" : [ {
             token : "comment.doc.tag",
             regex : "@[\\w\\d_]+" // TODO: fix email addresses
-        }, 
+        },
         DocCommentHighlightRules.getTagRule(),
         {
             defaultToken : "comment.doc",
@@ -237,9 +234,7 @@ DocCommentHighlightRules.getEndRule = function (start) {
     };
 };
 
-
 exports.DocCommentHighlightRules = DocCommentHighlightRules;
-
 });
 
 define("ace/mode/javascript_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -542,7 +537,6 @@ var JavaScriptHighlightRules = function(options) {
             }
         ]
     };
-
 
     if (!options || !options.noES6) {
         this.$rules.no_regex.unshift({
@@ -876,9 +870,7 @@ var XmlHighlightRules = function(normalize) {
         this.normalizeRules();
 };
 
-
 (function() {
-
     this.embedTagRules = function(HighlightRules, prefix, tag){
         this.$rules.tag.unshift({
             token : ["meta.tag.punctuation.tag-open.xml", "meta.tag." + tag + ".tag-name.xml"],
@@ -910,7 +902,6 @@ var XmlHighlightRules = function(normalize) {
             regex : "\\]\\]>"
         }]);
     };
-
 }).call(TextHighlightRules.prototype);
 
 oop.inherits(XmlHighlightRules, TextHighlightRules);
@@ -1037,7 +1028,7 @@ var MarkdownHighlightRules = function() {
             var indent = stack[2][0];
             var endMarker = stack[2][1];
             var language = stack[2][2];
-            
+
             var m = /^(\s*)(`+|~+)\s*$/.exec(value);
             if (
                 m && m[1].length < indent.length + 3
@@ -1195,30 +1186,28 @@ var lang = require("../lib/lang");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var ScssHighlightRules = function() {
-    
     var properties = lang.arrayToMap( (function () {
-
         var browserPrefix = ("-webkit-|-moz-|-o-|-ms-|-svg-|-pie-|-khtml-").split("|");
-        
-        var prefixProperties = ("appearance|background-clip|background-inline-policy|background-origin|" + 
-             "background-size|binding|border-bottom-colors|border-left-colors|" + 
-             "border-right-colors|border-top-colors|border-end|border-end-color|" + 
-             "border-end-style|border-end-width|border-image|border-start|" + 
-             "border-start-color|border-start-style|border-start-width|box-align|" + 
-             "box-direction|box-flex|box-flexgroup|box-ordinal-group|box-orient|" + 
-             "box-pack|box-sizing|column-count|column-gap|column-width|column-rule|" + 
-             "column-rule-width|column-rule-style|column-rule-color|float-edge|" + 
-             "font-feature-settings|font-language-override|force-broken-image-icon|" + 
-             "image-region|margin-end|margin-start|opacity|outline|outline-color|" + 
-             "outline-offset|outline-radius|outline-radius-bottomleft|" + 
-             "outline-radius-bottomright|outline-radius-topleft|outline-radius-topright|" + 
-             "outline-style|outline-width|padding-end|padding-start|stack-sizing|" + 
-             "tab-size|text-blink|text-decoration-color|text-decoration-line|" + 
-             "text-decoration-style|transform|transform-origin|transition|" + 
-             "transition-delay|transition-duration|transition-property|" + 
+
+        var prefixProperties = ("appearance|background-clip|background-inline-policy|background-origin|" +
+             "background-size|binding|border-bottom-colors|border-left-colors|" +
+             "border-right-colors|border-top-colors|border-end|border-end-color|" +
+             "border-end-style|border-end-width|border-image|border-start|" +
+             "border-start-color|border-start-style|border-start-width|box-align|" +
+             "box-direction|box-flex|box-flexgroup|box-ordinal-group|box-orient|" +
+             "box-pack|box-sizing|column-count|column-gap|column-width|column-rule|" +
+             "column-rule-width|column-rule-style|column-rule-color|float-edge|" +
+             "font-feature-settings|font-language-override|force-broken-image-icon|" +
+             "image-region|margin-end|margin-start|opacity|outline|outline-color|" +
+             "outline-offset|outline-radius|outline-radius-bottomleft|" +
+             "outline-radius-bottomright|outline-radius-topleft|outline-radius-topright|" +
+             "outline-style|outline-width|padding-end|padding-start|stack-sizing|" +
+             "tab-size|text-blink|text-decoration-color|text-decoration-line|" +
+             "text-decoration-style|transform|transform-origin|transition|" +
+             "transition-delay|transition-duration|transition-property|" +
              "transition-timing-function|user-focus|user-input|user-modify|user-select|" +
              "window-shadow|border-radius").split("|");
-        
+
         var properties = ("azimuth|background-attachment|background-color|background-image|" +
             "background-position|background-repeat|background|border-bottom-color|" +
             "border-bottom-style|border-bottom-width|border-bottom|border-collapse|" +
@@ -1252,17 +1241,14 @@ var ScssHighlightRules = function() {
         }
         Array.prototype.push.apply(ret, prefixProperties);
         Array.prototype.push.apply(ret, properties);
-        
-        return ret;
-        
-    })() );
-    
 
+        return ret;
+    })() );
 
     var functions = lang.arrayToMap(
         ("hsl|hsla|rgb|rgba|url|attr|counter|counters|abs|adjust_color|adjust_hue|" +
-         "alpha|join|blue|ceil|change_color|comparable|complement|darken|desaturate|" + 
-         "floor|grayscale|green|hue|if|invert|join|length|lighten|lightness|mix|" + 
+         "alpha|join|blue|ceil|change_color|comparable|complement|darken|desaturate|" +
+         "floor|grayscale|green|hue|if|invert|join|length|lighten|lightness|mix|" +
          "nth|opacify|opacity|percentage|quote|red|round|saturate|saturation|" +
          "scale_color|transparentize|type_of|unit|unitless|unquote").split("|")
     );
@@ -1317,20 +1303,20 @@ var ScssHighlightRules = function() {
         "springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|" +
         "wheat|white|whitesmoke|yellow|yellowgreen").split("|")
     );
-    
+
     var keywords = lang.arrayToMap(
         ("@mixin|@extend|@include|@import|@media|@debug|@warn|@if|@for|@each|@while|@else|@font-face|@-webkit-keyframes|if|and|!default|module|def|end|declare").split("|")
     );
-    
+
     var tags = lang.arrayToMap(
-        ("a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdo|" + 
-         "big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|" + 
-         "command|datalist|dd|del|details|dfn|dir|div|dl|dt|em|embed|fieldset|" + 
-         "figcaption|figure|font|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|" + 
-         "header|hgroup|hr|html|i|iframe|img|input|ins|keygen|kbd|label|legend|li|" + 
-         "link|map|mark|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|" + 
-         "option|output|p|param|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|" + 
-         "small|source|span|strike|strong|style|sub|summary|sup|table|tbody|td|" + 
+        ("a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdo|" +
+         "big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|" +
+         "command|datalist|dd|del|details|dfn|dir|div|dl|dt|em|embed|fieldset|" +
+         "figcaption|figure|font|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|" +
+         "header|hgroup|hr|html|i|iframe|img|input|ins|keygen|kbd|label|legend|li|" +
+         "link|map|mark|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|" +
+         "option|output|p|param|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|" +
+         "small|source|span|strike|strong|style|sub|summary|sup|table|tbody|td|" +
          "textarea|tfoot|th|thead|time|title|tr|tt|u|ul|var|video|wbr|xmp").split("|")
     );
     var numRe = "\\-?(?:(?:[0-9]+)|(?:[0-9]*\\.[0-9]+))";
@@ -1457,7 +1443,6 @@ var ScssHighlightRules = function() {
 oop.inherits(ScssHighlightRules, TextHighlightRules);
 
 exports.ScssHighlightRules = ScssHighlightRules;
-
 });
 
 define("ace/mode/less_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules","ace/mode/css_highlight_rules"], function(require, exports, module) {
@@ -1468,9 +1453,7 @@ var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 var CssHighlightRules = require('./css_highlight_rules');
 
 var LessHighlightRules = function() {
-
-
-    var keywordList = "@import|@media|@font-face|@keyframes|@-webkit-keyframes|@supports|" + 
+    var keywordList = "@import|@media|@font-face|@keyframes|@-webkit-keyframes|@supports|" +
         "@charset|@plugin|@namespace|@document|@page|@viewport|@-ms-viewport|" +
         "or|and|when|not";
 
@@ -1483,7 +1466,7 @@ var LessHighlightRules = function() {
         "keyword": keywordList,
         "support.constant.color": CssHighlightRules.supportConstantColor,
         "support.constant.fonts": CssHighlightRules.supportConstantFonts
-    }, "identifier", true);   
+    }, "identifier", true);
     var numRe = "\\-?(?:(?:[0-9]+)|(?:[0-9]*\\.[0-9]+))";
     this.$rules = {
         "start" : [
@@ -1590,7 +1573,6 @@ var LessHighlightRules = function() {
 oop.inherits(LessHighlightRules, TextHighlightRules);
 
 exports.LessHighlightRules = LessHighlightRules;
-
 });
 
 define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -1739,8 +1721,8 @@ define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/
                 }, {
                     token : ["entity.name.function", "text", "keyword.operator", "text"].concat(functionRule.token),
                     regex : "(" + identifier + ")(\\s*)([=:])(\\s*)" + functionRule.regex
-                }, 
-                functionRule, 
+                },
+                functionRule,
                 {
                     token : "variable",
                     regex : "@(?:" + identifier + ")?"
@@ -1766,7 +1748,6 @@ define("ace/mode/coffee_highlight_rules",["require","exports","module","ace/lib/
                     token : "text",
                     regex : "\\s+"
                 }],
-
 
             heregex : [{
                 token : "string.regex",
@@ -1806,7 +1787,7 @@ var CoffeeHighlightRules = require("./coffee_highlight_rules").CoffeeHighlightRu
 var JavaScriptHighlightRules = require("./javascript_highlight_rules").JavaScriptHighlightRules;
 
 function mixin_embed(tag, prefix) {
-    return { 
+    return {
         token : "entity.name.function.jade",
         regex : "^\\s*\\:" + tag,
         next  : prefix + "start"
@@ -1814,7 +1795,6 @@ function mixin_embed(tag, prefix) {
 }
 
 var JadeHighlightRules = function() {
-
     var escapedRe = "\\\\(?:x[0-9a-fA-F]{2}|" + // hex
         "u[0-9a-fA-F]{4}|" + // unicode
         "[0-2][0-7]{0,2}|" + // oct
@@ -1822,7 +1802,7 @@ var JadeHighlightRules = function() {
         "37[0-7]?|" + // oct
         "[4-7][0-7]?|" + //oct
         ".)";
-    this.$rules = 
+    this.$rules =
         {
     "start": [
         {
@@ -1920,12 +1900,12 @@ var JadeHighlightRules = function() {
             next: "start"
         }
     ],
-    "tag_attributes": [ 
+    "tag_attributes": [
         {
             token : "string",
             regex : "'(?=.)",
             next  : "qstring"
-        }, 
+        },
         {
             token : "string",
             regex : '"(?=.)',
@@ -1947,7 +1927,7 @@ var JadeHighlightRules = function() {
             token : "string",
             regex : "'(?=.)",
             next  : "qstring"
-        }, 
+        },
         {
             token : "string",
             regex : '"(?=.)',
@@ -2018,7 +1998,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -2089,9 +2068,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/jade",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/jade_highlight_rules","ace/mode/folding/coffee"], function(require, exports, module) {
@@ -2109,7 +2086,7 @@ var Mode = function() {
 };
 oop.inherits(Mode, TextMode);
 
-(function() { 
+(function() {
 	this.lineCommentStart = "//";
     this.$id = "ace/mode/jade";
 }).call(Mode.prototype);
@@ -2123,4 +2100,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

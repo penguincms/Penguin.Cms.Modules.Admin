@@ -34,7 +34,6 @@ snippet zupfnoter.annotation\n\
 \n\
 ";
 exports.scope = "abc";
-
 });
                 (function() {
                     window.require(["ace/snippets/abc"], function(m) {
@@ -43,4 +42,3 @@ exports.scope = "abc";
                         }
                     });
                 })();
-            

@@ -13,7 +13,6 @@ snippet synth\n\
 	</CsoundSynthesizer>\n\
 ";
 exports.scope = "csound_document";
-
 });
                 (function() {
                     window.require(["ace/snippets/csound_document"], function(m) {
@@ -22,4 +21,3 @@ exports.scope = "csound_document";
                         }
                     });
                 })();
-            

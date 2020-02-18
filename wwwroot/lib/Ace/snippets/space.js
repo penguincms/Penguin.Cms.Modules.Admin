@@ -3,7 +3,6 @@ define("ace/snippets/space",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "space";
-
 });
                 (function() {
                     window.require(["ace/snippets/space"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "space";
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/php_laravel_blade",["require","exports","module"], function
 
     exports.snippetText = "";
     exports.scope = "php";
-
 });
                 (function() {
                     window.require(["ace/snippets/php_laravel_blade"], function(m) {
@@ -12,4 +11,3 @@ define("ace/snippets/php_laravel_blade",["require","exports","module"], function
                         }
                     });
                 })();
-            

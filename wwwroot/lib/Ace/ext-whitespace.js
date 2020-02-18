@@ -22,7 +22,7 @@ exports.$detectIndentation = function(lines, fallback) {
                 var diff = spaces - prevSpaces;
                 if (diff > 0 && !(prevSpaces%diff) && !(spaces%diff))
                     changes[diff] = (changes[diff] || 0) + 1;
-    
+
                 stats[spaces] = (stats[spaces] || 0) + 1;
             }
             prevSpaces = spaces;
@@ -30,7 +30,7 @@ exports.$detectIndentation = function(lines, fallback) {
         while (i < max && line[line.length - 1] == "\\")
             line = lines[i++];
     }
-    
+
     function getScore(indent) {
         var score = 0;
         for (var i = indent; i < stats.length; i += indent)
@@ -85,7 +85,7 @@ exports.detectIndentation = function(session) {
 exports.trimTrailingSpace = function(session, options) {
     var doc = session.getDocument();
     var lines = doc.getAllLines();
-    
+
     var min = options && options.trimEmpty ? -1 : 0;
     var cursors = [], ci = -1;
     if (options && options.keepCursorPosition) {
@@ -198,7 +198,6 @@ exports.commands = [{
         indent.ch && editor.session.setUseSoftTabs(indent.ch == " ");
     }
 }];
-
 });
                 (function() {
                     window.require(["ace/ext/whitespace"], function(m) {
@@ -207,4 +206,3 @@ exports.commands = [{
                         }
                     });
                 })();
-            

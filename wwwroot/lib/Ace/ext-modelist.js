@@ -216,7 +216,6 @@ module.exports = {
     modes: modes,
     modesByName: modesByName
 };
-
 });
                 (function() {
                     window.require(["ace/ext/modelist"], function(m) {
@@ -225,4 +224,3 @@ module.exports = {
                         }
                     });
                 })();
-            

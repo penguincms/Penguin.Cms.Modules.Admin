@@ -1235,7 +1235,6 @@ snippet while\n\
 	}\n\
 ";
 exports.scope = "lsl";
-
 });
                 (function() {
                     window.require(["ace/snippets/lsl"], function(m) {
@@ -1244,4 +1243,3 @@ exports.scope = "lsl";
                         }
                     });
                 })();
-            

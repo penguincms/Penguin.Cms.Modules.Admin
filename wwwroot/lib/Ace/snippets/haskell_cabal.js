@@ -3,7 +3,6 @@ define("ace/snippets/haskell_cabal",["require","exports","module"], function(req
 
 exports.snippetText = "";
 exports.scope = "haskell_cabal";
-
 });
                 (function() {
                     window.require(["ace/snippets/haskell_cabal"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "haskell_cabal";
                         }
                     });
                 })();
-            

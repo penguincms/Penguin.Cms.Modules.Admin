@@ -96,22 +96,21 @@ module.exports.overlayPage = function overlayPage(editor, contentElement, top, r
 
     var wrapper = dom.createElement("div");
     wrapper.style.position = "relative";
-    
+
     var closeButton = dom.createElement("div");
     closeButton.className = "ace_closeButton";
     closeButton.addEventListener('click', function() {
         closer.click();
     });
-    
+
     wrapper.appendChild(closeButton);
     contentContainer.appendChild(wrapper);
-    
+
     contentContainer.appendChild(contentElement);
     closer.appendChild(contentContainer);
     document.body.appendChild(closer);
     editor.blur();
 };
-
 });
 
 define("ace/ext/modelist",["require","exports","module"], function(require, exports, module) {
@@ -332,7 +331,6 @@ module.exports = {
     modes: modes,
     modesByName: modesByName
 };
-
 });
 
 define("ace/ext/themelist",["require","exports","module","ace/lib/fixoldbrowsers"], function(require, exports, module) {
@@ -379,7 +377,6 @@ var themeData = [
     ["Vibrant Ink"          ,"vibrant_ink"             ,  "dark"]
 ];
 
-
 exports.themesByName = {};
 exports.themes = themeData.map(function(data) {
     var name = data[1] || data[0].replace(/ /g, "_").toLowerCase();
@@ -392,14 +389,12 @@ exports.themes = themeData.map(function(data) {
     exports.themesByName[name] = theme;
     return theme;
 });
-
 });
 
 define("ace/ext/options",["require","exports","module","ace/ext/menu_tools/overlay_page","ace/lib/dom","ace/lib/oop","ace/lib/event_emitter","ace/ext/modelist","ace/ext/themelist"], function(require, exports, module) {
 "use strict";
 var overlayPage = require('./menu_tools/overlay_page').overlayPage;
 
- 
 var dom = require("../lib/dom");
 var oop = require("../lib/oop");
 var EventEmitter = require("../lib/event_emitter").EventEmitter;
@@ -413,10 +408,9 @@ themelist.themes.forEach(function(x) {
     themes[x.isDark ? "Dark" : "Bright"].push({ caption: x.caption, value: x.theme });
 });
 
-var modes = modelist.modes.map(function(x){ 
-    return { caption: x.caption, value: x.mode }; 
+var modes = modelist.modes.map(function(x){
+    return { caption: x.caption, value: x.mode };
 });
-
 
 var optionGroups = {
     Main: {
@@ -578,7 +572,6 @@ var optionGroups = {
     }
 };
 
-
 var OptionPanel = function(editor, element) {
     this.editor = editor;
     this.container = element || document.createElement("div");
@@ -587,28 +580,27 @@ var OptionPanel = function(editor, element) {
 };
 
 (function() {
-    
     oop.implement(this, EventEmitter);
-    
+
     this.add = function(config) {
         if (config.Main)
             oop.mixin(optionGroups.Main, config.Main);
         if (config.More)
             oop.mixin(optionGroups.More, config.More);
     };
-    
+
     this.render = function() {
         this.container.innerHTML = "";
-        buildDom(["table", {id: "controls"}, 
+        buildDom(["table", {id: "controls"},
             this.renderOptionGroup(optionGroups.Main),
             ["tr", null, ["td", {colspan: 2},
-                ["table", {id: "more-controls"}, 
+                ["table", {id: "more-controls"},
                     this.renderOptionGroup(optionGroups.More)
                 ]
             ]]
         ], this.container);
     };
-    
+
     this.renderOptionGroup = function(group) {
         return Object.keys(group).map(function(key, i) {
             var item = group[key];
@@ -623,7 +615,7 @@ var OptionPanel = function(editor, element) {
             return this.renderOption(item.label, item);
         }, this);
     };
-    
+
     this.renderOptionControl = function(key, option) {
         var self = this;
         if (Array.isArray(option)) {
@@ -632,9 +624,9 @@ var OptionPanel = function(editor, element) {
             });
         }
         var control;
-        
+
         var value = self.getOption(option);
-        
+
         if (option.values && option.type != "checkbox") {
             if (typeof option.values == "string")
                 option.values = option.values.split("|");
@@ -642,12 +634,12 @@ var OptionPanel = function(editor, element) {
                 return { value: v, name: v };
             });
         }
-        
+
         if (option.type == "buttonBar") {
             control = ["div", option.items.map(function(item) {
-                return ["button", { 
-                    value: item.value, 
-                    ace_selected_button: value == item.value, 
+                return ["button", {
+                    value: item.value,
+                    ace_selected_button: value == item.value,
                     onclick: function() {
                         self.setOption(option, item.value);
                         var nodes = this.parentNode.querySelectorAll("[ace_selected_button]");
@@ -655,7 +647,7 @@ var OptionPanel = function(editor, element) {
                             nodes[i].removeAttribute("ace_selected_button");
                         }
                         this.setAttribute("ace_selected_button", true);
-                    } 
+                    }
                 }, item.desc || item.caption || item.name];
             })];
         } else if (option.type == "number") {
@@ -677,8 +669,8 @@ var OptionPanel = function(editor, element) {
                     return ["option", { value: item.value || item.name }, item.desc || item.caption || item.name];
                 });
             };
-            
-            var items = Array.isArray(option.items) 
+
+            var items = Array.isArray(option.items)
                 ? buildItems(option.items)
                 : Object.keys(option.items).map(function(key) {
                     return ["optgroup", {"label": key}, buildItems(option.items[key])];
@@ -701,7 +693,7 @@ var OptionPanel = function(editor, element) {
         }
         return control;
     };
-    
+
     this.renderOption = function(key, option) {
         if (option.path && !option.onchange && !this.editor.$options[option.path])
             return;
@@ -712,7 +704,7 @@ var OptionPanel = function(editor, element) {
             ["label", {for: safeKey}, key]
         ], ["td", control]];
     };
-    
+
     this.setOption = function(option, value) {
         if (typeof option == "string")
             option = this.options[option];
@@ -728,17 +720,15 @@ var OptionPanel = function(editor, element) {
             this.editor.setOption(option.path, value);
         this._signal("setOption", {name: option.path, value: value});
     };
-    
+
     this.getOption = function(option) {
         if (option.getValue)
             return option.getValue();
         return this.editor.getOption(option.path);
     };
-    
 }).call(OptionPanel.prototype);
 
 exports.OptionPanel = OptionPanel;
-
 });
 
 define("ace/ext/settings_menu",["require","exports","module","ace/ext/options","ace/ext/menu_tools/overlay_page","ace/editor"], function(require, exports, module) {
@@ -768,4 +758,3 @@ module.exports.init = function(editor) {
                         }
                     });
                 })();
-            

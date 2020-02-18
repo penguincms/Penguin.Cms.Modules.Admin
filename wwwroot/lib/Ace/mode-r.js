@@ -6,7 +6,6 @@ var lang = require("../lib/lang");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var TexHighlightRules = function(textClass) {
-
     if (!textClass)
         textClass = "text";
     this.$rules = {
@@ -78,7 +77,6 @@ exports.TexHighlightRules = TexHighlightRules;
 
 define("ace/mode/r_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/text_highlight_rules","ace/mode/tex_highlight_rules"], function(require, exports, module)
 {
-
    var oop = require("../lib/oop");
    var lang = require("../lib/lang");
    var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
@@ -86,7 +84,6 @@ define("ace/mode/r_highlight_rules",["require","exports","module","ace/lib/oop",
 
    var RHighlightRules = function()
    {
-
       var keywords = lang.arrayToMap(
             ("function|if|in|break|next|repeat|else|for|return|switch|while|try|tryCatch|stop|warning|require|library|attach|detach|source|setMethod|setGeneric|setGroupGeneric|setClass")
                   .split("|")
@@ -241,7 +238,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -267,7 +263,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -307,4 +302,3 @@ define("ace/mode/r",["require","exports","module","ace/unicode","ace/range","ace
                         }
                     });
                 })();
-            

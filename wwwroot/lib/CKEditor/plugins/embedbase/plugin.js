@@ -4,7 +4,7 @@
  */
 
 (function () {
-    'use strict';
+	'use strict';
 
 	/**
 	 * JSONP communication.
@@ -13,23 +13,23 @@
 	 * @singleton
 	 * @class CKEDITOR.plugins.embedBase._jsonp
 	 */
-    var Jsonp = {
+	var Jsonp = {
 		/**
 		 * Creates a `<script>` element and attaches it to the document `<body>`.
 		 *
 		 * @private
 		 */
-        _attachScript: function (url, errorCallback) {
-            // ATM we cannot use CKE scriptloader here, because it will make sure that script
-            // with given URL is added only once.
-            var script = new CKEDITOR.dom.element('script');
-            script.setAttribute('src', url);
-            script.on('error', errorCallback);
+		_attachScript: function (url, errorCallback) {
+			// ATM we cannot use CKE scriptloader here, because it will make sure that script
+			// with given URL is added only once.
+			var script = new CKEDITOR.dom.element('script');
+			script.setAttribute('src', url);
+			script.on('error', errorCallback);
 
-            CKEDITOR.document.getBody().append(script);
+			CKEDITOR.document.getBody().append(script);
 
-            return script;
-        },
+			return script;
+		},
 
 		/**
 		 * Sends a request using the JSONP technique.
@@ -41,56 +41,56 @@
 		 * @param {Function} [errorCallback]
 		 * @returns {Object} The request object with a `cancel()` method.
 		 */
-        sendRequest: function (urlTemplate, urlParams, callback, errorCallback) {
-            var request = {};
-            urlParams = urlParams || {};
+		sendRequest: function (urlTemplate, urlParams, callback, errorCallback) {
+			var request = {};
+			urlParams = urlParams || {};
 
-            var callbackKey = CKEDITOR.tools.getNextNumber(),
-                scriptElement;
+			var callbackKey = CKEDITOR.tools.getNextNumber(),
+				scriptElement;
 
-            urlParams.callback = 'CKEDITOR._.jsonpCallbacks[' + callbackKey + ']';
+			urlParams.callback = 'CKEDITOR._.jsonpCallbacks[' + callbackKey + ']';
 
-            CKEDITOR._.jsonpCallbacks[callbackKey] = function (response) {
-                // On IEs scripts are sometimes loaded synchronously. It is bad for two reasons:
-                // * nature of sendRequest() is unstable,
-                // * scriptElement does not exist yet.
-                setTimeout(function () {
-                    cleanUp();
-                    callback(response);
-                });
-            };
+			CKEDITOR._.jsonpCallbacks[callbackKey] = function (response) {
+				// On IEs scripts are sometimes loaded synchronously. It is bad for two reasons:
+				// * nature of sendRequest() is unstable,
+				// * scriptElement does not exist yet.
+				setTimeout(function () {
+					cleanUp();
+					callback(response);
+				});
+			};
 
-            scriptElement = this._attachScript(urlTemplate.output(urlParams), function () {
-                cleanUp();
-                errorCallback && errorCallback();
-            });
+			scriptElement = this._attachScript(urlTemplate.output(urlParams), function () {
+				cleanUp();
+				errorCallback && errorCallback();
+			});
 
-            request.cancel = cleanUp;
+			request.cancel = cleanUp;
 
-            function cleanUp() {
-                if (scriptElement) {
-                    scriptElement.remove();
-                    delete CKEDITOR._.jsonpCallbacks[callbackKey];
-                    scriptElement = null;
-                }
-            }
+			function cleanUp() {
+				if (scriptElement) {
+					scriptElement.remove();
+					delete CKEDITOR._.jsonpCallbacks[callbackKey];
+					scriptElement = null;
+				}
+			}
 
-            return request;
-        }
-    };
+			return request;
+		}
+	};
 
-    CKEDITOR.plugins.add('embedbase', {
-        lang: 'az,ca,cs,da,de,de-ch,en,eo,es,eu,fr,gl,hr,hu,id,it,ja,ko,ku,nb,nl,oc,pl,pt,pt-br,ru,sk,sv,tr,ug,uk,zh,zh-cn', // %REMOVE_LINE_CORE%
-        requires: 'dialog,widget,notificationaggregator',
+	CKEDITOR.plugins.add('embedbase', {
+		lang: 'az,ca,cs,da,de,de-ch,en,eo,es,eu,fr,gl,hr,hu,id,it,ja,ko,ku,nb,nl,oc,pl,pt,pt-br,ru,sk,sv,tr,ug,uk,zh,zh-cn', // %REMOVE_LINE_CORE%
+		requires: 'dialog,widget,notificationaggregator',
 
-        onLoad: function () {
-            CKEDITOR._.jsonpCallbacks = {};
-        },
+		onLoad: function () {
+			CKEDITOR._.jsonpCallbacks = {};
+		},
 
-        init: function () {
-            CKEDITOR.dialog.add('embedBase', this.path + 'dialogs/embedbase.js');
-        }
-    });
+		init: function () {
+			CKEDITOR.dialog.add('embedBase', this.path + 'dialogs/embedbase.js');
+		}
+	});
 
 	/**
 	 * Creates a new embed widget base definition. After other necessary properties are filled this definition
@@ -116,9 +116,9 @@
 	 * @returns {CKEDITOR.plugins.embedBase.baseDefinition}
 	 * @member CKEDITOR.plugins.embedBase
 	 */
-    function createWidgetBaseDefinition(editor) {
-        var aggregator,
-            lang = editor.lang.embedbase;
+	function createWidgetBaseDefinition(editor) {
+		var aggregator,
+			lang = editor.lang.embedbase;
 
 		/**
 		 * An embed widget base definition. It predefines a few {@link CKEDITOR.plugins.widget.definition widget definition}
@@ -134,17 +134,17 @@
 		 * @class CKEDITOR.plugins.embedBase.baseDefinition
 		 * @extends CKEDITOR.plugins.widget.definition
 		 */
-        return {
-            mask: true,
-            template: '<div></div>',
-            pathName: lang.pathName,
+		return {
+			mask: true,
+			template: '<div></div>',
+			pathName: lang.pathName,
 
 			/**
 			 * Response cache. This cache object will be shared between all instances of this widget.
 			 *
 			 * @private
 			 */
-            _cache: {},
+			_cache: {},
 
 			/**
 			 * A regular expression to pre-validate URLs.
@@ -154,7 +154,7 @@
 			 * * [https://iframely.com/docs/providers],
 			 * * {@link #isUrlValid}.
 			 */
-            urlRegExp: /^((https?:)?\/\/|www\.)/i,
+			urlRegExp: /^((https?:)?\/\/|www\.)/i,
 
 			/**
 			 * The template used to generate the URL of the content provider. Content provider is a service
@@ -188,31 +188,31 @@
 			 * @property {CKEDITOR.template} providerUrl
 			 */
 
-            init: function () {
-                this.on('sendRequest', function (evt) {
-                    this._sendRequest(evt.data);
-                }, this, null, 999);
+			init: function () {
+				this.on('sendRequest', function (evt) {
+					this._sendRequest(evt.data);
+				}, this, null, 999);
 
-                // Expose the widget in the dialog - needed to trigger loadContent() and do error handling.
-                this.on('dialog', function (evt) {
-                    evt.data.widget = this;
-                }, this);
+				// Expose the widget in the dialog - needed to trigger loadContent() and do error handling.
+				this.on('dialog', function (evt) {
+					evt.data.widget = this;
+				}, this);
 
-                this.on('handleResponse', function (evt) {
-                    if (evt.data.html) {
-                        return;
-                    }
+				this.on('handleResponse', function (evt) {
+					if (evt.data.html) {
+						return;
+					}
 
-                    var retHtml = this._responseToHtml(evt.data.url, evt.data.response);
+					var retHtml = this._responseToHtml(evt.data.url, evt.data.response);
 
-                    if (retHtml !== null) {
-                        evt.data.html = retHtml;
-                    } else {
-                        evt.data.errorMessage = 'unsupportedUrl';
-                        evt.cancel();
-                    }
-                }, this, null, 999);
-            },
+					if (retHtml !== null) {
+						evt.data.html = retHtml;
+					} else {
+						evt.data.errorMessage = 'unsupportedUrl';
+						evt.cancel();
+					}
+				}, this, null, 999);
+			},
 
 			/**
 			 * Loads content for a given resource URL by requesting the {@link #providerUrl provider}.
@@ -253,63 +253,63 @@
 			 * @param {Boolean} [opts.noNotifications] Do not show notifications (useful when the dialog is open).
 			 * @returns {CKEDITOR.plugins.embedBase.request}
 			 */
-            loadContent: function (url, opts) {
-                opts = opts || {};
+			loadContent: function (url, opts) {
+				opts = opts || {};
 
-                var that = this,
-                    cachedResponse = this._getCachedResponse(url),
-                    request = {
-                        noNotifications: opts.noNotifications,
-                        url: url,
-                        callback: finishLoading,
-                        errorCallback: function (msg) {
-                            that._handleError(request, msg);
-                            if (opts.errorCallback) {
-                                opts.errorCallback(msg);
-                            }
-                        }
-                    };
+				var that = this,
+					cachedResponse = this._getCachedResponse(url),
+					request = {
+						noNotifications: opts.noNotifications,
+						url: url,
+						callback: finishLoading,
+						errorCallback: function (msg) {
+							that._handleError(request, msg);
+							if (opts.errorCallback) {
+								opts.errorCallback(msg);
+							}
+						}
+					};
 
-                if (cachedResponse) {
-                    // Keep the async nature (it caused a bug the very first day when the loadContent()
-                    // was synchronous when cache was hit :D).
-                    setTimeout(function () {
-                        finishLoading(cachedResponse);
-                    });
-                    return;
-                }
+				if (cachedResponse) {
+					// Keep the async nature (it caused a bug the very first day when the loadContent()
+					// was synchronous when cache was hit :D).
+					setTimeout(function () {
+						finishLoading(cachedResponse);
+					});
+					return;
+				}
 
-                if (!opts.noNotifications) {
-                    request.task = this._createTask();
-                }
+				if (!opts.noNotifications) {
+					request.task = this._createTask();
+				}
 
-                // The execution will be followed by #sendRequest's listener.
-                this.fire('sendRequest', request);
+				// The execution will be followed by #sendRequest's listener.
+				this.fire('sendRequest', request);
 
-                function finishLoading(response) {
-                    request.response = response;
+				function finishLoading(response) {
+					request.response = response;
 
-                    // Check if widget is still valid.
-                    if (!that.editor.widgets.instances[that.id]) {
-                        CKEDITOR.warn('embedbase-widget-invalid');
+					// Check if widget is still valid.
+					if (!that.editor.widgets.instances[that.id]) {
+						CKEDITOR.warn('embedbase-widget-invalid');
 
-                        if (request.task) {
-                            request.task.done();
-                        }
+						if (request.task) {
+							request.task.done();
+						}
 
-                        return;
-                    }
+						return;
+					}
 
-                    if (that._handleResponse(request)) {
-                        that._cacheResponse(url, response);
-                        if (opts.callback) {
-                            opts.callback();
-                        }
-                    }
-                }
+					if (that._handleResponse(request)) {
+						that._cacheResponse(url, response);
+						if (opts.callback) {
+							opts.callback();
+						}
+					}
+				}
 
-                return request;
-            },
+				return request;
+			},
 
 			/**
 			 * Checks whether the URL is valid. Usually the content provider makes the final validation
@@ -319,9 +319,9 @@
 			 * @param {String} url The URL to check.
 			 * @returns {Boolean} Whether the URL is valid (supported).
 			 */
-            isUrlValid: function (url) {
-                return this.urlRegExp.test(url) && this.fire('validateUrl', url) !== false;
-            },
+			isUrlValid: function (url) {
+				return this.urlRegExp.test(url) && this.fire('validateUrl', url) !== false;
+			},
 
 			/**
 			 * Generates an error message based on the message type (with a possible suffix) or
@@ -369,14 +369,14 @@
 			 * @param {String} [suffix]
 			 * @returns {String}
 			 */
-            getErrorMessage: function (messageTypeOrMessage, url, suffix) {
-                var message = editor.lang.embedbase[messageTypeOrMessage + (suffix || '')];
-                if (!message) {
-                    message = messageTypeOrMessage;
-                }
+			getErrorMessage: function (messageTypeOrMessage, url, suffix) {
+				var message = editor.lang.embedbase[messageTypeOrMessage + (suffix || '')];
+				if (!message) {
+					message = messageTypeOrMessage;
+				}
 
-                return new CKEDITOR.template(message).output({ url: url || '' });
-            },
+				return new CKEDITOR.template(message).output({ url: url || '' });
+			},
 
 			/**
 			 * Sends the request to the {@link #providerUrl provider} using
@@ -385,24 +385,24 @@
 			 * @private
 			 * @param {CKEDITOR.plugins.embedBase.request} request
 			 */
-            _sendRequest: function (request) {
-                var that = this,
-                    jsonpRequest = Jsonp.sendRequest(
-                        this.providerUrl,
-                        {
-                            url: encodeURIComponent(request.url)
-                        },
-                        request.callback,
-                        function () {
-                            request.errorCallback('fetchingFailed');
-                        }
-                    );
+			_sendRequest: function (request) {
+				var that = this,
+					jsonpRequest = Jsonp.sendRequest(
+						this.providerUrl,
+						{
+							url: encodeURIComponent(request.url)
+						},
+						request.callback,
+						function () {
+							request.errorCallback('fetchingFailed');
+						}
+					);
 
-                request.cancel = function () {
-                    jsonpRequest.cancel();
-                    that.fire('requestCanceled', request);
-                };
-            },
+				request.cancel = function () {
+					jsonpRequest.cancel();
+					that.fire('requestCanceled', request);
+				};
+			},
 
 			/**
 			 * Handles the response of a successful request.
@@ -417,25 +417,25 @@
 			 * @returns {Boolean} Whether the response can be handled. Returns `false` if {@link #handleResponse}
 			 * was canceled or the default listener could not convert oEmbed response into embeddable HTML.
 			 */
-            _handleResponse: function (request) {
-                var evtData = {
-                    url: request.url,
-                    html: '',
-                    response: request.response
-                };
+			_handleResponse: function (request) {
+				var evtData = {
+					url: request.url,
+					html: '',
+					response: request.response
+				};
 
-                if (this.fire('handleResponse', evtData) !== false) {
-                    if (request.task) {
-                        request.task.done();
-                    }
+				if (this.fire('handleResponse', evtData) !== false) {
+					if (request.task) {
+						request.task.done();
+					}
 
-                    this._setContent(request.url, evtData.html);
-                    return true;
-                } else {
-                    request.errorCallback(evtData.errorMessage);
-                    return false;
-                }
-            },
+					this._setContent(request.url, evtData.html);
+					return true;
+				} else {
+					request.errorCallback(evtData.errorMessage);
+					return false;
+				}
+			},
 
 			/**
 			 * Handles an error. An error can be caused either by a request failure or an unsupported
@@ -445,15 +445,15 @@
 			 * @param {CKEDITOR.plugins.embedBase.request} request
 			 * @param {String} messageTypeOrMessage See {@link #getErrorMessage}.
 			 */
-            _handleError: function (request, messageTypeOrMessage) {
-                if (request.task) {
-                    request.task.cancel();
+			_handleError: function (request, messageTypeOrMessage) {
+				if (request.task) {
+					request.task.cancel();
 
-                    if (!request.noNotifications) {
-                        editor.showNotification(this.getErrorMessage(messageTypeOrMessage, request.url), 'warning');
-                    }
-                }
-            },
+					if (!request.noNotifications) {
+						editor.showNotification(this.getErrorMessage(messageTypeOrMessage, request.url), 'warning');
+					}
+				}
+			},
 
 			/**
 			 * Returns embeddable HTML for an oEmbed response if it is of the `photo`, `video` or `rich` type.
@@ -462,20 +462,20 @@
 			 * @param {Object} response The oEmbed response.
 			 * @returns {String/null} HTML string to be embedded or `null` if this response type is not supported.
 			 */
-            _responseToHtml: function (url, response) {
-                if (response.type == 'photo') {
-                    return '<img src="' + CKEDITOR.tools.htmlEncodeAttr(response.url) + '" ' +
-                        'alt="' + CKEDITOR.tools.htmlEncodeAttr(response.title || '') + '" style="max-width:100%;height:auto" />';
-                } else if (response.type == 'video' || response.type == 'rich') {
-                    // Embedded iframes are added to page's focus list. Adding negative tabindex attribute
-                    // removes their ability to be focused by user. (#14538)
-                    response.html = response.html.replace(/<iframe/g, '<iframe tabindex="-1"');
+			_responseToHtml: function (url, response) {
+				if (response.type == 'photo') {
+					return '<img src="' + CKEDITOR.tools.htmlEncodeAttr(response.url) + '" ' +
+						'alt="' + CKEDITOR.tools.htmlEncodeAttr(response.title || '') + '" style="max-width:100%;height:auto" />';
+				} else if (response.type == 'video' || response.type == 'rich') {
+					// Embedded iframes are added to page's focus list. Adding negative tabindex attribute
+					// removes their ability to be focused by user. (#14538)
+					response.html = response.html.replace(/<iframe/g, '<iframe tabindex="-1"');
 
-                    return response.html;
-                }
+					return response.html;
+				}
 
-                return null;
-            },
+				return null;
+			},
 
 			/**
 			 * The very final step of {@link #loadContent content loading}. The `url` data property is changed
@@ -485,10 +485,10 @@
 			 * @param {String} url The resource URL.
 			 * @param {String} content HTML content to be embedded.
 			 */
-            _setContent: function (url, content) {
-                this.setData('url', url);
-                this.element.setHtml(content);
-            },
+			_setContent: function (url, content) {
+				this.setData('url', url);
+				this.element.setHtml(content);
+			},
 
 			/**
 			 * Creates a notification aggregator task.
@@ -496,17 +496,17 @@
 			 * @private
 			 * @returns {CKEDITOR.plugins.notificationAggregator.task}
 			 */
-            _createTask: function () {
-                if (!aggregator || aggregator.isFinished()) {
-                    aggregator = new CKEDITOR.plugins.notificationAggregator(editor, lang.fetchingMany, lang.fetchingOne);
+			_createTask: function () {
+				if (!aggregator || aggregator.isFinished()) {
+					aggregator = new CKEDITOR.plugins.notificationAggregator(editor, lang.fetchingMany, lang.fetchingOne);
 
-                    aggregator.on('finished', function () {
-                        aggregator.notification.hide();
-                    });
-                }
+					aggregator.on('finished', function () {
+						aggregator.notification.hide();
+					});
+				}
 
-                return aggregator.createTask();
-            },
+				return aggregator.createTask();
+			},
 
 			/**
 			 * Caches the provider response.
@@ -515,9 +515,9 @@
 			 * @param {String} url
 			 * @param {Object} response
 			 */
-            _cacheResponse: function (url, response) {
-                this._cache[url] = response;
-            },
+			_cacheResponse: function (url, response) {
+				this._cache[url] = response;
+			},
 
 			/**
 			 * Returns the cached response.
@@ -526,10 +526,10 @@
 			 * @param {String} url
 			 * @returns {Object/undefined} Response or `undefined` if the cache was missed.
 			 */
-            _getCachedResponse: function (url) {
-                return this._cache[url];
-            }
-        };
+			_getCachedResponse: function (url) {
+				return this._cache[url];
+			}
+		};
 
 		/**
 		 * Fired by the {@link #isUrlValid} method. Cancel the event to make the URL invalid.
@@ -596,7 +596,7 @@
 		 * @param {String} [data.errorMessage] The error message or message type (see {@link #getErrorMessage})
 		 * that must be set if this event is canceled to indicate an unsupported oEmbed response.
 		 */
-    }
+	}
 
 	/**
 	 * Class representing the request object. It is created by the {@link CKEDITOR.plugins.embedBase.baseDefinition#loadContent}
@@ -644,8 +644,8 @@
 	 * @method cancel
 	 */
 
-    CKEDITOR.plugins.embedBase = {
-        createWidgetBaseDefinition: createWidgetBaseDefinition,
-        _jsonp: Jsonp
-    };
+	CKEDITOR.plugins.embedBase = {
+		createWidgetBaseDefinition: createWidgetBaseDefinition,
+		_jsonp: Jsonp
+	};
 })();

@@ -1,5 +1,4 @@
 define("ace/theme/terminal",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-terminal-theme";
 exports.cssText = ".ace-terminal-theme .ace_gutter {\
@@ -119,4 +118,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/properties",["require","exports","module"], function(requir
 
 exports.snippetText = "";
 exports.scope = "properties";
-
 });
                 (function() {
                     window.require(["ace/snippets/properties"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "properties";
                         }
                     });
                 })();
-            

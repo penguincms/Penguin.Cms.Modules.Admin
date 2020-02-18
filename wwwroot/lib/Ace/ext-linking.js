@@ -1,5 +1,4 @@
 define("ace/ext/linking",["require","exports","module","ace/editor","ace/config"], function(require, exports, module) {
-
 var Editor = require("ace/editor").Editor;
 
 require("../config").defineOptions(Editor.prototype, "editor", {
@@ -53,7 +52,6 @@ function onClick(e) {
         editor._emit("linkClick", {position: docPos, token: token});
     }
 }
-
 });
                 (function() {
                     window.require(["ace/ext/linking"], function(m) {
@@ -62,4 +60,3 @@ function onClick(e) {
                         }
                     });
                 })();
-            

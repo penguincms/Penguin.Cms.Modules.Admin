@@ -25,7 +25,6 @@ snippet cont:\n\
 	\n\
 ";
 exports.scope = "rst";
-
 });
                 (function() {
                     window.require(["ace/snippets/rst"], function(m) {
@@ -34,4 +33,3 @@ exports.scope = "rst";
                         }
                     });
                 })();
-            

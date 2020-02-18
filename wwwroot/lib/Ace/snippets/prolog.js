@@ -3,7 +3,6 @@ define("ace/snippets/prolog",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "prolog";
-
 });
                 (function() {
                     window.require(["ace/snippets/prolog"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "prolog";
                         }
                     });
                 })();
-            

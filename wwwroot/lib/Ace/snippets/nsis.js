@@ -3,7 +3,6 @@ define("ace/snippets/nsis",["require","exports","module"], function(require, exp
 
 exports.snippetText =undefined;
 exports.scope = "";
-
 });
                 (function() {
                     window.require(["ace/snippets/nsis"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "";
                         }
                     });
                 })();
-            

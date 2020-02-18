@@ -3,7 +3,6 @@ define("ace/snippets/slim",["require","exports","module"], function(require, exp
 
     exports.snippetText = "";
     exports.scope = "slim";
-
 });
                 (function() {
                     window.require(["ace/snippets/slim"], function(m) {
@@ -12,4 +11,3 @@ define("ace/snippets/slim",["require","exports","module"], function(require, exp
                         }
                     });
                 })();
-            

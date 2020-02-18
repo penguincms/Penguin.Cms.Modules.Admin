@@ -3,7 +3,6 @@ define("ace/snippets/rdoc",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "rdoc";
-
 });
                 (function() {
                     window.require(["ace/snippets/rdoc"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "rdoc";
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/svg",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "svg";
-
 });
                 (function() {
                     window.require(["ace/snippets/svg"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "svg";
                         }
                     });
                 })();
-            

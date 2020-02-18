@@ -3,7 +3,6 @@ define("ace/snippets/assembly_x86",["require","exports","module"], function(requ
 
 exports.snippetText = "";
 exports.scope = "assembly_x86";
-
 });
                 (function() {
                     window.require(["ace/snippets/assembly_x86"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "assembly_x86";
                         }
                     });
                 })();
-            

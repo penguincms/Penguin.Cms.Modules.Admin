@@ -23,7 +23,6 @@ snippet =rpc\n\
 \n\
 ";
 exports.scope = "haml";
-
 });
                 (function() {
                     window.require(["ace/snippets/haml"], function(m) {
@@ -32,4 +31,3 @@ exports.scope = "haml";
                         }
                     });
                 })();
-            

@@ -83,7 +83,6 @@ oop.inherits(Occur, Search);
                 lines.concat({row: row, content: session.getLine(row)});
         }, []);
     };
-
 }).call(Occur.prototype);
 
 var dom = require('./lib/dom');
@@ -101,11 +100,9 @@ dom.importCssString(".ace_occur-highlight {\n\
 }\n", "incremental-occur-highlighting");
 
 exports.Occur = Occur;
-
 });
 
 define("ace/commands/occur_commands",["require","exports","module","ace/config","ace/occur","ace/keyboard/hash_handler","ace/lib/oop"], function(require, exports, module) {
-
 var config = require("../config"),
     Occur = require("../occur").Occur;
 var occurStartCommand = {
@@ -144,13 +141,11 @@ var occurCommands = [{
 var HashHandler = require("../keyboard/hash_handler").HashHandler;
 var oop = require("../lib/oop");
 
-
 function OccurKeyboardHandler() {}
 
 oop.inherits(OccurKeyboardHandler, HashHandler);
 
 (function() {
-
     this.isOccurHandler = true;
 
     this.attach = function(editor) {
@@ -163,7 +158,6 @@ oop.inherits(OccurKeyboardHandler, HashHandler);
         var cmd = handleKeyboard$super.call(this, data, hashId, key, keyCode);
         return (cmd && cmd.command) ? cmd : undefined;
     };
-
 }).call(OccurKeyboardHandler.prototype);
 
 OccurKeyboardHandler.installIn = function(editor) {
@@ -180,11 +174,9 @@ OccurKeyboardHandler.uninstallFrom = function(editor) {
 };
 
 exports.occurStartCommand = occurStartCommand;
-
 });
 
 define("ace/commands/incremental_search_commands",["require","exports","module","ace/config","ace/lib/oop","ace/keyboard/hash_handler","ace/commands/occur_commands"], function(require, exports, module) {
-
 var config = require("../config");
 var oop = require("../lib/oop");
 var HashHandler = require("../keyboard/hash_handler").HashHandler;
@@ -321,7 +313,6 @@ function IncrementalSearchKeyboardHandler(iSearch) {
 oop.inherits(IncrementalSearchKeyboardHandler, HashHandler);
 
 (function() {
-
     this.attach = function(editor) {
         var iSearch = this.$iSearch;
         HashHandler.call(this, exports.iSearchCommands, editor.commands.platform);
@@ -356,12 +347,9 @@ oop.inherits(IncrementalSearchKeyboardHandler, HashHandler);
         }
         return false;
     };
-
 }).call(IncrementalSearchKeyboardHandler.prototype);
 
-
 exports.IncrementalSearchKeyboardHandler = IncrementalSearchKeyboardHandler;
-
 });
 
 define("ace/incremental_search",["require","exports","module","ace/lib/oop","ace/range","ace/search","ace/search_highlight","ace/commands/incremental_search_commands","ace/lib/dom","ace/commands/command_manager","ace/editor","ace/config"], function(require, exports, module) {
@@ -403,7 +391,6 @@ function objectToRegExp(obj) {
     return stringToRegExp(obj.expression, obj.flags);
 }
 (function() {
-
     this.activate = function(ed, backwards) {
         this.$editor = ed;
         this.$startPos = this.$currentPos = ed.getCursorPosition();
@@ -550,9 +537,7 @@ function objectToRegExp(obj) {
             console.log(msg);
         }
     };
-
 }).call(IncrementalSearch.prototype);
-
 
 exports.IncrementalSearch = IncrementalSearch;
 
@@ -595,7 +580,6 @@ require("./config").defineOptions(Editor.prototype, "editor", {
         }
     }
 });
-
 });
 
 define("ace/keyboard/emacs",["require","exports","module","ace/lib/dom","ace/incremental_search","ace/commands/incremental_search_commands","ace/keyboard/hash_handler","ace/lib/keys"], function(require, exports, module) {
@@ -604,7 +588,6 @@ define("ace/keyboard/emacs",["require","exports","module","ace/lib/dom","ace/inc
 var dom = require("../lib/dom");
 require("../incremental_search");
 var iSearchCommandModule = require("../commands/incremental_search_commands");
-
 
 var HashHandler = require("./hash_handler").HashHandler;
 exports.handler = new HashHandler();
@@ -851,7 +834,7 @@ exports.handler.handleKeyboard = function(data, hashId, key, keyCode) {
 
     if (!command.readOnly && editor.emacsMark())
         editor.setEmacsMark(null);
-        
+
     if (data.count) {
         var count = data.count;
         data.count = 0;
@@ -946,7 +929,6 @@ exports.emacsKeys = {
     "M-x": {command: "focusCommandLine", args: "M-x "}
 };
 
-
 exports.handler.bindKeys(exports.emacsKeys);
 
 exports.handler.addCommands({
@@ -997,7 +979,6 @@ exports.handler.addCommands({
                 var mark = editor.popEmacsMark();
                 mark && editor.moveCursorToPosition(mark);
             }
-
         },
         readOnly: true,
         handlesCount: true
@@ -1046,7 +1027,7 @@ exports.handler.addCommands({
         var line = editor.session.getLine(range.start.row);
         range.end.column = line.length;
         line = line.substr(range.start.column);
-        
+
         var foldLine = editor.session.getFoldLine(range.start.row);
         if (foldLine && range.end.row != foldLine.end.row) {
             range.end.row = foldLine.end.row;
@@ -1153,7 +1134,6 @@ exports.killRing = {
         return this.get();
     }
 };
-
 });
                 (function() {
                     window.require(["ace/keyboard/emacs"], function(m) {
@@ -1162,4 +1142,3 @@ exports.killRing = {
                         }
                     });
                 })();
-            

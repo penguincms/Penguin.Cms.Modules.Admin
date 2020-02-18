@@ -4,8 +4,7 @@ define("ace/mode/latex_highlight_rules",["require","exports","module","ace/lib/o
 var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
-var LatexHighlightRules = function() {  
-
+var LatexHighlightRules = function() {
     this.$rules = {
         "start" : [{
             token : "comment",
@@ -63,9 +62,9 @@ var LatexHighlightRules = function() {
             token : "constant.character.escape",
             regex : "\\\\(?:[^a-zA-Z]|[a-zA-Z]+)"
         }, {
-            token : "error", 
-            regex : "^\\s*$", 
-            next : "start" 
+            token : "error",
+            regex : "^\\s*$",
+            next : "start"
         }, {
             defaultToken : "string"
         }],
@@ -84,13 +83,12 @@ var LatexHighlightRules = function() {
             defaultToken : "text"
         }]
     };
-    
+
     this.normalizeRules();
 };
 oop.inherits(LatexHighlightRules, TextHighlightRules);
 
 exports.LatexHighlightRules = LatexHighlightRules;
-
 });
 
 define("ace/mode/folding/latex",["require","exports","module","ace/lib/oop","ace/mode/folding/fold_mode","ace/range","ace/token_iterator"], function(require, exports, module) {
@@ -118,7 +116,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.foldingStartMarker = /^\s*\\(begin)|\s*\\(part|chapter|(?:sub)*(?:section|paragraph))\b|{\s*$/;
     this.foldingStopMarker = /^\s*\\(end)\b|^\s*}/;
 
@@ -187,12 +184,12 @@ oop.inherits(FoldMode, BaseFoldMode);
 
         if (stack.length)
             return;
-        
+
         if (dir == 1) {
             stream.stepBackward();
             stream.stepBackward();
         }
-        
+
         if (returnRange)
             return stream.getCurrentTokenRange();
 
@@ -239,9 +236,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             endRow, session.getLine(endRow).length
         );
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/latex",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/latex_highlight_rules","ace/mode/behaviour/cstyle","ace/mode/folding/latex"], function(require, exports, module) {
@@ -262,11 +257,11 @@ oop.inherits(Mode, TextMode);
 
 (function() {
     this.type = "text";
-    
+
     this.lineCommentStart = "%";
 
     this.$id = "ace/mode/latex";
-    
+
     this.getMatching = function(session, row, column) {
         if (row == undefined)
             row = session.selection.lead;
@@ -285,7 +280,6 @@ oop.inherits(Mode, TextMode);
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/latex"], function(m) {
@@ -294,4 +288,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

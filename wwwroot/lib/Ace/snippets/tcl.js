@@ -95,7 +95,6 @@ snippet nsc\n\
 	namespace current\n\
 ";
 exports.scope = "tcl";
-
 });
                 (function() {
                     window.require(["ace/snippets/tcl"], function(m) {
@@ -104,4 +103,3 @@ exports.scope = "tcl";
                         }
                     });
                 })();
-            

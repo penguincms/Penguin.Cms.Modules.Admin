@@ -3,7 +3,6 @@ define("ace/snippets/c9search",["require","exports","module"], function(require,
 
 exports.snippetText = "";
 exports.scope = "c9search";
-
 });
                 (function() {
                     window.require(["ace/snippets/c9search"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "c9search";
                         }
                     });
                 })();
-            

@@ -42,7 +42,6 @@ var themeData = [
     ["Vibrant Ink"          ,"vibrant_ink"             ,  "dark"]
 ];
 
-
 exports.themesByName = {};
 exports.themes = themeData.map(function(data) {
     var name = data[1] || data[0].replace(/ /g, "_").toLowerCase();
@@ -55,7 +54,6 @@ exports.themes = themeData.map(function(data) {
     exports.themesByName[name] = theme;
     return theme;
 });
-
 });
                 (function() {
                     window.require(["ace/ext/themelist"], function(m) {
@@ -64,4 +62,3 @@ exports.themes = themeData.map(function(data) {
                         }
                     });
                 })();
-            

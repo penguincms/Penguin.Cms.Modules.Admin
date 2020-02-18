@@ -15,7 +15,6 @@ var pseudoElements = exports.pseudoElements = "(\\:+)\\b(after|before|first-lett
 var pseudoClasses  = exports.pseudoClasses =  "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
 
 var CssHighlightRules = function() {
-
     var keywordMapper = this.createKeywordMapper({
         "support.function": supportFunction,
         "support.constant": supportConstant,
@@ -180,7 +179,6 @@ var CssHighlightRules = function() {
             token : "constant.language.escape",
             regex : /\\([a-fA-F\d]{1,6}|[^a-fA-F\d])/
         }]
-
     };
 
     this.normalizeRules();
@@ -189,7 +187,6 @@ var CssHighlightRules = function() {
 oop.inherits(CssHighlightRules, TextHighlightRules);
 
 exports.CssHighlightRules = CssHighlightRules;
-
 });
 
 define("ace/mode/stylus_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules","ace/mode/css_highlight_rules"], function(require, exports, module) {
@@ -245,7 +242,7 @@ var StylusHighlightRules = function() {
         }, {
             token : ["punctuation", "entity.other.attribute-name.pseudo-class.css"],
             regex : CssHighlightRules.pseudoClasses
-        }, 
+        },
         {
             token: ["entity.name.tag.stylus"],
             regex: "(?:\\b)(a|abbr|acronym|address|area|article|aside|audio|b|base|big|blockquote|body|br|button|canvas|caption|cite|code|col|colgroup|datalist|dd|del|details|dfn|dialog|div|dl|dt|em|eventsource|fieldset|figure|figcaption|footer|form|frame|frameset|(?:h[1-6])|head|header|hgroup|hr|html|i|iframe|img|input|ins|kbd|label|legend|li|link|map|mark|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|option|output|p|param|pre|progress|q|samp|script|section|select|small|span|strike|strong|style|sub|summary|sup|table|tbody|td|textarea|tfoot|th|thead|time|title|tr|tt|ul|var|video)(?:\\b)"
@@ -253,11 +250,11 @@ var StylusHighlightRules = function() {
         {
             token : "constant.numeric",  // hex6 color
             regex : "#[a-f0-9]{6}"
-        }, 
+        },
         {
             token : "constant.numeric", // hex3 color
             regex : "#[a-f0-9]{3}"
-        }, 
+        },
         {
             token: ["punctuation.definition.entity.stylus", "entity.other.attribute-name.id.stylus"],
             regex: "(#)([a-zA-Z][a-zA-Z0-9_-]*)"
@@ -286,15 +283,15 @@ var StylusHighlightRules = function() {
             token : "string",
             regex : '"(?=.)',
             next  : "qqstring"
-        }, 
+        },
         {
             token : "constant.numeric",
             regex : CssHighlightRules.numRe
-        }, 
+        },
         {
             token : "keyword",
             regex : "(?:ch|cm|deg|em|ex|fr|gd|grad|Hz|in|kHz|mm|ms|pc|pt|px|rad|rem|s|turn|vh|vm|vw|%)\\b"
-        }, 
+        },
         {
             token : keywordMapper,
             regex : "\\-?[a-zA-Z_][a-zA-Z0-9_\\-]*"
@@ -313,12 +310,12 @@ var StylusHighlightRules = function() {
         {
             token : "string",
             regex : '[^"\\\\]+'
-        }, 
+        },
         {
             token : "string",
             regex : "\\\\$",
             next  : "qqstring"
-        }, 
+        },
         {
             token : "string",
             regex : '"|$',
@@ -329,12 +326,12 @@ var StylusHighlightRules = function() {
         {
             token : "string",
             regex : "[^'\\\\]+"
-        }, 
+        },
         {
             token : "string",
             regex : "\\\\$",
             next  : "qstring"
-        }, 
+        },
         {
             token : "string",
             regex : "'|$",
@@ -342,7 +339,6 @@ var StylusHighlightRules = function() {
         }
     ]
 };
-
 };
 
 oop.inherits(StylusHighlightRules, TextHighlightRules);
@@ -361,7 +357,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -432,9 +427,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/stylus",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/stylus_highlight_rules","ace/mode/folding/coffee"], function(require, exports, module) {
@@ -455,7 +448,7 @@ oop.inherits(Mode, TextMode);
 (function() {
     this.lineCommentStart = "//";
     this.blockComment = {start: "/*", end: "*/"};
-    
+
     this.$id = "ace/mode/stylus";
 }).call(Mode.prototype);
 
@@ -468,4 +461,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

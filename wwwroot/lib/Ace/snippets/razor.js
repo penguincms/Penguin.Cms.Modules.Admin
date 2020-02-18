@@ -6,7 +6,6 @@ exports.snippetText = "snippet if\n\
 	${3}\n\
 }";
 exports.scope = "razor";
-
 });
                 (function() {
                     window.require(["ace/snippets/razor"], function(m) {
@@ -15,4 +14,3 @@ exports.scope = "razor";
                         }
                     });
                 })();
-            

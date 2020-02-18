@@ -3,7 +3,6 @@ define("ace/snippets/mixal",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "mixal";
-
 });
                 (function() {
                     window.require(["ace/snippets/mixal"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "mixal";
                         }
                     });
                 })();
-            

@@ -84,4 +84,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

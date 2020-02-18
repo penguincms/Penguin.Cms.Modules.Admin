@@ -3,7 +3,6 @@ define("ace/snippets/asciidoc",["require","exports","module"], function(require,
 
 exports.snippetText = "";
 exports.scope = "asciidoc";
-
 });
                 (function() {
                     window.require(["ace/snippets/asciidoc"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "asciidoc";
                         }
                     });
                 })();
-            

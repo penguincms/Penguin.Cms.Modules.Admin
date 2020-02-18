@@ -931,7 +931,6 @@ snippet aft\n\
 	end\n\
 ";
 exports.scope = "ruby";
-
 });
                 (function() {
                     window.require(["ace/snippets/ruby"], function(m) {
@@ -940,4 +939,3 @@ exports.scope = "ruby";
                         }
                     });
                 })();
-            

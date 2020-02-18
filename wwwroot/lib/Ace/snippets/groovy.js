@@ -3,7 +3,6 @@ define("ace/snippets/groovy",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "groovy";
-
 });
                 (function() {
                     window.require(["ace/snippets/groovy"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "groovy";
                         }
                     });
                 })();
-            

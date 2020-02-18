@@ -161,7 +161,6 @@ snippet getopt\n\
 			verbose = argument\n\
 ";
 exports.scope = "python";
-
 });
                 (function() {
                     window.require(["ace/snippets/python"], function(m) {
@@ -170,4 +169,3 @@ exports.scope = "python";
                         }
                     });
                 })();
-            

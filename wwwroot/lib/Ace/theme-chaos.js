@@ -1,5 +1,4 @@
 define("ace/theme/chaos",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-chaos";
 exports.cssText = ".ace-chaos .ace_gutter {\
@@ -152,7 +151,6 @@ color: #000;\
 
 var dom = require("../lib/dom");
 dom.importCssString(exports.cssText, exports.cssClass);
-
 });
                 (function() {
                     window.require(["ace/theme/chaos"], function(m) {
@@ -161,4 +159,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

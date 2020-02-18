@@ -10,7 +10,6 @@
  */
 
 (function () {
-
     /*jshint loopfunc: true */
     /* Simple JavaScript Inheritance
      * By John Resig http://ejohn.org/
@@ -924,7 +923,6 @@
                         tmp[j].path = path + '.oneOf[' + i + ']' + tmp[j].path.substr(path.length);
                     }
                     oneof_errors = oneof_errors.concat(tmp);
-
                 }
                 if (valid !== 1) {
                     errors.push({
@@ -977,7 +975,6 @@
                     }
                 }
             }
-
 
             // `disallow` (version 3)
             if (schema.disallow) {
@@ -1447,10 +1444,8 @@
         },
 
         preBuild: function () {
-
         },
         build: function () {
-
         },
         postBuild: function () {
             this.setupWatchListeners();
@@ -1526,7 +1521,6 @@
             }
         },
 
-
         getButton: function (text, icon, title) {
             var btnClass = 'json-editor-btn-' + icon;
             if (!this.iconlib) icon = null;
@@ -1582,7 +1576,7 @@
 
                 this.theme.createImageLink(holder, link, image);
 
-                // When a watched field changes, update the url  
+                // When a watched field changes, update the url
                 this.link_watchers.push(function (vars) {
                     var url = href(vars);
                     link.setAttribute('href', url);
@@ -1602,7 +1596,7 @@
 
                 this.theme.createMediaLink(holder, link, media);
 
-                // When a watched field changes, update the url  
+                // When a watched field changes, update the url
                 this.link_watchers.push(function (vars) {
                     var url = href(vars);
                     link.setAttribute('href', url);
@@ -1721,7 +1715,6 @@
             return this.value;
         },
         refreshValue: function () {
-
         },
         getChildEditors: function () {
             return false;
@@ -1852,7 +1845,6 @@
             return this.options[key];
         },
         showValidationErrors: function (errors) {
-
         }
     });
 
@@ -2264,7 +2256,6 @@
             else if (this.ace_editor) {
                 this.ace_editor.destroy();
             }
-
 
             this.template = null;
             if (this.input && this.input.parentNode) this.input.parentNode.removeChild(this.input);
@@ -2710,7 +2701,6 @@
                 spacer.style.clear = 'both';
                 this.addproperty_holder.appendChild(spacer);
 
-
                 // Description
                 if (this.schema.description) {
                     this.description = this.theme.getDescription(this.schema.description);
@@ -2979,7 +2969,6 @@
                 }
 
                 var schema = self.getPropertySchema(name);
-
 
                 // Add the property
                 var editor = self.jsoneditor.getEditorClass(schema);
@@ -4281,7 +4270,6 @@
                 controls_holder.appendChild(self.rows[i].delete_button);
             }
 
-
             if (i && !this.hide_move_buttons) {
                 self.rows[i].moveup_button = this.getButton('', 'moveup', this.translate('button_move_up_title'));
                 self.rows[i].moveup_button.className += ' moveup';
@@ -4583,7 +4571,6 @@
 
             this.editor_holder = document.createElement('div');
             container.appendChild(this.editor_holder);
-
 
             var validator_options = {};
             if (self.jsoneditor.options.custom_validators) {
@@ -4893,7 +4880,6 @@
                     self.enum_options.unshift('undefined');
                     self.enum_values.unshift(undefined);
                 }
-
             }
             // Boolean
             else if (this.schema.type === "boolean") {
@@ -4906,7 +4892,6 @@
                     self.enum_options.unshift('undefined');
                     self.enum_values.unshift(undefined);
                 }
-
             }
             // Dynamic Enum
             else if (this.schema.enumSource) {
@@ -5831,7 +5816,6 @@
 
             // Don't show uploader if this is readonly
             if (!this.schema.readOnly && !this.schema.readonly) {
-
                 if (!this.jsoneditor.options.upload) throw "Upload handler required for upload editor";
 
                 // File uploader
@@ -6092,7 +6076,6 @@
 
             // Show errors for this editor
             if (this.error_holder) {
-
                 if (my_errors.length) {
                     var message = [];
                     this.error_holder.innerHTML = '';
@@ -6154,7 +6137,6 @@
             return el;
         },
         setGridColumnSize: function (el, size) {
-
         },
         getLink: function (text) {
             var el = document.createElement('a');
@@ -6275,7 +6257,6 @@
             return el;
         },
         afterInputReady: function (input) {
-
         },
         getFormControl: function (label, input, description) {
             var el = document.createElement('div');
@@ -7875,13 +7856,10 @@
             theme: ''
         },
         epiceditor: {
-
         },
         sceditor: {
-
         },
         select2: {
-
         },
         selectize: {
         }

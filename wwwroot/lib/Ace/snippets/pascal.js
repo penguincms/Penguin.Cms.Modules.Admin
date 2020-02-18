@@ -3,7 +3,6 @@ define("ace/snippets/pascal",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "pascal";
-
 });
                 (function() {
                     window.require(["ace/snippets/pascal"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "pascal";
                         }
                     });
                 })();
-            

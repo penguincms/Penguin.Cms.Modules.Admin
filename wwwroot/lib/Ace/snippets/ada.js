@@ -3,7 +3,6 @@ define("ace/snippets/ada",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "ada";
-
 });
                 (function() {
                     window.require(["ace/snippets/ada"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "ada";
                         }
                     });
                 })();
-            

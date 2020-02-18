@@ -3,7 +3,6 @@ define("ace/snippets/latex",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "latex";
-
 });
                 (function() {
                     window.require(["ace/snippets/latex"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "latex";
                         }
                     });
                 })();
-            

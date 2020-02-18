@@ -3,7 +3,6 @@ define("ace/snippets/d",["require","exports","module"], function(require, export
 
 exports.snippetText = "";
 exports.scope = "d";
-
 });
                 (function() {
                     window.require(["ace/snippets/d"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "d";
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/plain_text",["require","exports","module"], function(requir
 
 exports.snippetText = "";
 exports.scope = "plain_text";
-
 });
                 (function() {
                     window.require(["ace/snippets/plain_text"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "plain_text";
                         }
                     });
                 })();
-            

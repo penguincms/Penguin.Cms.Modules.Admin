@@ -3,7 +3,6 @@ define("ace/snippets/lisp",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "lisp";
-
 });
                 (function() {
                     window.require(["ace/snippets/lisp"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "lisp";
                         }
                     });
                 })();
-            

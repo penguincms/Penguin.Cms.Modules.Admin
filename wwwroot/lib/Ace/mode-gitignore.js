@@ -16,7 +16,7 @@ var GitignoreHighlightRules = function() {
             }
         ]
     };
-    
+
     this.normalizeRules();
 };
 
@@ -57,4 +57,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

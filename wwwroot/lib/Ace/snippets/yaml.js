@@ -3,7 +3,6 @@ define("ace/snippets/yaml",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "yaml";
-
 });
                 (function() {
                     window.require(["ace/snippets/yaml"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "yaml";
                         }
                     });
                 })();
-            

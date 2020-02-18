@@ -7,7 +7,6 @@ exports.snippetText = "snippet ifeq\n\
 	endif\n\
 ";
 exports.scope = "makefile";
-
 });
                 (function() {
                     window.require(["ace/snippets/makefile"], function(m) {
@@ -16,4 +15,3 @@ exports.scope = "makefile";
                         }
                     });
                 })();
-            

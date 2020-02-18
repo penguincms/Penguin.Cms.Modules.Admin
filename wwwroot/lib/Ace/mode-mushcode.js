@@ -5,8 +5,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var MushCodeRules = function() {
-
-
     var keywords = (
  "@if|"+
  "@ifelse|"+
@@ -576,7 +574,6 @@ var FoldMode = exports.FoldMode = function(markers) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var line = session.getLine(row);
         var match = line.match(this.foldingStartMarker);
@@ -588,9 +585,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return this.indentationBlock(session, row);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/mushcode",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/mushcode_highlight_rules","ace/mode/folding/pythonic","ace/range"], function(require, exports, module) {
@@ -610,8 +605,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
-
     this.getNextLineIndent = function(state, line, tab) {
         var indent = this.$getIndent(line);
 
@@ -678,4 +671,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

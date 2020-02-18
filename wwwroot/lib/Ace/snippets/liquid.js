@@ -3,7 +3,6 @@ define("ace/snippets/liquid",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "liquid";
-
 });
                 (function() {
                     window.require(["ace/snippets/liquid"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "liquid";
                         }
                     });
                 })();
-            

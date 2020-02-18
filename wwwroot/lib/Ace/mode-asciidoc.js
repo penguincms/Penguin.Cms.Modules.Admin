@@ -134,10 +134,10 @@ var AsciidocHighlightRules = function() {
         "quotes": [
             {token: "string.italic", regex: /__[^_\s].*?__/},
             {token: "string.italic", regex: quoteRule("_")},
-            
+
             {token: "keyword.bold", regex: /\*\*[^*\s].*?\*\*/},
             {token: "keyword.bold", regex: quoteRule("\\*")},
-            
+
             {token: "literal", regex: quoteRule("\\+")},
             {token: "literal", regex: /\+\+[^+\s].*?\+\+/},
             {token: "literal", regex: /\$\$.+?\$\$/},
@@ -148,7 +148,6 @@ var AsciidocHighlightRules = function() {
             {token: "keyword", regex: /##?/},
             {token: "keyword", regex: /(?:\B|^)``|\b''/}
         ]
-
     };
 
     function quoteRule(ch) {
@@ -300,9 +299,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             }
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/asciidoc",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/asciidoc_highlight_rules","ace/mode/folding/asciidoc"], function(require, exports, module) {
@@ -315,8 +312,8 @@ var AsciidocFoldMode = require("./folding/asciidoc").FoldMode;
 
 var Mode = function() {
     this.HighlightRules = AsciidocHighlightRules;
-    
-    this.foldingRules = new AsciidocFoldMode();    
+
+    this.foldingRules = new AsciidocFoldMode();
 };
 oop.inherits(Mode, TextMode);
 
@@ -346,4 +343,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/apache_conf",["require","exports","module"], function(requi
 
 exports.snippetText = "";
 exports.scope = "apache_conf";
-
 });
                 (function() {
                     window.require(["ace/snippets/apache_conf"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "apache_conf";
                         }
                     });
                 })();
-            

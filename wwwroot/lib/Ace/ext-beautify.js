@@ -199,7 +199,6 @@ exports.beautify = function(session) {
                         spaceBefore = true;
                 }
                 if (breakBefore && !(token.type.match(/^(comment)$/) && !value.substr(0, 1).match(/^[/#]$/)) && !(token.type.match(/^(string)$/) && !value.substr(0, 1).match(/^['"]$/))) {
-
                     indent = lastIndent;
 
                     if(depth > lastDepth) {
@@ -225,12 +224,10 @@ exports.beautify = function(session) {
                         code += tabString;
                 }
 
-
                 if (token.type === "keyword" && value.match(/^(case|default)$/)) {
                     parents[depth] = value;
                     depth++;
                 }
-
 
                 if (token.type === "keyword" && value.match(/^(break)$/)) {
                     if(parents[depth-1] && parents[depth-1].match(/^(case|default)$/)) {
@@ -306,7 +303,6 @@ exports.commands = [{
     },
     bindKey: "Ctrl-Shift-B"
 }];
-
 });
                 (function() {
                     window.require(["ace/ext/beautify"], function(m) {
@@ -315,4 +311,3 @@ exports.commands = [{
                         }
                     });
                 })();
-            

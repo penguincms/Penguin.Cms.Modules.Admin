@@ -11,7 +11,7 @@ if (!window.console) {
         postMessage({type: "log", data: msgs});
     };
     window.console.error =
-    window.console.warn = 
+    window.console.warn =
     window.console.log =
     window.console.trace = window.console;
 }
@@ -23,7 +23,7 @@ window.onerror = function(message, file, line, col, err) {
         message: message,
         data: err.data,
         file: file,
-        line: line, 
+        line: line,
         col: col,
         stack: err.stack
     }});
@@ -39,13 +39,13 @@ window.normalizeModule = function(parentId, moduleName) {
     if (moduleName.charAt(0) == ".") {
         var base = parentId.split("/").slice(0, -1).join("/");
         moduleName = (base ? base + "/" : "") + moduleName;
-        
+
         while (moduleName.indexOf(".") !== -1 && previous != moduleName) {
             var previous = moduleName;
             moduleName = moduleName.replace(/^\.\//, "").replace(/\/\.\//, "/").replace(/[^\/]+\/\.\.\//, "");
         }
     }
-    
+
     return moduleName;
 };
 
@@ -67,13 +67,13 @@ window.require = function require(parentId, id) {
         }
         return module.exports;
     }
-   
+
     if (!window.require.tlns)
         return console.log("unable to load " + id);
-    
+
     var path = resolveModuleId(id, window.require.tlns);
     if (path.slice(-3) != ".js") path += ".js";
-    
+
     window.require.id = id;
     window.require.modules[id] = {}; // prevent infinite loop on broken modules
     importScripts(path);
@@ -112,7 +112,7 @@ window.define = function(id, deps, factory) {
         deps = [];
         id = window.require.id;
     }
-    
+
     if (typeof factory != "function") {
         window.require.modules[id] = {
             exports: factory,
@@ -160,16 +160,14 @@ window.initBaseUrls  = function initBaseUrls(topLevelNamespaces) {
 };
 
 window.initSender = function initSender() {
-
     var EventEmitter = window.require("ace/lib/event_emitter").EventEmitter;
     var oop = window.require("ace/lib/oop");
-    
+
     var Sender = function() {};
-    
+
     (function() {
-        
         oop.implement(this, EventEmitter);
-                
+
         this.callback = function(data, callbackId) {
             postMessage({
                 type: "call",
@@ -177,7 +175,7 @@ window.initSender = function initSender() {
                 data: data
             });
         };
-    
+
         this.emit = function(name, data) {
             postMessage({
                 type: "event",
@@ -185,9 +183,8 @@ window.initSender = function initSender() {
                 data: data
             });
         };
-        
     }).call(Sender.prototype);
-    
+
     return new Sender();
 };
 
@@ -242,7 +239,6 @@ exports.mixin = function(obj, mixin) {
 exports.implement = function(proto, mixin) {
     exports.mixin(proto, mixin);
 };
-
 });
 
 define("ace/range",[], function(require, exports, module) {
@@ -469,7 +465,6 @@ var Range = function(startRow, startColumn, endRow, endColumn) {
         this.end.row += row;
         this.end.column += column;
     };
-
 }).call(Range.prototype);
 Range.fromPoints = function(start, end) {
     return new Range(start.row, start.column, end.row, end.column);
@@ -479,7 +474,6 @@ Range.comparePoints = comparePoints;
 Range.comparePoints = function(p1, p2) {
     return p1.row - p2.row || p1.column - p2.column;
 };
-
 
 exports.Range = Range;
 });
@@ -581,11 +575,10 @@ EventEmitter._dispatchEvent = function(eventName, e) {
         if (e.propagationStopped)
             break;
     }
-    
+
     if (defaultHandler && !e.defaultPrevented)
         return defaultHandler(e, this);
 };
-
 
 EventEmitter._signal = function(eventName, e) {
     var listeners = (this._eventRegistry || {})[eventName];
@@ -604,12 +597,11 @@ EventEmitter.once = function(eventName, callback) {
     });
 };
 
-
 EventEmitter.setDefaultHandler = function(eventName, callback) {
     var handlers = this._defaultHandlers;
     if (!handlers)
         handlers = this._defaultHandlers = {_disabled_: {}};
-    
+
     if (handlers[eventName]) {
         var old = handlers[eventName];
         var disabled = handlers._disabled_[eventName];
@@ -617,7 +609,7 @@ EventEmitter.setDefaultHandler = function(eventName, callback) {
             handlers._disabled_[eventName] = disabled = [];
         disabled.push(old);
         var i = disabled.indexOf(callback);
-        if (i != -1) 
+        if (i != -1)
             disabled.splice(i, 1);
     }
     handlers[eventName] = callback;
@@ -627,7 +619,7 @@ EventEmitter.removeDefaultHandler = function(eventName, callback) {
     if (!handlers)
         return;
     var disabled = handlers._disabled_[eventName];
-    
+
     if (handlers[eventName] == callback) {
         if (disabled)
             this.setDefaultHandler(eventName, disabled.pop());
@@ -670,7 +662,6 @@ EventEmitter.removeAllListeners = function(eventName) {
 };
 
 exports.EventEmitter = EventEmitter;
-
 });
 
 define("ace/anchor",[], function(require, exports, module) {
@@ -682,7 +673,7 @@ var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var Anchor = exports.Anchor = function(doc, row, column) {
     this.$onChange = this.onChange.bind(this);
     this.attach(doc);
-    
+
     if (typeof column == "undefined")
         this.setPosition(row.row, row.column);
     else
@@ -690,7 +681,6 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 };
 
 (function() {
-
     oop.implement(this, EventEmitter);
     this.getPosition = function() {
         return this.$clipPositionToDocument(this.row, this.column);
@@ -705,16 +695,16 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 
         if (delta.start.row > this.row)
             return;
-            
+
         var point = $getTransformedPoint(delta, {row: this.row, column: this.column}, this.$insertRight);
         this.setPosition(point.row, point.column, true);
     };
-    
+
     function $pointsInOrder(point1, point2, equalPointsInOrder) {
         var bColIsAfter = equalPointsInOrder ? point1.column <= point2.column : point1.column < point2.column;
         return (point1.row < point2.row) || (point1.row == point2.row && bColIsAfter);
     }
-            
+
     function $getTransformedPoint(delta, point, moveIfEqual) {
         var deltaIsInsert = delta.action == "insert";
         var deltaRowShift = (deltaIsInsert ? 1 : -1) * (delta.end.row    - delta.start.row);
@@ -792,9 +782,7 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 
         return pos;
     };
-
 }).call(Anchor.prototype);
-
 });
 
 define("ace/document",[], function(require, exports, module) {
@@ -818,7 +806,6 @@ var Document = function(textOrLines) {
 };
 
 (function() {
-
     oop.implement(this, EventEmitter);
     this.setValue = function(text) {
         var len = this.getLength() - 1;
@@ -840,7 +827,6 @@ var Document = function(textOrLines) {
             return text.split(/\r\n|\r|\n/);
         };
     }
-
 
     this.$detectNewLine = function(text) {
         var match = text.match(/^.*?(\r\n|\r|\n)/m);
@@ -916,23 +902,23 @@ var Document = function(textOrLines) {
     this.insert = function(position, text) {
         if (this.getLength() <= 1)
             this.$detectNewLine(text);
-        
+
         return this.insertMergedLines(position, this.$split(text));
     };
     this.insertInLine = function(position, text) {
         var start = this.clippedPos(position.row, position.column);
         var end = this.pos(position.row, position.column + text.length);
-        
+
         this.applyDelta({
             start: start,
             end: end,
             action: "insert",
             lines: [text]
         }, true);
-        
+
         return this.clonePos(end);
     };
-    
+
     this.clippedPos = function(row, column) {
         var length = this.getLength();
         if (row === undefined) {
@@ -949,15 +935,15 @@ var Document = function(textOrLines) {
         column = Math.min(Math.max(column, 0), line.length);
         return {row: row, column: column};
     };
-    
+
     this.clonePos = function(pos) {
         return {row: pos.row, column: pos.column};
     };
-    
+
     this.pos = function(row, column) {
         return {row: row, column: column};
     };
-    
+
     this.$clipPosition = function(position) {
         var length = this.getLength();
         if (position.row >= length) {
@@ -988,14 +974,14 @@ var Document = function(textOrLines) {
             row: start.row + lines.length - 1,
             column: (lines.length == 1 ? start.column : 0) + lines[lines.length - 1].length
         };
-        
+
         this.applyDelta({
             start: start,
             end: end,
             action: "insert",
             lines: lines
         });
-        
+
         return this.clonePos(end);
     };
     this.remove = function(range) {
@@ -1012,14 +998,14 @@ var Document = function(textOrLines) {
     this.removeInLine = function(row, startColumn, endColumn) {
         var start = this.clippedPos(row, startColumn);
         var end = this.clippedPos(row, endColumn);
-        
+
         this.applyDelta({
             start: start,
             end: end,
             action: "remove",
             lines: this.getLinesForRange({start: start, end: end})
         }, true);
-        
+
         return this.clonePos(start);
     };
     this.removeFullLines = function(firstRow, lastRow) {
@@ -1030,10 +1016,10 @@ var Document = function(textOrLines) {
         var startRow = ( deleteFirstNewLine ? firstRow - 1                  : firstRow                    );
         var startCol = ( deleteFirstNewLine ? this.getLine(startRow).length : 0                           );
         var endRow   = ( deleteLastNewLine  ? lastRow + 1                   : lastRow                     );
-        var endCol   = ( deleteLastNewLine  ? 0                             : this.getLine(endRow).length ); 
+        var endCol   = ( deleteLastNewLine  ? 0                             : this.getLine(endRow).length );
         var range = new Range(startRow, startCol, endRow, endCol);
         var deletedLines = this.$lines.slice(firstRow, lastRow + 1);
-        
+
         this.applyDelta({
             start: range.start,
             end: range.end,
@@ -1068,7 +1054,7 @@ var Document = function(textOrLines) {
         else {
             end = range.start;
         }
-        
+
         return end;
     };
     this.applyDeltas = function(deltas) {
@@ -1087,7 +1073,7 @@ var Document = function(textOrLines) {
             : !Range.comparePoints(delta.start, delta.end)) {
             return;
         }
-        
+
         if (isInsert && delta.lines.length > 20000) {
             this.$splitAndapplyLargeDelta(delta, 20000);
         }
@@ -1096,11 +1082,11 @@ var Document = function(textOrLines) {
             this._signal("change", delta);
         }
     };
-    
+
     this.$splitAndapplyLargeDelta = function(delta, MAX) {
         var lines = delta.lines;
         var l = lines.length - MAX + 1;
-        var row = delta.start.row; 
+        var row = delta.start.row;
         var column = delta.start.column;
         for (var from = 0, to = 0; from < l; from = to) {
             to += MAX - 1;
@@ -1146,7 +1132,6 @@ var Document = function(textOrLines) {
 
         return index + pos.column;
     };
-
 }).call(Document.prototype);
 
 exports.Document = Document;
@@ -1199,7 +1184,7 @@ exports.copyArray = function(array){
     for (var i=0, l=array.length; i<l; i++) {
         if (array[i] && typeof array[i] == "object")
             copy[i] = this.copyObject(array[i]);
-        else 
+        else
             copy[i] = array[i];
     }
     return copy;
@@ -1218,7 +1203,7 @@ exports.deepCopy = function deepCopy(obj) {
     }
     if (Object.prototype.toString.call(obj) !== "[object Object]")
         return obj;
-    
+
     copy = {};
     for (var key in obj)
         copy[key] = deepCopy(obj[key]);
@@ -1231,7 +1216,6 @@ exports.arrayToMap = function(arr) {
         map[arr[i]] = 1;
     }
     return map;
-
 };
 
 exports.createMap = function(props) {
@@ -1295,14 +1279,13 @@ exports.deferredCall = function(fcn) {
         timer = null;
         return deferred;
     };
-    
+
     deferred.isPending = function() {
         return timer;
     };
 
     return deferred;
 };
-
 
 exports.delayedCall = function(fcn, defaultTimeout) {
     var timer = null;
@@ -1346,13 +1329,13 @@ define("ace/worker/mirror",[], function(require, exports, module) {
 var Range = require("../range").Range;
 var Document = require("../document").Document;
 var lang = require("../lib/lang");
-    
+
 var Mirror = exports.Mirror = function(sender) {
     this.sender = sender;
     var doc = this.doc = new Document("");
-    
+
     var deferredUpdate = this.deferredUpdate = lang.delayedCall(this.onUpdate.bind(this));
-    
+
     var _self = this;
     sender.on("change", function(e) {
         var data = e.data;
@@ -1375,31 +1358,28 @@ var Mirror = exports.Mirror = function(sender) {
 };
 
 (function() {
-    
     this.$timeout = 500;
-    
+
     this.setTimeout = function(timeout) {
         this.$timeout = timeout;
     };
-    
+
     this.setValue = function(value) {
         this.doc.setValue(value);
         this.deferredUpdate.schedule(this.$timeout);
     };
-    
+
     this.getValue = function(callbackId) {
         this.sender.callback(this.doc.getValue(), callbackId);
     };
-    
+
     this.onUpdate = function() {
     };
-    
+
     this.isPending = function() {
         return this.deferredUpdate.isPending();
     };
-    
 }).call(Mirror.prototype);
-
 });
 
 define("ace/mode/xquery/xqlint",[], function(require, exports, module) {
@@ -1433,11 +1413,11 @@ var init = function(that, code, message, pos, type){
     if(!code) {
         throw new Error(type + ' code is missing.');
     }
-    
+
     if(!message) {
         throw new Error(type + ' message is missing.');
     }
-    
+
     if(!pos) {
         throw new Error(type + ' position is missing.');
     }
@@ -1445,7 +1425,7 @@ var init = function(that, code, message, pos, type){
     that.getCode = function(){
         return code;
     };
-    
+
     that.getMessage = function(){
         return message;
     };
@@ -1519,7 +1499,7 @@ exports.ModuleImport = function(translator, rootSctx, node) {
 exports.SchemaImport = function(translator, rootSctx, node) {
     var prefix = '';
     var schemaURI;
-    
+
     return {
         SchemaPrefix: function(schemaPrefix) {
             var SchemaPrefixHandler = function () {
@@ -1674,18 +1654,18 @@ exports.getSchemaBuiltinTypes = function(){
 },{}],"/node_modules/xqlint/lib/compiler/static_context.js":[function(_dereq_,module,exports){
 exports.StaticContext = function (parent, pos) {
     'use strict';
-    
+
     var TreeOps = _dereq_('../tree_ops').TreeOps;
-    
+
     var Errors = _dereq_('./errors');
     var StaticError = Errors.StaticError;
     var StaticWarning = Errors.StaticWarning;
-    
+
     var getSchemaBuiltinTypes = _dereq_('./schema_built-in_types').getSchemaBuiltinTypes;
-    
+
     var emptyPos = { sl:0, sc: 0, el: 0, ec: 0 };
     var namespaces = {};
-    
+
     var getVarKey = function(qname) {
         return qname.uri + '#' + qname.name;
     };
@@ -1922,13 +1902,12 @@ exports.StaticContext = function (parent, pos) {
             if (namespace) {
                 throw new StaticWarning('W02', '"' + uri + '" already bound to the "' + namespace.prefixes.join(', ') + '" prefix', pos);
             }
-
         },
 
         getNamespaces: function(){
             return this.root.namespaces;
         },
-        
+
         getNamespace: function (uri) {
             var that = this;
             while (that) {
@@ -1938,7 +1917,6 @@ exports.StaticContext = function (parent, pos) {
                 }
                 that = that.parent;
             }
-
         },
 
         getNamespaceByPrefix: function (prefix) {
@@ -1967,7 +1945,7 @@ exports.StaticContext = function (parent, pos) {
                 return found[0];
             }
         },
-        
+
         resolveQName: function(value, pos){
             var qname = {
                 uri: '',
@@ -1993,11 +1971,11 @@ exports.StaticContext = function (parent, pos) {
             }
             return qname;
         },
-        
+
         variables: {},
         varRefs: {},
         functionCalls: {},
-    
+
         addVariable: function(qname, type, pos){
             if(
                 type === 'VarDecl' && this.moduleNamespace !== '' &&
@@ -2017,7 +1995,7 @@ exports.StaticContext = function (parent, pos) {
             };
             return this;
         },
-        
+
         getVariables: function(){
             var variables = {};
             var that = this;
@@ -2032,7 +2010,7 @@ exports.StaticContext = function (parent, pos) {
             }
             return variables;
         },
-        
+
         getVariable: function(qname) {
             var key = getVarKey(qname);
             var that = this;
@@ -2043,7 +2021,7 @@ exports.StaticContext = function (parent, pos) {
                 that = that.parent;
             }
         },
-        
+
         addVarRef: function(qname, pos){
             var varDecl = this.getVariable(qname);
             if(!varDecl && (qname.uri === '' || this.root.moduleResolver)) {
@@ -2052,7 +2030,7 @@ exports.StaticContext = function (parent, pos) {
             var key = getVarKey(qname);
             this.varRefs[key] = true;
         },
-        
+
         addFunctionCall: function(qname, arity, pos){
             var fn = this.getFunction(qname, arity);
             if(!fn && (qname.uri === 'http://www.w3.org/2005/xquery-local-functions' || this.root.moduleResolver)){
@@ -2065,12 +2043,12 @@ exports.StaticContext = function (parent, pos) {
             var key = getFnKey(qname, arity);
             this.functionCalls[key] = true;
         },
-        
+
         functions: getSchemaBuiltinTypes()['http://www.w3.org/2001/XMLSchema'].functions,
         getFunctions: function(){
             return this.root.functions;
         },
-        
+
         getFunction: function(qname, arity){
             var key = getFnKey(qname, arity);
             var fn;
@@ -2088,7 +2066,7 @@ exports.StaticContext = function (parent, pos) {
                 return this.root.functions[key];
             }
         },
-        
+
         addFunction: function(qname, pos, params) {
             if(this !== this.root){
                 throw new Error('addFunction() not invoked from the root static context.');
@@ -2110,12 +2088,10 @@ exports.StaticContext = function (parent, pos) {
             };
             return this;
         }
-        
     };
     s.root = parent ? parent.root : s;
     return s;
 };
-
 },{"../tree_ops":"/node_modules/xqlint/lib/tree_ops.js","./errors":"/node_modules/xqlint/lib/compiler/errors.js","./schema_built-in_types":"/node_modules/xqlint/lib/compiler/schema_built-in_types.js"}],"/node_modules/xqlint/lib/compiler/translator.js":[function(_dereq_,module,exports){
 exports.Translator = function(rootStcx, ast){
     'use strict';
@@ -2123,11 +2099,11 @@ exports.Translator = function(rootStcx, ast){
     var Errors = _dereq_('./errors');
     var StaticError = Errors.StaticError;
     var StaticWarning = Errors.StaticWarning;
-    
+
     var TreeOps = _dereq_('../tree_ops').TreeOps;
     var StaticContext = _dereq_('./static_context').StaticContext;
     var Handlers = _dereq_('./handlers');
-    
+
     var get = function(node, path){
         var result = [];
         if(path.length === 0){
@@ -2142,7 +2118,7 @@ exports.Translator = function(rootStcx, ast){
         });
         return result;
     };
-    
+
     var markers = [];
     this.apply = function(fn) {
         try {
@@ -2166,7 +2142,7 @@ exports.Translator = function(rootStcx, ast){
             message: '[' + e.getCode() + '] ' + e.getMessage()
         });
     };
-    
+
     var addWarning = function(code, message, pos) {
         markers.push({
             pos: pos,
@@ -2175,7 +2151,7 @@ exports.Translator = function(rootStcx, ast){
             message: '[' + code + '] ' + message
         });
     };
-    
+
     this.getMarkers = function(){
         return markers;
     };
@@ -2188,7 +2164,7 @@ exports.Translator = function(rootStcx, ast){
         sctx = new StaticContext(sctx, pos);
         sctx.parent.children.push(sctx);
     };
-    
+
     var popSctx = function(pos){
         if (pos !== undefined) {
             sctx.pos.el = pos.el;
@@ -2205,10 +2181,10 @@ exports.Translator = function(rootStcx, ast){
                 addWarning('W03', 'Unused variable "$' + sctx.variables[key].qname.name + '"', sctx.variables[key].pos);
             }
         });
-        
+
         sctx = sctx.parent;
     };
-    
+
     this.visitOnly = function(node, names) {
         node.children.forEach(function(child){
             if (names.indexOf(child.name) !== -1){
@@ -2216,7 +2192,7 @@ exports.Translator = function(rootStcx, ast){
             }
         });
     };
-    
+
     this.getFirstChild = function(node, name) {
         var result;
         node.children.forEach(function(child){
@@ -2230,12 +2206,12 @@ exports.Translator = function(rootStcx, ast){
     this.XQuery = function(node) {
         rootStcx.description = node.comment ? node.comment.description : undefined;
     };
-    
+
     this.ModuleDecl = function(node){
         this.visitChildren(node, Handlers.ModuleDecl(translator, rootStcx, node));
         return true;
     };
-    
+
     this.Prolog = function(node){
         this.visitOnly(node, ['DefaultNamespaceDecl', 'Setter', 'NamespaceDecl', 'Import']);
         ast.index.forEach(function(node){
@@ -2273,39 +2249,39 @@ exports.Translator = function(rootStcx, ast){
         this.visitOnly(node, ['ContextItemDecl', 'AnnotatedDecl', 'OptionDecl']);
         return true;
     };
-    
+
     this.ModuleImport = function (node) {
         this.visitChildren(node, Handlers.ModuleImport(translator, rootStcx, node));
         return true;
     };
-    
+
     this.SchemaImport = function (node) {
         this.visitChildren(node, Handlers.SchemaImport(translator, rootStcx, node));
         return true;
     };
-    
+
     this.DefaultNamespaceDecl = function(node){
         this.visitChildren(node, Handlers.DefaultNamespaceDecl(translator, rootStcx, node));
         return true;
     };
-    
+
     this.NamespaceDecl = function (node) {
         this.visitChildren(node, Handlers.NamespaceDecl(translator, rootStcx, node));
         return true;
     };
-    
+
     var annotations = {};
     this.AnnotatedDecl = function(node) {
         annotations = {};
         this.visitChildren(node, Handlers.NamespaceDecl(translator, rootStcx, node));
         return true;
     };
-    
+
     this.CompatibilityAnnotation = function(){
         annotations['http://www.w3.org/2012/xquery#updating'] = [];
         return true;
     };
-    
+
     this.Annotation = function(node){
         this.visitChildren(node, {
             EQName: function(eqname){
@@ -2318,7 +2294,7 @@ exports.Translator = function(rootStcx, ast){
         });
         return true;
     };
-    
+
     this.VarDecl = function(node){
         try {
             var varname = translator.getFirstChild(node, 'VarName');
@@ -2348,7 +2324,7 @@ exports.Translator = function(rootStcx, ast){
         this.visitOnly(node, ['ExprSingle', 'VarValue', 'VarDefaultValue']);
         return true;
     };
-    
+
     this.FunctionDecl = function(node) {
         var isUpdating = annotations['http://www.w3.org/2012/xquery#updating'] !== undefined;
         var typeDecl = get(node, ['ReturnType'])[0];
@@ -2370,12 +2346,12 @@ exports.Translator = function(rootStcx, ast){
         }
         return true;
     };
-    
+
     this.VarRef = function(node) {
         this.visitChildren(node, Handlers.VarRefHandler(translator, sctx, node));
         return true;
     };
-    
+
     this.Param = function(node){
         var typeDecl = get(node, ['TypeDeclaration'])[0];
         if(!typeDecl){
@@ -2384,7 +2360,7 @@ exports.Translator = function(rootStcx, ast){
         this.visitChildren(node, Handlers.VarHandler(translator, sctx, node));
         return true;
     };
-    
+
     this.InlineFunctionExpr	= function(node) {
         pushSctx(node.pos);
         this.visitChildren(node);
@@ -2417,7 +2393,7 @@ exports.Translator = function(rootStcx, ast){
         handleStatements(node);
         return true;
     };
-    
+
     this.VarDeclStatement = function(node){
         pushSctx(node.pos);
         statementCount[statementCount.length - 1]++;
@@ -2442,7 +2418,7 @@ exports.Translator = function(rootStcx, ast){
         this.visitChildren(node, Handlers.VarHandler(translator, sctx, node));
         return true;
     };
-    
+
     this.LetBinding = function(node){
         this.visitOnly(node, ['ExprSingle', 'VarValue', 'VarDefaultValue']);
         pushSctx(node.pos);
@@ -2467,10 +2443,9 @@ exports.Translator = function(rootStcx, ast){
             this.visitChildren(groupingVariable, Handlers.VarHandler(translator, sctx, groupingVariable));
             return true;
         } else {
-            
         }
     };
-    
+
     this.TumblingWindowClause = function (node) {
         this.visitOnly(node, ['ExprSingle']);
         pushSctx(node.pos);
@@ -2547,7 +2522,7 @@ exports.Translator = function(rootStcx, ast){
         popSctx();
         return true;
     };
-    
+
     this.TransformSpec = function(node) {
         this.visitOnly(node, ['ExprSingle']);
         pushSctx(node.pos);
@@ -2567,7 +2542,7 @@ exports.Translator = function(rootStcx, ast){
         popSctx();
         return true;
     };
-    
+
     this.QuantifiedVarDecl = function(node) {
         this.visitOnly(node, ['ExprSingle']);
         pushSctx(node.pos);
@@ -2575,7 +2550,7 @@ exports.Translator = function(rootStcx, ast){
         this.visitChildren(node, Handlers.VarHandler(translator, sctx, node));
         return true;
     };
-    
+
     this.FunctionCall = function(node){
         this.visitOnly(node, ['ArgumentList']);
         var name = translator.getFirstChild(node, 'EQName');
@@ -2593,14 +2568,14 @@ exports.Translator = function(rootStcx, ast){
         });
         return true;
     };
-    
+
     this.TryClause = function(node){
         pushSctx(node.pos);
         this.visitChildren(node);
         popSctx();
         return true;
     };
-    
+
     this.CatchClause = function(node){
         pushSctx(node.pos);
         var prefix = 'err';
@@ -2683,7 +2658,6 @@ exports.Translator = function(rootStcx, ast){
         }
     });
 };
-
 },{"../tree_ops":"/node_modules/xqlint/lib/tree_ops.js","./errors":"/node_modules/xqlint/lib/compiler/errors.js","./handlers":"/node_modules/xqlint/lib/compiler/handlers.js","./static_context":"/node_modules/xqlint/lib/compiler/static_context.js"}],"/node_modules/xqlint/lib/completion/completer.js":[function(_dereq_,module,exports){
 'use strict';
 
@@ -2708,7 +2682,7 @@ function prefixBinarySearch(items, prefix) {
     var startIndex = 0;
     var stopIndex = items.length - 1;
     var middle = Math.floor((stopIndex + startIndex) / 2);
-    
+
     while (stopIndex > startIndex && middle >= 0 && items[middle].indexOf(prefix) !== 0) {
         if (prefix < items[middle]) {
             stopIndex = middle - 1;
@@ -2757,7 +2731,6 @@ var findCompletions = function(prefix, allIdentifiers) {
     }
     return matches;
 };
-
 
 var completePrefix = function(identifier, pos, sctx){
     var idx = identifier.indexOf(':');
@@ -2862,7 +2835,7 @@ var completeVariable = function(identifier, pos, sctx){
             types[name] = decls[key].type;
         }
     });
-    
+
     var matches = findCompletions(identifier, names);
     var match = function(name) {
         return {
@@ -2915,14 +2888,13 @@ exports.complete = function(source, ast, rootSctx, pos){
         return completeExpr(line, pos, sctx);
     }
 };
-
 },{"../tree_ops":"/node_modules/xqlint/lib/tree_ops.js"}],"/node_modules/xqlint/lib/formatter/style_checker.js":[function(_dereq_,module,exports){
 exports.StyleChecker = function (ast, source) {
     'use strict';
 
     var tab = '    ';
     var markers = [];
-    
+
     this.getMarkers = function(){
         return markers;
     };
@@ -2946,7 +2918,7 @@ exports.StyleChecker = function (ast, source) {
                     message: '[SW01] Detected CRLF'
                 });
             }
-            
+
             var match = line.match(/\t+/);
             if(match !== null){
                 markers.push({
@@ -2984,7 +2956,7 @@ exports.StyleChecker = function (ast, source) {
         });
         return true;
     };
-    
+
     this.visit = function (node, index) {
         var name = node.name;
         var skip = false;
@@ -11389,7 +11361,7 @@ var Rules = {
         { name: 'JSONChar', token: 'string' }
     ]
 };
-    
+
 exports.JSONiqLexer = function(){ return new Lexer(JSONiqTokenizer, Rules); };
 },{"./JSONiqTokenizer":"/node_modules/xqlint/lib/lexers/JSONiqTokenizer.js","./lexer":"/node_modules/xqlint/lib/lexers/lexer.js"}],"/node_modules/xqlint/lib/lexers/lexer.js":[function(_dereq_,module,exports){
 'use strict';
@@ -11397,12 +11369,12 @@ exports.JSONiqLexer = function(){ return new Lexer(JSONiqTokenizer, Rules); };
 var TokenHandler = function(code) {
     var input = code;
     this.tokens = [];
- 
+
     this.reset = function() {
         input = input;
         this.tokens = [];
     };
-    
+
     this.startNonterminal = function() {};
     this.endNonterminal = function() {};
 
@@ -11422,23 +11394,22 @@ var TokenHandler = function(code) {
 };
 
 exports.Lexer = function(Tokenizer, Rules) {
-
     this.tokens = [];
-  
+
     this.getLineTokens = function(line, state) {
         state = (state === 'start' || !state) ? '["start"]' : state;
         var stack = JSON.parse(state);
         var h = new TokenHandler(line);
         var tokenizer = new Tokenizer(line, h);
         var tokens = [];
-    
+
         while(true) {
             var currentState = stack[stack.length - 1];
             try {
                 h.tokens = [];
                 tokenizer['parse_' + currentState]();
                 var info = null;
-        
+
                 if(h.tokens.length > 1 && h.tokens[0].name === 'WS') {
                     tokens.push({
                         type: 'text',
@@ -11446,7 +11417,7 @@ exports.Lexer = function(Tokenizer, Rules) {
                     });
                     h.tokens.splice(0, 1);
                 }
-        
+
                 var token = h.tokens[0];
                 var rules  = Rules[currentState];
                 for(var k = 0; k < rules.length; k++) {
@@ -11456,19 +11427,18 @@ exports.Lexer = function(Tokenizer, Rules) {
                         break;
                     }
                 }
-        
+
                 if(token.name === 'EOF') { break; }
                 if(token.value === '') { throw 'Encountered empty string lexical rule.'; }
-        
+
                 tokens.push({
                     type: info === null ? 'text' : (typeof(info.token) === 'function' ? info.token(token.value) : info.token),
                     value: token.value
                 });
-        
+
                 if(info && info.next) {
                     info.next(stack);
                 }
-      
             } catch(e) {
                 if(e instanceof tokenizer.ParseException) {
                     var index = 0;
@@ -11627,7 +11597,7 @@ var Rules = {
         { name: 'QuotChar', token: 'string' }
     ]
 };
-    
+
 exports.XQueryLexer = function(){ return new Lexer(XQueryTokenizer, Rules); };
 },{"./XQueryTokenizer":"/node_modules/xqlint/lib/lexers/XQueryTokenizer.js","./lexer":"/node_modules/xqlint/lib/lexers/lexer.js"}],"/node_modules/xqlint/lib/parsers/JSONParseTreeHandler.js":[function(_dereq_,module,exports){
 exports.JSONParseTreeHandler = function (code) {
@@ -11674,7 +11644,6 @@ exports.JSONParseTreeHandler = function (code) {
     }
 
     function popNode() {
-
         if (ptr.children.length > 0) {
             var s = ptr.children[0];
             var e = null;
@@ -11696,11 +11665,11 @@ exports.JSONParseTreeHandler = function (code) {
             ptr.value = ptr.children[0].value;
             ptr.children.pop();
         }
-    
+
         if(toBeIndex.indexOf(ptr.name) !== -1) {
             ast.index.push(ptr);
         }
-    
+
         if (ptr.getParent !== null) {
             ptr = ptr.getParent;
         } else {
@@ -11753,7 +11722,6 @@ exports.JSONParseTreeHandler = function (code) {
     };
 
     function setValue(node, begin, end) {
-
         var e = end - cursor;
         ptr.value = remains.substring(0, e);
         remains = remains.substring(e);
@@ -11773,7 +11741,6 @@ exports.JSONParseTreeHandler = function (code) {
         ptr.pos.ec = ec;
     }
 };
-
 },{}],"/node_modules/xqlint/lib/parsers/JSONiqParser.js":[function(_dereq_,module,exports){
                                                             var JSONiqParser = exports.JSONiqParser = function JSONiqParser(string, parsingEventHandler)
                                                             {
@@ -65009,7 +64976,7 @@ exports.TreeOps = {
         }
         return value;
     },
-    
+
     concat: function(obj1, obj2, copy){
         var result = copy ? {} : obj1;
         if(copy){
@@ -65023,7 +64990,7 @@ exports.TreeOps = {
         });
         return result;
     },
-    
+
     removeParentPtr: function(ast){
         if(ast.getParent !== undefined) {
             delete ast.getParent;
@@ -65033,7 +65000,7 @@ exports.TreeOps = {
             this.removeParentPtr(child);
         }
     },
-    
+
     inRange: function(p, pos, exclusive){
         if(p && p.sl <= pos.line && pos.line <= p.el) {
             if(p.sl < pos.line && pos.line < p.el) {
@@ -65047,7 +65014,7 @@ exports.TreeOps = {
             }
         }
     },
-    
+
     findNode: function(ast, pos) {
         if(!ast) {
             return;
@@ -65066,7 +65033,7 @@ exports.TreeOps = {
             return;
         }
     },
-    
+
     astAsXML: function(node, indent){
         var result =  '';
         indent = indent ? indent : '';
@@ -65133,7 +65100,7 @@ exports.XQDoc = function(ast){
         node.comment = node.getParent.comment;
         node.getParent.comment = undefined;
     };
-    
+
     this.XQuery = function(node){
         this.visitChildren(node);
     };
@@ -65197,7 +65164,6 @@ exports.XQDoc = function(ast){
 
     this.visit(ast);
 };
-
 },{"./parse_comment":"/node_modules/xqlint/lib/xqdoc/parse_comment.js","lodash":"/node_modules/xqlint/node_modules/lodash/index.js"}],"/node_modules/xqlint/lib/xqlint.js":[function(_dereq_,module,exports){
 'use strict';
 
@@ -65246,7 +65212,7 @@ exports.XQLint = function (source, opts) {
     this.getAST = function () {
         return ast;
     };
-    
+
     this.printAST = function () {
         return TreeOps.astAsXML(ast, '  ');
     };
@@ -65259,7 +65225,7 @@ exports.XQLint = function (source, opts) {
     this.getMarkers = function () {
         return markers;
     };
-    
+
     this.getMarkers = function(type){
         var m = [];
         markers.forEach(function(marker){
@@ -65277,7 +65243,7 @@ exports.XQLint = function (source, opts) {
     this.getWarnings = function(){
         return this.getMarkers('warning');
     };
-    
+
     this.getCompletions = function(pos){
         return completer.complete(source, ast, sctx, pos);
     };
@@ -65320,7 +65286,6 @@ exports.XQLint = function (source, opts) {
     var translator = new Translator(sctx, ast);
     markers = markers.concat(translator.getMarkers());
 };
-
 },{"../lib/completion/completer":"/node_modules/xqlint/lib/completion/completer.js","./compiler/static_context":"/node_modules/xqlint/lib/compiler/static_context.js","./compiler/translator":"/node_modules/xqlint/lib/compiler/translator.js","./formatter/style_checker":"/node_modules/xqlint/lib/formatter/style_checker.js","./lexers/jsoniq_lexer":"/node_modules/xqlint/lib/lexers/jsoniq_lexer.js","./lexers/xquery_lexer":"/node_modules/xqlint/lib/lexers/xquery_lexer.js","./parsers/JSONParseTreeHandler":"/node_modules/xqlint/lib/parsers/JSONParseTreeHandler.js","./parsers/JSONiqParser":"/node_modules/xqlint/lib/parsers/JSONiqParser.js","./parsers/XQueryParser":"/node_modules/xqlint/lib/parsers/XQueryParser.js","./tree_ops":"/node_modules/xqlint/lib/tree_ops.js","./xqdoc/xqdoc":"/node_modules/xqlint/lib/xqdoc/xqdoc.js","lodash":"/node_modules/xqlint/node_modules/lodash/index.js"}],"/node_modules/xqlint/node_modules/lodash/index.js":[function(_dereq_,module,exports){
 (function (global){
 ;(function() {
@@ -69883,15 +69848,13 @@ exports.XQLint = function (source, opts) {
     root._ = _;
   }
 }.call(this));
-
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}]},{},["/node_modules/xqlint/lib/xqlint.js"]);
-
 });
 
 define("ace/mode/xquery_worker",[], function(require, exports, module) {
 "use strict";
-    
+
 var oop = require("../lib/oop");
 var Mirror = require("../worker/mirror").Mirror;
 var XQLintLib = require("./xquery/xqlint");
@@ -69951,7 +69914,6 @@ var XQueryWorker = exports.XQueryWorker = function(sender) {
 oop.inherits(XQueryWorker, Mirror);
 
 (function() {
-    
     this.onUpdate = function() {
         this.sender.emit("start");
         var value = this.doc.getValue();
@@ -69971,11 +69933,9 @@ oop.inherits(XQueryWorker, Mirror);
         this.sender.emit("markers", this.xqlint.getMarkers());
     };
 }).call(XQueryWorker.prototype);
-
 });
 
 define("ace/lib/es5-shim",[], function(require, exports, module) {
-
 //
 //
 function Empty() {}
@@ -69988,7 +69948,6 @@ if (!Function.prototype.bind) {
         }
         var args = slice.call(arguments, 1); // for normal call
         var bound = function () {
-
             if (this instanceof bound) {
                 var result = target.apply(
                     this,
@@ -69998,15 +69957,12 @@ if (!Function.prototype.bind) {
                     return result;
                 }
                 return this;
-
             } else {
                 return target.apply(
                     that,
                     args.concat(slice.call(arguments))
                 );
-
             }
-
         };
         if(target.prototype) {
             Empty.prototype = target.prototype;
@@ -70045,7 +70001,7 @@ if ([1,2].splice(0).length != 2) {
             return a;
         }
         var array = [], lengthBefore;
-        
+
         array.splice.apply(array, makeArray(20));
         array.splice.apply(array, makeArray(26));
 
@@ -70086,7 +70042,7 @@ if ([1,2].splice(0).length != 2) {
 
             var removed = this.slice(pos, pos+removeCount);
             var insert = slice.call(arguments, 2);
-            var add = insert.length;            
+            var add = insert.length;
             if (pos === length) {
                 if (add) {
                     this.push.apply(this, insert);
@@ -70479,7 +70435,6 @@ if (!Object.defineProperty || definePropertyFallback) {
             }
         }
         if (owns(descriptor, "value")) {
-
             if (supportsAccessors && (lookupGetter(object, property) ||
                                       lookupSetter(object, property)))
             {
@@ -70583,7 +70538,6 @@ if (!Object.keys) {
     }
 
     Object.keys = function keys(object) {
-
         if (
             (typeof object != "object" && typeof object != "function") ||
             object === null
@@ -70608,7 +70562,6 @@ if (!Object.keys) {
         }
         return keys;
     };
-
 }
 
 //
@@ -70618,7 +70571,6 @@ if (!Date.now) {
         return new Date().getTime();
     };
 }
-
 
 //
 //
@@ -70684,5 +70636,4 @@ var toObject = function (o) {
     }
     return Object(o);
 };
-
 });

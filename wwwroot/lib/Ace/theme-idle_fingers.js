@@ -1,5 +1,4 @@
 define("ace/theme/idle_fingers",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-idle-fingers";
 exports.cssText = ".ace-idle-fingers .ace_gutter {\
@@ -101,4 +100,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

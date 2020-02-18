@@ -858,7 +858,6 @@ snippet wbr\n\
 	<wbr />${1}\n\
 ";
 exports.scope = "html";
-
 });
                 (function() {
                     window.require(["ace/snippets/html"], function(m) {
@@ -867,4 +866,3 @@ exports.scope = "html";
                         }
                     });
                 })();
-            

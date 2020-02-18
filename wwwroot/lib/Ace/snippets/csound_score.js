@@ -3,7 +3,6 @@ define("ace/snippets/csound_score",["require","exports","module"], function(requ
 
 exports.snippetText = "";
 exports.scope = "csound_score";
-
 });
                 (function() {
                     window.require(["ace/snippets/csound_score"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "csound_score";
                         }
                     });
                 })();
-            

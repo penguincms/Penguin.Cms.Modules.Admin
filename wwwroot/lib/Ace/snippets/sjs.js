@@ -3,7 +3,6 @@ define("ace/snippets/sjs",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "sjs";
-
 });
                 (function() {
                     window.require(["ace/snippets/sjs"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "sjs";
                         }
                     });
                 })();
-            

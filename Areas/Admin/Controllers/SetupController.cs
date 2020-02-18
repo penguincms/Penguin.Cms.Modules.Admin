@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Penguin.Cms.Modules.Admin.Areas.Admin.Models;
 using Penguin.Cms.Web.Mvc;
-using Penguin.Persistence.Abstractions.Interfaces;
+using Penguin.Persistence.Abstractions;
 using Penguin.Web.Mvc.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using Penguin.Persistence.Abstractions;
 using System.Linq;
 
 namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
@@ -19,22 +14,14 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
     [Area("Admin")]
     public class SetupController : Controller
     {
-        protected IApplicationLifetime AppLifetime { get; set; }
-
         private const string ConnectionStrings = "ConnectionStrings";
-
-        IServiceProvider ServiceProvider { get; }
+        protected IApplicationLifetime AppLifetime { get; set; }
+        private IServiceProvider ServiceProvider { get; }
 
         public SetupController(IApplicationLifetime appLifetime, IServiceProvider serviceProvider)
         {
             AppLifetime = appLifetime;
             ServiceProvider = serviceProvider;
-        }
-
-        [IsLocal]
-        public ActionResult Index()
-        {
-            return View(CheckModel());
         }
 
         public ConnectionStringSetupModel CheckModel(string ToCheck = null)
@@ -43,7 +30,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             ConnectionStringSetupModel toReturn = new ConnectionStringSetupModel();
 
-            if(string.IsNullOrEmpty(ToCheck))
+            if (string.IsNullOrEmpty(ToCheck))
             {
                 return toReturn;
             }
@@ -53,14 +40,17 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
             toReturn.Exceptions = Startup.Exceptions.ToList();
 
             return toReturn;
-            
+        }
+
+        [IsLocal]
+        public ActionResult Index()
+        {
+            return View(CheckModel());
         }
 
         [IsLocal]
         public ActionResult SetConnectionString(string DatabaseName, string Server, string User, string Password)
         {
-
-            
             string connectionString = $"Data Source={Server};Initial Catalog={DatabaseName.Replace(".", "_")};MultipleActiveResultSets=True;";
 
             if (string.IsNullOrWhiteSpace(User))
@@ -74,7 +64,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             ConnectionStringSetupModel checkModel = CheckModel(connectionString);
 
-            if(checkModel.Exceptions.Any())
+            if (checkModel.Exceptions.Any())
             {
                 return View("Index", checkModel);
             }

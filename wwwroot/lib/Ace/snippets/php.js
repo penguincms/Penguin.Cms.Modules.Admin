@@ -386,7 +386,6 @@ snippet ifeil\\n\\\n\
 	<?php if (${1:true}): ?>${2:code}<?php else: ?>${3:code}<?php endif; ?>${4}\n\
 ";
 exports.scope = "php";
-
 });
                 (function() {
                     window.require(["ace/snippets/php"], function(m) {
@@ -395,4 +394,3 @@ exports.scope = "php";
                         }
                     });
                 })();
-            

@@ -5,7 +5,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var MatlabHighlightRules = function() {
-
 var keywords = (
         "break|case|catch|classdef|continue|else|elseif|end|for|function|global|if|otherwise|parfor|persistent|return|spmd|switch|try|while"
     );
@@ -134,7 +133,7 @@ var keywords = (
     }, "identifier", true);
 
     this.$rules = {
-        start: [{ 
+        start: [{
             token : "string",
             regex : "'",
             stateName : "qstring",
@@ -154,7 +153,7 @@ var keywords = (
         }, {
             regex: "",
             next: "noQstring"
-        }],        
+        }],
         noQstring : [{
             regex: "^\\s*%{\\s*$",
             token: "comment.start",
@@ -221,7 +220,7 @@ var keywords = (
             defaultToken: "comment"
         }]
     };
-    
+
     this.normalizeRules();
 };
 
@@ -244,7 +243,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = "%";
     this.blockComment = {start: "%{", end: "%}"};
 
@@ -252,7 +250,6 @@ oop.inherits(Mode, TextMode);
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/matlab"], function(m) {
@@ -261,4 +258,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

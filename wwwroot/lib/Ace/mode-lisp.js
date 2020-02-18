@@ -16,7 +16,7 @@ var LispHighlightRules = function() {
         "constant.language": constantLanguage,
         "support.function": supportFunctions
     }, "identifier", true);
-    this.$rules = 
+    this.$rules =
         {
     "start": [
         {
@@ -38,7 +38,7 @@ var LispHighlightRules = function() {
         {
             token : "constant.numeric", // hex
             regex : "0[xX][0-9a-fA-F]+(?:L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\\b"
-        }, 
+        },
         {
             token : "constant.numeric", // float
             regex : "[+-]?\\d+(?:(?:\\.\\d*)?(?:[eE][+-]?\\d+)?)?(?:L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\\b"
@@ -72,7 +72,6 @@ var LispHighlightRules = function() {
         }
     ]
 };
-
 };
 
 oop.inherits(LispHighlightRules, TextHighlightRules);
@@ -94,9 +93,8 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-       
     this.lineCommentStart = ";";
-    
+
     this.$id = "ace/mode/lisp";
 }).call(Mode.prototype);
 
@@ -109,4 +107,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

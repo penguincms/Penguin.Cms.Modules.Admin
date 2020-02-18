@@ -243,7 +243,6 @@ snippet unless\n\
 	(unless=${1:param});${2}\n\
 ";
 exports.scope = "java";
-
 });
                 (function() {
                     window.require(["ace/snippets/java"], function(m) {
@@ -252,4 +251,3 @@ exports.scope = "java";
                         }
                     });
                 })();
-            

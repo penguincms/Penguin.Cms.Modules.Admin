@@ -5,19 +5,19 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var PrologHighlightRules = function() {
-    this.$rules = { start: 
+    this.$rules = { start:
        [ { include: '#comment' },
          { include: '#basic_fact' },
          { include: '#rule' },
          { include: '#directive' },
          { include: '#fact' } ],
-      '#atom': 
+      '#atom':
        [ { token: 'constant.other.atom.prolog',
            regex: '\\b[a-z][a-zA-Z0-9_]*\\b' },
          { token: 'constant.numeric.prolog',
            regex: '-?\\d+(?:\\.\\d+)?' },
          { include: '#string' } ],
-      '#basic_elem': 
+      '#basic_elem':
        [ { include: '#comment' },
          { include: '#statement' },
          { include: '#constants' },
@@ -26,42 +26,42 @@ var PrologHighlightRules = function() {
          { include: '#list' },
          { include: '#atom' },
          { include: '#variable' } ],
-      '#basic_fact': 
-       [ { token: 
+      '#basic_fact':
+       [ { token:
             [ 'entity.name.function.fact.basic.prolog',
               'punctuation.end.fact.basic.prolog' ],
            regex: '([a-z]\\w*)(\\.)' } ],
-      '#builtins': 
+      '#builtins':
        [ { token: 'support.function.builtin.prolog',
            regex: '\\b(?:abolish|abort|ancestors|arg|ascii|assert[az]|atom(?:ic)?|body|char|close|conc|concat|consult|define|definition|dynamic|dump|fail|file|free|free_proc|functor|getc|goal|halt|head|head|integer|length|listing|match_args|member|next_clause|nl|nonvar|nth|number|cvars|nvars|offset|op|print?|prompt|putc|quoted|ratom|read|redefine|rename|retract(?:all)?|see|seeing|seen|skip|spy|statistics|system|tab|tell|telling|term|time|told|univ|unlink_clause|unspy_predicate|var|write)\\b' } ],
-      '#comment': 
-       [ { token: 
+      '#comment':
+       [ { token:
             [ 'punctuation.definition.comment.prolog',
               'comment.line.percentage.prolog' ],
            regex: '(%)(.*$)' },
          { token: 'punctuation.definition.comment.prolog',
            regex: '/\\*',
-           push: 
+           push:
             [ { token: 'punctuation.definition.comment.prolog',
                 regex: '\\*/',
                 next: 'pop' },
               { defaultToken: 'comment.block.prolog' } ] } ],
-      '#constants': 
+      '#constants':
        [ { token: 'constant.language.prolog',
            regex: '\\b(?:true|false|yes|no)\\b' } ],
-      '#directive': 
+      '#directive':
        [ { token: 'keyword.operator.directive.prolog',
            regex: ':-',
-           push: 
+           push:
             [ { token: 'meta.directive.prolog', regex: '\\.', next: 'pop' },
               { include: '#comment' },
               { include: '#statement' },
               { defaultToken: 'meta.directive.prolog' } ] } ],
-      '#expr': 
+      '#expr':
        [ { include: '#comments' },
          { token: 'meta.expression.prolog',
            regex: '\\(',
-           push: 
+           push:
             [ { token: 'meta.expression.prolog', regex: '\\)', next: 'pop' },
               { include: '#expr' },
               { defaultToken: 'meta.expression.prolog' } ] },
@@ -69,23 +69,23 @@ var PrologHighlightRules = function() {
          { token: 'punctuation.control.and.prolog', regex: ',' },
          { token: 'punctuation.control.or.prolog', regex: ';' },
          { include: '#basic_elem' } ],
-      '#fact': 
-       [ { token: 
+      '#fact':
+       [ { token:
             [ 'entity.name.function.fact.prolog',
               'punctuation.begin.fact.parameters.prolog' ],
            regex: '([a-z]\\w*)(\\()(?!.*:-)',
-           push: 
-            [ { token: 
+           push:
+            [ { token:
                  [ 'punctuation.end.fact.parameters.prolog',
                    'punctuation.end.fact.prolog' ],
                 regex: '(\\))(\\.?)',
                 next: 'pop' },
               { include: '#parameter' },
               { defaultToken: 'meta.fact.prolog' } ] } ],
-      '#list': 
+      '#list':
        [ { token: 'punctuation.begin.list.prolog',
            regex: '\\[(?=.*\\])',
-           push: 
+           push:
             [ { token: 'punctuation.end.list.prolog',
                 regex: '\\]',
                 next: 'pop' },
@@ -93,7 +93,7 @@ var PrologHighlightRules = function() {
               { token: 'punctuation.separator.list.prolog', regex: ',' },
               { token: 'punctuation.concat.list.prolog',
                 regex: '\\|',
-                push: 
+                push:
                  [ { token: 'meta.list.concat.prolog',
                      regex: '(?=\\s*\\])',
                      next: 'pop' },
@@ -101,10 +101,10 @@ var PrologHighlightRules = function() {
                    { defaultToken: 'meta.list.concat.prolog' } ] },
               { include: '#basic_elem' },
               { defaultToken: 'meta.list.prolog' } ] } ],
-      '#operators': 
+      '#operators':
        [ { token: 'keyword.operator.prolog',
            regex: '\\\\\\+|\\bnot\\b|\\bis\\b|->|[><]|[><\\\\:=]?=|(?:=\\\\|\\\\=)=' } ],
-      '#parameter': 
+      '#parameter':
        [ { token: 'variable.language.anonymous.prolog',
            regex: '\\b_\\b' },
          { token: 'variable.parameter.prolog',
@@ -112,16 +112,16 @@ var PrologHighlightRules = function() {
          { token: 'punctuation.separator.parameters.prolog', regex: ',' },
          { include: '#basic_elem' },
          { token: 'text', regex: '[^\\s]' } ],
-      '#rule': 
+      '#rule':
        [ { token: 'meta.rule.prolog',
            regex: '(?=[a-z]\\w*.*:-)',
-           push: 
+           push:
             [ { token: 'punctuation.rule.end.prolog',
                 regex: '\\.',
                 next: 'pop' },
               { token: 'meta.rule.signature.prolog',
                 regex: '(?=[a-z]\\w*.*:-)',
-                push: 
+                push:
                  [ { token: 'meta.rule.signature.prolog',
                      regex: '(?=:-)',
                      next: 'pop' },
@@ -129,7 +129,7 @@ var PrologHighlightRules = function() {
                      regex: '[a-z]\\w*(?=\\(|\\s*:-)' },
                    { token: 'punctuation.rule.parameters.begin.prolog',
                      regex: '\\(',
-                     push: 
+                     push:
                       [ { token: 'punctuation.rule.parameters.end.prolog',
                           regex: '\\)',
                           next: 'pop' },
@@ -138,7 +138,7 @@ var PrologHighlightRules = function() {
                    { defaultToken: 'meta.rule.signature.prolog' } ] },
               { token: 'keyword.operator.definition.prolog',
                 regex: ':-',
-                push: 
+                push:
                  [ { token: 'meta.rule.definition.prolog',
                      regex: '(?=\\.)',
                      next: 'pop' },
@@ -146,10 +146,10 @@ var PrologHighlightRules = function() {
                    { include: '#expr' },
                    { defaultToken: 'meta.rule.definition.prolog' } ] },
               { defaultToken: 'meta.rule.prolog' } ] } ],
-      '#statement': 
+      '#statement':
        [ { token: 'meta.statement.prolog',
            regex: '(?=[a-z]\\w*\\()',
-           push: 
+           push:
             [ { token: 'punctuation.end.statement.parameters.prolog',
                 regex: '\\)',
                 next: 'pop' },
@@ -157,7 +157,7 @@ var PrologHighlightRules = function() {
               { include: '#atom' },
               { token: 'punctuation.begin.statement.parameters.prolog',
                 regex: '\\(',
-                push: 
+                push:
                  [ { token: 'meta.statement.parameters.prolog',
                      regex: '(?=\\))',
                      next: 'pop' },
@@ -165,10 +165,10 @@ var PrologHighlightRules = function() {
                    { include: '#basic_elem' },
                    { defaultToken: 'meta.statement.parameters.prolog' } ] },
               { defaultToken: 'meta.statement.prolog' } ] } ],
-      '#string': 
+      '#string':
        [ { token: 'punctuation.definition.string.begin.prolog',
            regex: '\'',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.prolog',
                 regex: '\'',
                 next: 'pop' },
@@ -176,12 +176,12 @@ var PrologHighlightRules = function() {
               { token: 'constant.character.escape.quote.prolog',
                 regex: '\'\'' },
               { defaultToken: 'string.quoted.single.prolog' } ] } ],
-      '#variable': 
+      '#variable':
        [ { token: 'variable.language.anonymous.prolog',
            regex: '\\b_\\b' },
          { token: 'variable.other.prolog',
            regex: '\\b[A-Z_][a-zA-Z0-9_]*\\b' } ] };
-    
+
     this.normalizeRules();
 };
 
@@ -191,7 +191,6 @@ PrologHighlightRules.metaData = { fileTypes: [ 'plg', 'prolog' ],
       keyEquivalent: '^~P',
       name: 'Prolog',
       scopeName: 'source.prolog' };
-
 
 oop.inherits(PrologHighlightRules, TextHighlightRules);
 
@@ -218,7 +217,6 @@ var FoldMode = exports.FoldMode = function(commentRegex) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-    
     this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
     this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
@@ -227,42 +225,42 @@ oop.inherits(FoldMode, BaseFoldMode);
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
-    
+
         if (this.singleLineBlockCommentRe.test(line)) {
             if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
                 return "";
         }
-    
+
         var fw = this._getFoldWidgetBase(session, foldStyle, row);
-    
+
         if (!fw && this.startRegionRe.test(line))
             return "start"; // lineCommentRegionStart
-    
+
         return fw;
     };
 
     this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
         var line = session.getLine(row);
-        
+
         if (this.startRegionRe.test(line))
             return this.getCommentRegionBlock(session, line, row);
-        
+
         var match = line.match(this.foldingStartMarker);
         if (match) {
             var i = match.index;
 
             if (match[1])
                 return this.openingBracketBlock(session, match[1], row, i);
-                
+
             var range = session.getCommentFoldRange(row, i + match[0].length, 1);
-            
+
             if (range && !range.isMultiLine()) {
                 if (forceMultiline) {
                     range = this.getSectionRange(session, row);
                 } else if (foldStyle != "all")
                     range = null;
             }
-            
+
             return range;
         }
 
@@ -279,7 +277,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return session.getCommentFoldRange(row, i, -1);
         }
     };
-    
+
     this.getSectionRange = function(session, row) {
         var line = session.getLine(row);
         var startIndent = line.search(/\S/);
@@ -296,7 +294,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             if  (startIndent > indent)
                 break;
             var subRange = this.getFoldWidgetRange(session, "all", row);
-            
+
             if (subRange) {
                 if (subRange.start.row <= startRow) {
                     break;
@@ -308,14 +306,14 @@ oop.inherits(FoldMode, BaseFoldMode);
             }
             endRow = row;
         }
-        
+
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
-        
+
         var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
@@ -333,9 +331,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, startColumn, endRow, line.length);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/prolog",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/prolog_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
@@ -368,4 +364,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

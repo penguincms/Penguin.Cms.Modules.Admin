@@ -9,7 +9,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -80,9 +79,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/space_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -132,7 +129,6 @@ var SpaceHighlightRules = function() {
             }
         ]
     };
-    
 };
 
 oop.inherits(SpaceHighlightRules, TextHighlightRules);
@@ -153,7 +149,6 @@ var Mode = function() {
 };
 oop.inherits(Mode, TextMode);
 (function() {
-    
     this.$id = "ace/mode/space";
 }).call(Mode.prototype);
 exports.Mode = Mode;
@@ -165,4 +160,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

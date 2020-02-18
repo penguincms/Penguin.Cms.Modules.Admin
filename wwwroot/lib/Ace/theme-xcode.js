@@ -1,5 +1,4 @@
 define("ace/theme/xcode",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = false;
 exports.cssClass = "ace-xcode";
 exports.cssText = "\
@@ -93,4 +92,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

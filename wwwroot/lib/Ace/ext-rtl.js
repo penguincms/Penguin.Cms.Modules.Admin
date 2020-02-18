@@ -98,7 +98,6 @@ function clearTextLayer(renderer) {
         style.direction = style.textAlign = style.width = "";
     }
 }
-
 });
                 (function() {
                     window.require(["ace/ext/rtl"], function(m) {
@@ -107,4 +106,3 @@ function clearTextLayer(renderer) {
                         }
                     });
                 })();
-            

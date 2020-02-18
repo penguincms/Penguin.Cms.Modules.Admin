@@ -9,7 +9,7 @@ var DocCommentHighlightRules = function() {
         "start" : [ {
             token : "comment.doc.tag",
             regex : "@[\\w\\d_]+" // TODO: fix email addresses
-        }, 
+        },
         DocCommentHighlightRules.getTagRule(),
         {
             defaultToken : "comment.doc",
@@ -43,9 +43,7 @@ DocCommentHighlightRules.getEndRule = function (start) {
     };
 };
 
-
 exports.DocCommentHighlightRules = DocCommentHighlightRules;
-
 });
 
 define("ace/mode/javascript_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -349,7 +347,6 @@ var JavaScriptHighlightRules = function(options) {
         ]
     };
 
-
     if (!options || !options.noES6) {
         this.$rules.no_regex.unshift({
             regex: "[{}]", onMatch: function(val, state, stack) {
@@ -529,7 +526,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -555,7 +551,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -581,7 +576,6 @@ var FoldMode = exports.FoldMode = function(commentRegex) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-    
     this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
     this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
@@ -590,42 +584,42 @@ oop.inherits(FoldMode, BaseFoldMode);
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
-    
+
         if (this.singleLineBlockCommentRe.test(line)) {
             if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
                 return "";
         }
-    
+
         var fw = this._getFoldWidgetBase(session, foldStyle, row);
-    
+
         if (!fw && this.startRegionRe.test(line))
             return "start"; // lineCommentRegionStart
-    
+
         return fw;
     };
 
     this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
         var line = session.getLine(row);
-        
+
         if (this.startRegionRe.test(line))
             return this.getCommentRegionBlock(session, line, row);
-        
+
         var match = line.match(this.foldingStartMarker);
         if (match) {
             var i = match.index;
 
             if (match[1])
                 return this.openingBracketBlock(session, match[1], row, i);
-                
+
             var range = session.getCommentFoldRange(row, i + match[0].length, 1);
-            
+
             if (range && !range.isMultiLine()) {
                 if (forceMultiline) {
                     range = this.getSectionRange(session, row);
                 } else if (foldStyle != "all")
                     range = null;
             }
-            
+
             return range;
         }
 
@@ -642,7 +636,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return session.getCommentFoldRange(row, i, -1);
         }
     };
-    
+
     this.getSectionRange = function(session, row) {
         var line = session.getLine(row);
         var startIndent = line.search(/\S/);
@@ -659,7 +653,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             if  (startIndent > indent)
                 break;
             var subRange = this.getFoldWidgetRange(session, "all", row);
-            
+
             if (subRange) {
                 if (subRange.start.row <= startRow) {
                     break;
@@ -671,14 +665,14 @@ oop.inherits(FoldMode, BaseFoldMode);
             }
             endRow = row;
         }
-        
+
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
-        
+
         var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
@@ -696,9 +690,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, startColumn, endRow, line.length);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/javascript",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/javascript_highlight_rules","ace/mode/matching_brace_outdent","ace/worker/worker_client","ace/mode/behaviour/cstyle","ace/mode/folding/cstyle"], function(require, exports, module) {
@@ -714,7 +706,7 @@ var CStyleFoldMode = require("./folding/cstyle").FoldMode;
 
 var Mode = function() {
     this.HighlightRules = JavaScriptHighlightRules;
-    
+
     this.$outdent = new MatchingBraceOutdent();
     this.$behaviour = new CstyleBehaviour();
     this.foldingRules = new CStyleFoldMode();
@@ -722,7 +714,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = "//";
     this.blockComment = {start: "/*", end: "*/"};
     this.$quotes = {'"': '"', "'": "'", "`": "`"};
@@ -805,7 +796,6 @@ var pseudoElements = exports.pseudoElements = "(\\:+)\\b(after|before|first-lett
 var pseudoClasses  = exports.pseudoClasses =  "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
 
 var CssHighlightRules = function() {
-
     var keywordMapper = this.createKeywordMapper({
         "support.function": supportFunction,
         "support.constant": supportConstant,
@@ -970,7 +960,6 @@ var CssHighlightRules = function() {
             token : "constant.language.escape",
             regex : /\\([a-fA-F\d]{1,6}|[^a-fA-F\d])/
         }]
-
     };
 
     this.normalizeRules();
@@ -979,7 +968,6 @@ var CssHighlightRules = function() {
 oop.inherits(CssHighlightRules, TextHighlightRules);
 
 exports.CssHighlightRules = CssHighlightRules;
-
 });
 
 define("ace/mode/css_completions",["require","exports","module"], function(require, exports, module) {
@@ -1069,11 +1057,9 @@ var propertyMap = {
 };
 
 var CssCompletions = function() {
-
 };
 
 (function() {
-
     this.completionsDefined = false;
 
     this.defineCompletions = function() {
@@ -1150,7 +1136,6 @@ var CssCompletions = function() {
             };
         });
     };
-
 }).call(CssCompletions.prototype);
 
 exports.CssCompletions = CssCompletions;
@@ -1165,7 +1150,6 @@ var CstyleBehaviour = require("./cstyle").CstyleBehaviour;
 var TokenIterator = require("../../token_iterator").TokenIterator;
 
 var CssBehaviour = function () {
-
     this.inherit(CstyleBehaviour);
 
     this.add("colon", "insertion", function (state, action, editor, session, text) {
@@ -1242,7 +1226,6 @@ var CssBehaviour = function () {
             }
         }
     });
-
 };
 oop.inherits(CssBehaviour, CstyleBehaviour);
 
@@ -1271,7 +1254,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.foldingRules = "cStyle";
     this.blockComment = {start: "/*", end: "*/"};
 
@@ -1321,7 +1303,6 @@ oop.inherits(Mode, TextMode);
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
 
 define("ace/mode/xml_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -1485,9 +1466,7 @@ var XmlHighlightRules = function(normalize) {
         this.normalizeRules();
 };
 
-
 (function() {
-
     this.embedTagRules = function(HighlightRules, prefix, tag){
         this.$rules.tag.unshift({
             token : ["meta.tag.punctuation.tag-open.xml", "meta.tag." + tag + ".tag-name.xml"],
@@ -1519,7 +1498,6 @@ var XmlHighlightRules = function(normalize) {
             regex : "\\]\\]>"
         }]);
     };
-
 }).call(TextHighlightRules.prototype);
 
 oop.inherits(XmlHighlightRules, TextHighlightRules);
@@ -1622,7 +1600,6 @@ function is(token, type) {
 }
 
 var XmlBehaviour = function () {
-
     this.add("string_dquotes", "insertion", function (state, action, editor, session, text) {
         if (text == '"' || text == "'") {
             var quote = text;
@@ -1698,7 +1675,7 @@ var XmlBehaviour = function () {
                     iterator.stepBackward();
                 }
             }
-            
+
             if (/^\s*>/.test(session.getLine(position.row).slice(position.column)))
                 return;
             while (!is(token, "tag-name")) {
@@ -1773,7 +1750,6 @@ var XmlBehaviour = function () {
             }
         }
     });
-
 };
 
 oop.inherits(XmlBehaviour, Behaviour);
@@ -1794,10 +1770,8 @@ var FoldMode = exports.FoldMode = function(defaultMode, subModes) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
-
     this.$getMode = function(state) {
-        if (typeof state != "string") 
+        if (typeof state != "string")
             state = state[0];
         for (var key in this.subModes) {
             if (state.indexOf(key) === 0)
@@ -1805,7 +1779,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         }
         return null;
     };
-    
+
     this.$tryMode = function(state, session, foldStyle, row) {
         var mode = this.$getMode(state);
         return (mode ? mode.getFoldWidget(session, foldStyle, row) : "");
@@ -1821,18 +1795,16 @@ oop.inherits(FoldMode, BaseFoldMode);
 
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var mode = this.$getMode(session.getState(row-1));
-        
+
         if (!mode || !mode.getFoldWidget(session, foldStyle, row))
             mode = this.$getMode(session.getState(row));
-        
+
         if (!mode || !mode.getFoldWidget(session, foldStyle, row))
             mode = this.defaultMode;
-        
+
         return mode.getFoldWidgetRange(session, foldStyle, row);
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/folding/xml",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/range","ace/mode/folding/fold_mode","ace/token_iterator"], function(require, exports, module) {
@@ -1850,7 +1822,6 @@ var FoldMode = exports.FoldMode = function(voidElements, optionalEndTags) {
     this.optionalEndTags = oop.mixin({}, this.voidElements);
     if (optionalEndTags)
         oop.mixin(this.optionalEndTags, optionalEndTags);
-    
 };
 oop.inherits(FoldMode, BaseFoldMode);
 
@@ -1867,7 +1838,6 @@ function is(token, type) {
 }
 
 (function() {
-
     this.getFoldWidget = function(session, foldStyle, row) {
         var tag = this._getFirstTagInLine(session, row);
 
@@ -1885,7 +1855,7 @@ function is(token, type) {
 
         return "start";
     };
-    
+
     this.getCommentFoldWidget = function(session, row) {
         if (/comment/.test(session.getState(row)) && /<!-/.test(session.getLine(row)))
             return "start";
@@ -1964,7 +1934,7 @@ function is(token, type) {
 
         return null;
     };
-    
+
     this._readTagBackward = function(iterator) {
         var token = iterator.getCurrentToken();
         if (!token)
@@ -1989,10 +1959,9 @@ function is(token, type) {
 
         return null;
     };
-    
+
     this._pop = function(stack, tag) {
         while (stack.length) {
-            
             var top = stack[stack.length-1];
             if (!tag || top.tagName == tag.tagName) {
                 return stack.pop();
@@ -2005,19 +1974,19 @@ function is(token, type) {
             }
         }
     };
-    
+
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var firstTag = this._getFirstTagInLine(session, row);
-        
+
         if (!firstTag) {
             return this.getCommentFoldWidget(session, row)
                 && session.getCommentFoldRange(row, session.getLine(row).length);
         }
-        
+
         var isBackward = firstTag.closing || firstTag.selfClosing;
         var stack = [];
         var tag;
-        
+
         if (!isBackward) {
             var iterator = new TokenIterator(session, row, firstTag.start.column);
             var start = {
@@ -2035,7 +2004,7 @@ function is(token, type) {
                     } else
                         continue;
                 }
-                
+
                 if (tag.closing) {
                     this._pop(stack, tag);
                     if (stack.length == 0)
@@ -2052,7 +2021,7 @@ function is(token, type) {
                 row: row,
                 column: firstTag.start.column
             };
-            
+
             while (tag = this._readTagBackward(iterator)) {
                 if (tag.selfClosing) {
                     if (!stack.length) {
@@ -2062,7 +2031,7 @@ function is(token, type) {
                     } else
                         continue;
                 }
-                
+
                 if (!tag.closing) {
                     this._pop(stack, tag);
                     if (stack.length == 0) {
@@ -2077,11 +2046,8 @@ function is(token, type) {
                 }
             }
         }
-        
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/folding/html",["require","exports","module","ace/lib/oop","ace/mode/folding/mixed","ace/mode/folding/xml","ace/mode/folding/cstyle"], function(require, exports, module) {
@@ -2100,7 +2066,6 @@ var FoldMode = exports.FoldMode = function(voidElements, optionalTags) {
 };
 
 oop.inherits(FoldMode, MixedFoldMode);
-
 });
 
 define("ace/mode/html_completions",["require","exports","module","ace/token_iterator"], function(require, exports, module) {
@@ -2336,11 +2301,9 @@ function findAttributeName(session, pos) {
 }
 
 var HtmlCompletions = function() {
-
 };
 
 (function() {
-
     this.getCompletions = function(state, session, pos, prefix) {
         var token = session.getTokenAt(pos.row, pos.column);
 
@@ -2390,7 +2353,7 @@ var HtmlCompletions = function() {
     this.getAttributeValueCompletions = function(state, session, pos, prefix) {
         var tagName = findTagName(session, pos);
         var attributeName = findAttributeName(session, pos);
-        
+
         if (!tagName)
             return [];
         var values = [];
@@ -2419,7 +2382,6 @@ var HtmlCompletions = function() {
             };
         });
     };
-
 }).call(HtmlCompletions.prototype);
 
 exports.HtmlCompletions = HtmlCompletions;
@@ -2446,18 +2408,17 @@ var Mode = function(options) {
     this.HighlightRules = HtmlHighlightRules;
     this.$behaviour = new XmlBehaviour();
     this.$completer = new HtmlCompletions();
-    
+
     this.createModeDelegates({
         "js-": JavaScriptMode,
         "css-": CssMode
     });
-    
+
     this.foldingRules = new HtmlFoldMode(this.voidElements, lang.arrayToMap(optionalEndTags));
 };
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.blockComment = {start: "<!--", end: "-->"};
 
     this.voidElements = lang.arrayToMap(voidElements);
@@ -2507,7 +2468,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var LuaHighlightRules = function() {
-
     var keywords = (
         "break|do|else|elseif|end|for|function|if|in|local|repeat|"+
          "return|then|until|while|or|and|not"
@@ -2613,7 +2573,7 @@ var LuaHighlightRules = function() {
                         }
                         return "string.end";
                     },
-                    
+
                     regex : /\]=*\]/,
                     next  : "start"
                 }, {
@@ -2650,7 +2610,7 @@ var LuaHighlightRules = function() {
             regex : "\\s+|\\w+"
         } ]
     };
-    
+
     this.normalizeRules();
 };
 
@@ -2667,13 +2627,11 @@ var BaseFoldMode = require("./fold_mode").FoldMode;
 var Range = require("../../range").Range;
 var TokenIterator = require("../../token_iterator").TokenIterator;
 
-
 var FoldMode = exports.FoldMode = function() {};
 
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.foldingStartMarker = /\b(function|then|do|repeat)\b|{\s*$|(\[=*\[)/;
     this.foldingStopMarker = /\bend\b|^\s*}|\]=*\]/;
 
@@ -2788,9 +2746,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return new Range(startRow, startColumn, row, stream.getCurrentTokenColumn());
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/lua",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/lua_highlight_rules","ace/mode/folding/lua","ace/range","ace/worker/worker_client"], function(require, exports, module) {
@@ -2805,17 +2761,16 @@ var WorkerClient = require("../worker/worker_client").WorkerClient;
 
 var Mode = function() {
     this.HighlightRules = LuaHighlightRules;
-    
+
     this.foldingRules = new LuaFoldMode();
     this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 
 (function() {
-   
     this.lineCommentStart = "--";
     this.blockComment = {start: "--[", end: "]--"};
-    
+
     var indentKeywords = {
         "function": 1,
         "then": 1,
@@ -2907,15 +2862,15 @@ oop.inherits(Mode, TextMode);
     this.createWorker = function(session) {
         var worker = new WorkerClient(["ace"], "ace/mode/lua_worker", "Worker");
         worker.attachToDocument(session.getDocument());
-        
+
         worker.on("annotate", function(e) {
             session.setAnnotations(e.data);
         });
-        
+
         worker.on("terminate", function() {
             session.clearAnnotations();
         });
-        
+
         return worker;
     };
 
@@ -2970,7 +2925,6 @@ var LuaPageHighlightRules = function() {
 oop.inherits(LuaPageHighlightRules, HtmlHighlightRules);
 
 exports.LuaPageHighlightRules = LuaPageHighlightRules;
-
 });
 
 define("ace/mode/luapage",["require","exports","module","ace/lib/oop","ace/mode/html","ace/mode/lua","ace/mode/luapage_highlight_rules"], function(require, exports, module) {
@@ -2983,7 +2937,7 @@ var LuaPageHighlightRules = require("./luapage_highlight_rules").LuaPageHighligh
 
 var Mode = function() {
     HtmlMode.call(this);
-    
+
     this.HighlightRules = LuaPageHighlightRules;
     this.createModeDelegates({
         "lua-": LuaMode
@@ -3004,4 +2958,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

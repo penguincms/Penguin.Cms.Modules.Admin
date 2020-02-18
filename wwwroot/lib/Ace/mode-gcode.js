@@ -5,7 +5,6 @@ define("ace/mode/gcode_highlight_rules",["require","exports","module","ace/lib/o
     var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
     var GcodeHighlightRules = function() {
-
         var keywords = (
             "IF|DO|WHILE|ENDWHILE|CALL|ENDIF|SUB|ENDSUB|GOTO|REPEAT|ENDREPEAT|CALL"
             );
@@ -82,7 +81,6 @@ define("ace/mode/gcode",["require","exports","module","ace/lib/oop","ace/mode/te
     }).call(Mode.prototype);
 
     exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/gcode"], function(m) {
@@ -91,4 +89,3 @@ define("ace/mode/gcode",["require","exports","module","ace/lib/oop","ace/mode/te
                         }
                     });
                 })();
-            

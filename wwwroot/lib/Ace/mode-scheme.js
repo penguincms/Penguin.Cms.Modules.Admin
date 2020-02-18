@@ -16,7 +16,7 @@ var SchemeHighlightRules = function() {
         "constant.language": constantLanguage,
         "support.function": supportFunctions
     }, "identifier", true);
-    this.$rules = 
+    this.$rules =
         {
     "start": [
         {
@@ -38,7 +38,7 @@ var SchemeHighlightRules = function() {
         {
             "token" : "constant.numeric", // hex
             "regex" : "#[xXoObB][0-9a-fA-F]+"
-        }, 
+        },
         {
             "token" : "constant.numeric", // float
             "regex" : "[+-]?\\d+(?:(?:\\.\\d*)?(?:[eE][+-]?\\d+)?)?"
@@ -75,7 +75,6 @@ var SchemeHighlightRules = function() {
         }
     ]
 };
-
 };
 
 oop.inherits(SchemeHighlightRules, TextHighlightRules);
@@ -91,7 +90,6 @@ var Range = require("../range").Range;
 var MatchingParensOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -122,7 +120,6 @@ var MatchingParensOutdent = function() {};
 
         return "";
     };
-
 }).call(MatchingParensOutdent.prototype);
 
 exports.MatchingParensOutdent = MatchingParensOutdent;
@@ -144,7 +141,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-       
     this.lineCommentStart = ";";
     this.minorIndentFunctions = ["define", "lambda", "define-macro", "define-syntax", "syntax-rules", "define-record-type", "define-structure"];
 
@@ -216,7 +212,7 @@ oop.inherits(Mode, TextMode);
     this.autoOutdent = function(state, doc, row) {
         this.$outdent.autoOutdent(doc, row);
     };
-    
+
     this.$id = "ace/mode/scheme";
 }).call(Mode.prototype);
 
@@ -229,4 +225,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

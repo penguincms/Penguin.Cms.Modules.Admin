@@ -3,7 +3,6 @@ define("ace/snippets/html_ruby",["require","exports","module"], function(require
 
 exports.snippetText = "";
 exports.scope = "html_ruby";
-
 });
                 (function() {
                     window.require(["ace/snippets/html_ruby"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "html_ruby";
                         }
                     });
                 })();
-            

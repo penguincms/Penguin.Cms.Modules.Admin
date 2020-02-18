@@ -3,7 +3,6 @@ define("ace/snippets/matlab",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "matlab";
-
 });
                 (function() {
                     window.require(["ace/snippets/matlab"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "matlab";
                         }
                     });
                 })();
-            

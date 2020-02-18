@@ -5,7 +5,7 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var ActionScriptHighlightRules = function() {
-    this.$rules = { start: 
+    this.$rules = { start:
        [ { token: 'support.class.actionscript.2',
            regex: '\\b(?:R(?:ecordset|DBMSResolver|adioButton(?:Group)?)|X(?:ML(?:Socket|Node|Connector)?|UpdateResolverDataHolder)|M(?:M(?:Save|Execute)|icrophoneMicrophone|o(?:use|vieClip(?:Loader)?)|e(?:nu(?:Bar)?|dia(?:Controller|Display|Playback))|ath)|B(?:yName|inding|utton)|S(?:haredObject|ystem|crollPane|t(?:yleSheet|age|ream)|ound|e(?:ndEvent|rviceObject)|OAPCall|lide)|N(?:umericStepper|et(?:stream|S(?:tream|ervices)|Connection|Debug(?:Config)?))|C(?:heckBox|o(?:ntextMenu(?:Item)?|okie|lor|m(?:ponentMixins|boBox))|ustomActions|lient|amera)|T(?:ypedValue|ext(?:Snapshot|Input|F(?:ield|ormat)|Area)|ree|AB)|Object|D(?:ownload|elta(?:Item|Packet)?|at(?:e(?:Chooser|Field)?|a(?:G(?:lue|rid)|Set|Type)))|U(?:RL|TC|IScrollBar)|P(?:opUpManager|endingCall|r(?:intJob|o(?:duct|gressBar)))|E(?:ndPoint|rror)|Video|Key|F(?:RadioButton|GridColumn|MessageBox|BarChart|S(?:croll(?:Bar|Pane)|tyleFormat|plitView)|orm|C(?:heckbox|omboBox|alendar)|unction|T(?:icker|ooltip(?:Lite)?|ree(?:Node)?)|IconButton|D(?:ataGrid|raggablePane)|P(?:ieChart|ushButton|ro(?:gressBar|mptBox))|L(?:i(?:stBox|neChart)|oadingBox)|AdvancedMessageBox)|W(?:indow|SDLURL|ebService(?:Connector)?)|L(?:ist|o(?:calConnection|ad(?:er|Vars)|g)|a(?:unch|bel))|A(?:sBroadcaster|cc(?:ordion|essibility)|S(?:Set(?:Native|PropFlags)|N(?:ew|ative)|C(?:onstructor|lamp(?:2)?)|InstanceOf)|pplication|lert|rray))\\b' },
          { token: 'support.function.actionscript.2',
@@ -22,7 +22,7 @@ var ActionScriptHighlightRules = function() {
            regex: '\\b(?:0(?:x|X)[0-9a-fA-F]*|(?:[0-9]+\\.?[0-9]*|\\.[0-9]+)(?:(?:e|E)(?:\\+|-)?[0-9]+)?)(?:L|l|UL|ul|u|U|F|f)?\\b' },
          { token: 'punctuation.definition.string.begin.actionscript.2',
            regex: '"',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.actionscript.2',
                 regex: '"',
                 next: 'pop' },
@@ -31,7 +31,7 @@ var ActionScriptHighlightRules = function() {
               { defaultToken: 'string.quoted.double.actionscript.2' } ] },
          { token: 'punctuation.definition.string.begin.actionscript.2',
            regex: '\'',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.actionscript.2',
                 regex: '\'',
                 next: 'pop' },
@@ -42,14 +42,14 @@ var ActionScriptHighlightRules = function() {
            regex: '\\b(?:BACKSPACE|CAPSLOCK|CONTROL|DELETEKEY|DOWN|END|ENTER|HOME|INSERT|LEFT|LN10|LN2|LOG10E|LOG2E|MAX_VALUE|MIN_VALUE|NEGATIVE_INFINITY|NaN|PGDN|PGUP|PI|POSITIVE_INFINITY|RIGHT|SPACE|SQRT1_2|SQRT2|UP)\\b' },
          { token: 'punctuation.definition.comment.actionscript.2',
            regex: '/\\*',
-           push: 
+           push:
             [ { token: 'punctuation.definition.comment.actionscript.2',
                 regex: '\\*/',
                 next: 'pop' },
               { defaultToken: 'comment.block.actionscript.2' } ] },
          { token: 'punctuation.definition.comment.actionscript.2',
            regex: '//.*$',
-           push_: 
+           push_:
             [ { token: 'comment.line.double-slash.actionscript.2',
                 regex: '$',
                 next: 'pop' },
@@ -58,26 +58,26 @@ var ActionScriptHighlightRules = function() {
            regex: '\\binstanceof\\b' },
          { token: 'keyword.operator.symbolic.actionscript.2',
            regex: '[-!%&*+=/?:]' },
-         { token: 
+         { token:
             [ 'meta.preprocessor.actionscript.2',
               'punctuation.definition.preprocessor.actionscript.2',
               'meta.preprocessor.actionscript.2' ],
            regex: '^([ \\t]*)(#)([a-zA-Z]+)' },
-         { token: 
+         { token:
             [ 'storage.type.function.actionscript.2',
               'meta.function.actionscript.2',
               'entity.name.function.actionscript.2',
               'meta.function.actionscript.2',
               'punctuation.definition.parameters.begin.actionscript.2' ],
            regex: '\\b(function)(\\s+)([a-zA-Z_]\\w*)(\\s*)(\\()',
-           push: 
+           push:
             [ { token: 'punctuation.definition.parameters.end.actionscript.2',
                 regex: '\\)',
                 next: 'pop' },
               { token: 'variable.parameter.function.actionscript.2',
                 regex: '[^,)$]+' },
               { defaultToken: 'meta.function.actionscript.2' } ] },
-         { token: 
+         { token:
             [ 'storage.type.class.actionscript.2',
               'meta.class.actionscript.2',
               'entity.name.type.class.actionscript.2',
@@ -86,7 +86,7 @@ var ActionScriptHighlightRules = function() {
               'meta.class.actionscript.2',
               'entity.other.inherited-class.actionscript.2' ],
            regex: '\\b(class)(\\s+)([a-zA-Z_](?:\\w|\\.)*)(?:(\\s+)(extends)(\\s+)([a-zA-Z_](?:\\w|\\.)*))?' } ] };
-    
+
     this.normalizeRules();
 };
 
@@ -94,7 +94,6 @@ ActionScriptHighlightRules.metaData = { fileTypes: [ 'as' ],
       keyEquivalent: '^~A',
       name: 'ActionScript',
       scopeName: 'source.actionscript.2' };
-
 
 oop.inherits(ActionScriptHighlightRules, TextHighlightRules);
 
@@ -121,7 +120,6 @@ var FoldMode = exports.FoldMode = function(commentRegex) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-    
     this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
     this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
@@ -130,42 +128,42 @@ oop.inherits(FoldMode, BaseFoldMode);
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
-    
+
         if (this.singleLineBlockCommentRe.test(line)) {
             if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
                 return "";
         }
-    
+
         var fw = this._getFoldWidgetBase(session, foldStyle, row);
-    
+
         if (!fw && this.startRegionRe.test(line))
             return "start"; // lineCommentRegionStart
-    
+
         return fw;
     };
 
     this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
         var line = session.getLine(row);
-        
+
         if (this.startRegionRe.test(line))
             return this.getCommentRegionBlock(session, line, row);
-        
+
         var match = line.match(this.foldingStartMarker);
         if (match) {
             var i = match.index;
 
             if (match[1])
                 return this.openingBracketBlock(session, match[1], row, i);
-                
+
             var range = session.getCommentFoldRange(row, i + match[0].length, 1);
-            
+
             if (range && !range.isMultiLine()) {
                 if (forceMultiline) {
                     range = this.getSectionRange(session, row);
                 } else if (foldStyle != "all")
                     range = null;
             }
-            
+
             return range;
         }
 
@@ -182,7 +180,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return session.getCommentFoldRange(row, i, -1);
         }
     };
-    
+
     this.getSectionRange = function(session, row) {
         var line = session.getLine(row);
         var startIndent = line.search(/\S/);
@@ -199,7 +197,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             if  (startIndent > indent)
                 break;
             var subRange = this.getFoldWidgetRange(session, "all", row);
-            
+
             if (subRange) {
                 if (subRange.start.row <= startRow) {
                     break;
@@ -211,14 +209,14 @@ oop.inherits(FoldMode, BaseFoldMode);
             }
             endRow = row;
         }
-        
+
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
-        
+
         var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
@@ -236,9 +234,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, startColumn, endRow, line.length);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/actionscript",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/actionscript_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
@@ -271,4 +267,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

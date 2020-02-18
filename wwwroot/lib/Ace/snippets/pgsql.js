@@ -3,7 +3,6 @@ define("ace/snippets/pgsql",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "pgsql";
-
 });
                 (function() {
                     window.require(["ace/snippets/pgsql"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "pgsql";
                         }
                     });
                 })();
-            

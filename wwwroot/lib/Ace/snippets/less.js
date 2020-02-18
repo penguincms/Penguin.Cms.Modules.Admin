@@ -3,7 +3,6 @@ define("ace/snippets/less",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "less";
-
 });
                 (function() {
                     window.require(["ace/snippets/less"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "less";
                         }
                     });
                 })();
-            

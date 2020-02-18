@@ -3,7 +3,6 @@ define("ace/snippets/ini",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "ini";
-
 });
                 (function() {
                     window.require(["ace/snippets/ini"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "ini";
                         }
                     });
                 })();
-            

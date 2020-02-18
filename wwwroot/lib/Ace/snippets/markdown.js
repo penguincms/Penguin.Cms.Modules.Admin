@@ -91,7 +91,6 @@ snippet pullquote\n\
 	{% endpullquote %}\n\
 ";
 exports.scope = "markdown";
-
 });
                 (function() {
                     window.require(["ace/snippets/markdown"], function(m) {
@@ -100,4 +99,3 @@ exports.scope = "markdown";
                         }
                     });
                 })();
-            

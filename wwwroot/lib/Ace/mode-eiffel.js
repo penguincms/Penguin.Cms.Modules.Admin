@@ -124,7 +124,6 @@ oop.inherits(Mode, TextMode);
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/eiffel"], function(m) {
@@ -133,4 +132,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

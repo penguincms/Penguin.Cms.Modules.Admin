@@ -3,7 +3,6 @@ define("ace/snippets/terraform",["require","exports","module"], function(require
 
 exports.snippetText = "";
 exports.scope = "terraform";
-
 });
                 (function() {
                     window.require(["ace/snippets/terraform"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "terraform";
                         }
                     });
                 })();
-            
