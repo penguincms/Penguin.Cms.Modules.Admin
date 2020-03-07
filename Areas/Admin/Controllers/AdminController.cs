@@ -11,7 +11,6 @@ using Penguin.Persistence.Repositories.Interfaces;
 using Penguin.Reflection;
 using Penguin.Reflection.Serialization.Abstractions.Interfaces;
 using Penguin.Reflection.Serialization.Constructors;
-using Penguin.Security.Abstractions.Attributes;
 using Penguin.Security.Abstractions.Constants;
 using Penguin.Security.Abstractions.Interfaces;
 using Penguin.Web.Security.Attributes;
@@ -29,12 +28,6 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
     [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
     public class AdminController : ModuleController
     {
-        public class QueryResults
-        {
-            public IEnumerable<object> Results { get; set; }
-            public int TotalCount { get; set; }
-        }
-
         public static MetaConstructor Constructor
         {
             get
@@ -52,14 +45,26 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
         protected IServiceProvider ServiceProvider { get; set; }
 
-        public AdminController(IServiceProvider serviceProvider)
+        public class QueryResults
         {
-            ServiceProvider = serviceProvider;
+            public IEnumerable<object> Results { get; set; }
+            public int TotalCount { get; set; }
         }
 
-        public PagedListContainer<T> GenerateList<T>(int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class => this.GenerateList(typeof(T), count, page, text, Converter);
+        public AdminController(IServiceProvider serviceProvider)
+        {
+            this.ServiceProvider = serviceProvider;
+        }
 
-        public PagedListContainer<T> GenerateList<T>(string type, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class => this.GenerateList(TypeFactory.GetTypeByFullName(type, typeof(Entity), false), count, page, text, Converter);
+        public PagedListContainer<T> GenerateList<T>(int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
+        {
+            return this.GenerateList(typeof(T), count, page, text, Converter);
+        }
+
+        public PagedListContainer<T> GenerateList<T>(string type, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
+        {
+            return this.GenerateList(TypeFactory.GetTypeByFullName(type, typeof(Entity), false), count, page, text, Converter);
+        }
 
         [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
         public PagedListContainer<T> GenerateList<T>(Type t, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
@@ -80,7 +85,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             QueryResults DBResult;
 
-            if (ServiceProvider.GetRepositoryForType<IKeyedObjectRepository>(t) is IKeyedObjectRepository TypedRepository)
+            if (this.ServiceProvider.GetRepositoryForType<IKeyedObjectRepository>(t) is IKeyedObjectRepository TypedRepository)
             {
                 if (string.IsNullOrWhiteSpace(text))
                 {
@@ -152,12 +157,12 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
         public QueryResults QueryDatabase<T>(int count = 20, int page = 0) where T : KeyedObject
         {
-            IKeyedObjectRepository<T> repository = ServiceProvider.GetService<IKeyedObjectRepository<T>>();
+            IKeyedObjectRepository<T> repository = this.ServiceProvider.GetService<IKeyedObjectRepository<T>>();
 
             IEnumerable<T> results = repository.OrderByDescending(i => i._Id).Skip(page * count).Take(count);
             int totalCount = repository.Count();
 
-            ISecurityProvider<T> securityProvider = ServiceProvider.GetService<ISecurityProvider<T>>();
+            ISecurityProvider<T> securityProvider = this.ServiceProvider.GetService<ISecurityProvider<T>>();
 
             if (securityProvider != null)
             {

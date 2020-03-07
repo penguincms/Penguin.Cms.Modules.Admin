@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Penguin.Cms.Modules.Admin.Areas.Admin.Models;
 using Penguin.Cms.Web.Mvc;
-using Penguin.Persistence.Abstractions.Interfaces;
+using Penguin.Persistence.Abstractions;
 using Penguin.Web.Mvc.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using Penguin.Persistence.Abstractions;
 using System.Linq;
 
 namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
@@ -19,31 +14,23 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
     [Area("Admin")]
     public class SetupController : Controller
     {
+        private const string CONNECTION_STRINGS = "ConnectionStrings";
         protected IApplicationLifetime AppLifetime { get; set; }
-
-        private const string ConnectionStrings = "ConnectionStrings";
-
-        IServiceProvider ServiceProvider { get; }
+        private IServiceProvider ServiceProvider { get; }
 
         public SetupController(IApplicationLifetime appLifetime, IServiceProvider serviceProvider)
         {
-            AppLifetime = appLifetime;
-            ServiceProvider = serviceProvider;
+            this.AppLifetime = appLifetime;
+            this.ServiceProvider = serviceProvider;
         }
 
-        [IsLocal]
-        public ActionResult Index()
+        public ConnectionStringSetupModel CheckModel(string? ToCheck = null)
         {
-            return View(CheckModel());
-        }
-
-        public ConnectionStringSetupModel CheckModel(string ToCheck = null)
-        {
-            ToCheck ??= ServiceProvider.GetService<PersistenceConnectionInfo>()?.ConnectionString;
+            ToCheck ??= this.ServiceProvider.GetService<PersistenceConnectionInfo>()?.ConnectionString;
 
             ConnectionStringSetupModel toReturn = new ConnectionStringSetupModel();
 
-            if(string.IsNullOrEmpty(ToCheck))
+            if (string.IsNullOrEmpty(ToCheck))
             {
                 return toReturn;
             }
@@ -53,14 +40,27 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
             toReturn.Exceptions = Startup.Exceptions.ToList();
 
             return toReturn;
-            
+        }
+
+        [IsLocal]
+        public ActionResult Index()
+        {
+            return this.View(this.CheckModel());
         }
 
         [IsLocal]
         public ActionResult SetConnectionString(string DatabaseName, string Server, string User, string Password)
         {
+            if (DatabaseName is null)
+            {
+                throw new ArgumentNullException(nameof(DatabaseName));
+            }
 
-            
+            if (Server is null)
+            {
+                throw new ArgumentNullException(nameof(Server));
+            }
+
             string connectionString = $"Data Source={Server};Initial Catalog={DatabaseName.Replace(".", "_")};MultipleActiveResultSets=True;";
 
             if (string.IsNullOrWhiteSpace(User))
@@ -72,23 +72,23 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
                 connectionString += $"User ID={User};Password={Password};";
             }
 
-            ConnectionStringSetupModel checkModel = CheckModel(connectionString);
+            ConnectionStringSetupModel checkModel = this.CheckModel(connectionString);
 
-            if(checkModel.Exceptions.Any())
+            if (checkModel.Exceptions.Any())
             {
-                return View("Index", checkModel);
+                return this.View("Index", checkModel);
             }
 
             string configuration = System.IO.File.ReadAllText(HostBuilder.ApplicationConfig);
 
             JObject config = JObject.Parse(configuration);
 
-            if (!config.ContainsKey(SetupController.ConnectionStrings))
+            if (!config.ContainsKey(SetupController.CONNECTION_STRINGS))
             {
-                config.Add(SetupController.ConnectionStrings, new JObject());
+                config.Add(SetupController.CONNECTION_STRINGS, new JObject());
             }
 
-            JObject ConnectionStrings = config[SetupController.ConnectionStrings] as JObject;
+            JObject ConnectionStrings = (JObject)config[CONNECTION_STRINGS];
 
             if (!ConnectionStrings.ContainsKey(Penguin.Persistence.Abstractions.Constants.Strings.CONNECTION_STRING_NAME))
             {
@@ -101,9 +101,9 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             System.IO.File.WriteAllText(HostBuilder.ApplicationConfig, config.ToString());
 
-            AppLifetime.StopApplication();
+            this.AppLifetime.StopApplication();
 
-            return View();
+            return this.View();
         }
     }
 }

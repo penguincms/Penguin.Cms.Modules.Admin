@@ -14,14 +14,14 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
         public InitController(MessageBus messageBus)
         {
-            MessageBus = messageBus;
+            this.MessageBus = messageBus;
         }
 
         public ActionResult Index()
         {
-            MessageBus.Send(new Setup());
+            this.MessageBus.Send(new Setup());
 
-            return Content("If you're seeing this, everything is probably OK");
+            return this.Content("If you're seeing this, everything is probably OK");
         }
     }
 }
