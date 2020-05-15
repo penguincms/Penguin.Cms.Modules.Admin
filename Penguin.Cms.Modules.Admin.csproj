@@ -14,8 +14,8 @@
   <ItemGroup>
     <Content Remove="wwwroot\**\*" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.1" />
-    <PackageReference Include="Penguin.Web.Security" Version="2.0.1-T9UPDS1" />
-    <PackageReference Include="Penguin.Cms.Modules.Core" Version="1.0.1-T9V819P" />
+    <PackageReference Include="Penguin.Web.Security" Version="2.0.1-T9W7B2P" />
+    <PackageReference Include="Penguin.Cms.Modules.Core" Version="1.0.1-T9W97WF" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\**\*" />
@@ -23,6 +23,5 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-  <ItemGroup></ItemGroup>
   <Import Project="Penguin.Projects.Shared\Penguin.Projects.Shared.csproj" />
 </Project>

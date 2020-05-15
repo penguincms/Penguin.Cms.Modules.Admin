@@ -12,18 +12,20 @@ using Penguin.Reflection;
 using Penguin.Reflection.Serialization.Abstractions.Interfaces;
 using Penguin.Reflection.Serialization.Constructors;
 using Penguin.Security.Abstractions.Constants;
+using Penguin.Security.Abstractions.Extensions;
 using Penguin.Security.Abstractions.Interfaces;
 using Penguin.Web.Security.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [RequiresRole(RoleNames.AdminAccess)]
+    [RequiresRole(RoleNames.ADMIN_ACCESS)]
     [SuppressMessage("Globalization", "CA1307:Specify StringComparison")]
     [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
     public class AdminController : ModuleController
@@ -44,7 +46,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
         }
 
         protected IServiceProvider ServiceProvider { get; set; }
-
+        protected IUserSession UserSession { get; set; }
         public class QueryResults
         {
             public IEnumerable<object> Results { get; set; }
@@ -87,61 +89,14 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             if (this.ServiceProvider.GetRepositoryForType<IKeyedObjectRepository>(t) is IKeyedObjectRepository TypedRepository)
             {
-                if (string.IsNullOrWhiteSpace(text))
-                {
-                    DBResult = this.GetType().GetMethod(nameof(AdminController.QueryDatabase)).MakeGenericMethod(t).Invoke(this, new object[] { count, page }) as QueryResults;
-                }
-                else
-                {
-                    DBResult = new QueryResults()
-                    {
-                        Results = TypedRepository.All.AsIEnumerable().OrderByDescending(e => Key.GetValue(e)).Skip(page * count).Take(count)
-                    };
 
-                    DBResult.TotalCount = DBResult.Results.Count();
-                }
-
+                DBResult = this.GetType().GetMethod(nameof(AdminController.QueryDatabase)).MakeGenericMethod(t).Invoke(this, new object[] { count, page, text }) as QueryResults;
+               
                 DBResult.Results = DBResult.Results.Select(Converter);
             }
             else
             {
                 throw new Exception("Can not access data source for objects that dont derive from KeyedObjectType in this version");
-            }
-
-            //This can be moved to SQL for MSSQL connections, however this was developed on a CE database which doesn't allow fancy logic like this.
-            //Its going to be slow as shit for CE either way but when it matters, it can be sped up for most DB
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                DBResult.Results = DBResult.Results.Where(o =>
-                {
-                    if (o is IMetaObject m)
-                    {
-                        foreach (IMetaObject metaObject in m.Properties)
-                        {
-                            if (metaObject?.Value != null && metaObject.Value.Contains(text, StringComparison.OrdinalIgnoreCase))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        PropertyInfo[] props = o.GetType().GetProperties();
-
-                        foreach (PropertyInfo prop in props)
-                        {
-                            if (prop.GetValue(o)?.ToString() is string strValue)
-                            {
-                                if (strValue != prop.PropertyType.FullName && strValue.Contains(text, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-
-                    return false;
-                });
             }
 
             pagedList.Page = page;
@@ -155,23 +110,38 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
             return pagedList;
         }
 
-        public QueryResults QueryDatabase<T>(int count = 20, int page = 0) where T : KeyedObject
+        public QueryResults QueryDatabase<T>(int count = 20, int page = 0, string text = "") where T : KeyedObject
         {
             IKeyedObjectRepository<T> repository = this.ServiceProvider.GetService<IKeyedObjectRepository<T>>();
 
-            IEnumerable<T> results = repository.OrderByDescending(i => i._Id).Skip(page * count).Take(count);
-            int totalCount = repository.Count();
+            IQueryable<T> results = repository.OrderByDescending(i => i._Id).Skip(page * count).Take(count);
+            int totalCount = 0;
+
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                results = results.Where(ExpressionBuilder.AnyPropertyContains<T>(text));
+                //totalCount = repository.Where(ExpressionBuilder.AnyPropertyContains<T>(text)).Count();
+            }
+             else
+            {
+                repository.Count();
+            }
+            
+            
+            
 
             ISecurityProvider<T> securityProvider = this.ServiceProvider.GetService<ISecurityProvider<T>>();
 
-            if (securityProvider != null)
+            List<T> ResultsList = results.ToList();
+
+            if (securityProvider != null && !UserSession.LoggedInUser.HasRole(RoleNames.SYS_ADMIN))
             {
-                results = results.Where(r => securityProvider.CheckAccess(r));
+                ResultsList = ResultsList.Where(r => securityProvider.CheckAccess(r)).ToList();
             }
 
             return new QueryResults()
             {
-                Results = results,
+                Results = ResultsList,
                 TotalCount = totalCount
             };
         }

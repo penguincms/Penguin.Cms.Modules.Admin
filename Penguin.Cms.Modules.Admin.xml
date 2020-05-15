@@ -4,5 +4,20 @@
         <name>Penguin.Cms.Modules.Admin</name>
     </assembly>
     <members>
+        <member name="T:Penguin.Cms.Modules.Admin.Areas.Admin.Models.ConnectionStringSetupModel">
+            <summary>
+            Model used to display the database configuration page when database connection fails on initialization
+            </summary>
+        </member>
+        <member name="P:Penguin.Cms.Modules.Admin.Areas.Admin.Models.ConnectionStringSetupModel.ConnectionString">
+            <summary>
+            The last attempted connection string
+            </summary>
+        </member>
+        <member name="P:Penguin.Cms.Modules.Admin.Areas.Admin.Models.ConnectionStringSetupModel.Exceptions">
+            <summary>
+            Any exceptions that occurred when initializing the database connection
+            </summary>
+        </member>
     </members>
 </doc>
