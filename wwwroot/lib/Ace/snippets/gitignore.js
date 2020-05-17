@@ -3,7 +3,6 @@ define("ace/snippets/gitignore",["require","exports","module"], function(require
 
 exports.snippetText = "";
 exports.scope = "gitignore";
-
 });
                 (function() {
                     window.require(["ace/snippets/gitignore"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "gitignore";
                         }
                     });
                 })();
-            

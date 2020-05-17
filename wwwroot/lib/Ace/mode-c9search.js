@@ -27,7 +27,7 @@ var C9SearchHighlightRules = function() {
                         type: types[1],
                         value: values[2]
                     }];
-                    
+
                     if (values[3]) {
                         if (values[3] == " ")
                             tokens[1] = { type: types[1], value: values[2] + " " };
@@ -36,7 +36,7 @@ var C9SearchHighlightRules = function() {
                     }
                     var regex = stack[1];
                     var str = values[4];
-                    
+
                     var m;
                     var last = 0;
                     if (regex && regex.exec) {
@@ -65,7 +65,7 @@ var C9SearchHighlightRules = function() {
                         return "text";
 
                     var options, search;
-                    
+
                     var i = 0;
                     var tokens = [{
                         value: parts[i++] + "'",
@@ -106,14 +106,14 @@ var C9SearchHighlightRules = function() {
                             type: "text"
                         });
                     }
-                    
+
                     if (search) {
                         if (!/regex/.test(options))
                             search = lang.escapeRegExp(search);
                         if (/whole/.test(options))
                             search = "\\b" + search + "\\b";
                     }
-                    
+
                     var regex = search && safeCreateRegexp(
                         "(" + search + ")",
                         / sensitive/.test(options) ? "g" : "ig"
@@ -122,7 +122,7 @@ var C9SearchHighlightRules = function() {
                         stack[0] = state;
                         stack[1] = regex;
                     }
-                    
+
                     return tokens;
                 }
             },
@@ -152,7 +152,6 @@ var C9SearchHighlightRules = function() {
 oop.inherits(C9SearchHighlightRules, TextHighlightRules);
 
 exports.C9SearchHighlightRules = C9SearchHighlightRules;
-
 });
 
 define("ace/mode/matching_brace_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
@@ -163,7 +162,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -189,7 +187,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -206,17 +203,16 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.foldingStartMarker = /^(\S.*:|Searching for.*)$/;
     this.foldingStopMarker = /^(\s+|Found.*)$/;
-    
+
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var lines = session.doc.getAllLines(row);
         var line = lines[row];
         var level1 = /^(Found.*|Searching for.*)$/;
         var level2 = /^(\S.*:|\s*)$/;
         var re = level1.test(line) ? level1 : level2;
-        
+
         var startRow = row;
         var endRow = row;
 
@@ -242,9 +238,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, col, endRow, 0);
         }
     };
-    
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/c9search",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/c9search_highlight_rules","ace/mode/matching_brace_outdent","ace/mode/folding/c9search"], function(require, exports, module) {
@@ -264,7 +258,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-    
     this.getNextLineIndent = function(state, line, tab) {
         var indent = this.$getIndent(line);
         return indent;
@@ -282,7 +275,6 @@ oop.inherits(Mode, TextMode);
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/c9search"], function(m) {
@@ -291,4 +283,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

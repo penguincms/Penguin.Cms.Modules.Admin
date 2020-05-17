@@ -1,5 +1,4 @@
 define("ace/theme/ambiance",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-ambiance";
 exports.cssText = ".ace-ambiance .ace_gutter {\
@@ -173,7 +172,6 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
 
 var dom = require("../lib/dom");
 dom.importCssString(exports.cssText, exports.cssClass);
-
 });
                 (function() {
                     window.require(["ace/theme/ambiance"], function(m) {
@@ -182,4 +180,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

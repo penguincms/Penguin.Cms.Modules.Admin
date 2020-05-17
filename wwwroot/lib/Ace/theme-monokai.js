@@ -1,5 +1,4 @@
 define("ace/theme/monokai",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-monokai";
 exports.cssText = ".ace-monokai .ace_gutter {\
@@ -110,4 +109,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

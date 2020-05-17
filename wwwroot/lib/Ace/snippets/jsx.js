@@ -3,7 +3,6 @@ define("ace/snippets/jsx",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "jsx";
-
 });
                 (function() {
                     window.require(["ace/snippets/jsx"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "jsx";
                         }
                     });
                 })();
-            

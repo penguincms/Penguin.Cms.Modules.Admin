@@ -9,7 +9,7 @@ var DocCommentHighlightRules = function() {
         "start" : [ {
             token : "comment.doc.tag",
             regex : "@[\\w\\d_]+" // TODO: fix email addresses
-        }, 
+        },
         DocCommentHighlightRules.getTagRule(),
         {
             defaultToken : "comment.doc",
@@ -43,9 +43,7 @@ DocCommentHighlightRules.getEndRule = function (start) {
     };
 };
 
-
 exports.DocCommentHighlightRules = DocCommentHighlightRules;
-
 });
 
 define("ace/mode/javascript_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -349,7 +347,6 @@ var JavaScriptHighlightRules = function(options) {
         ]
     };
 
-
     if (!options || !options.noES6) {
         this.$rules.no_regex.unshift({
             regex: "[{}]", onMatch: function(val, state, stack) {
@@ -538,7 +535,6 @@ var pseudoElements = exports.pseudoElements = "(\\:+)\\b(after|before|first-lett
 var pseudoClasses  = exports.pseudoClasses =  "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
 
 var CssHighlightRules = function() {
-
     var keywordMapper = this.createKeywordMapper({
         "support.function": supportFunction,
         "support.constant": supportConstant,
@@ -703,7 +699,6 @@ var CssHighlightRules = function() {
             token : "constant.language.escape",
             regex : /\\([a-fA-F\d]{1,6}|[^a-fA-F\d])/
         }]
-
     };
 
     this.normalizeRules();
@@ -712,7 +707,6 @@ var CssHighlightRules = function() {
 oop.inherits(CssHighlightRules, TextHighlightRules);
 
 exports.CssHighlightRules = CssHighlightRules;
-
 });
 
 define("ace/mode/xml_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -876,9 +870,7 @@ var XmlHighlightRules = function(normalize) {
         this.normalizeRules();
 };
 
-
 (function() {
-
     this.embedTagRules = function(HighlightRules, prefix, tag){
         this.$rules.tag.unshift({
             token : ["meta.tag.punctuation.tag-open.xml", "meta.tag." + tag + ".tag-name.xml"],
@@ -910,7 +902,6 @@ var XmlHighlightRules = function(normalize) {
             regex : "\\]\\]>"
         }]);
     };
-
 }).call(TextHighlightRules.prototype);
 
 oop.inherits(XmlHighlightRules, TextHighlightRules);
@@ -1037,7 +1028,7 @@ var MarkdownHighlightRules = function() {
             var indent = stack[2][0];
             var endMarker = stack[2][1];
             var language = stack[2][2];
-            
+
             var m = /^(\s*)(`+|~+)\s*$/.exec(value);
             if (
                 m && m[1].length < indent.length + 3
@@ -1227,20 +1218,19 @@ var const_FUNCTIONS,
         ("debugger|define|var|if|each|for|of|else|switch|case|with|visible|+if|+each|+for|+switch|+with|+visible|include|import").split("|")
     );
     const_TAGS = lang.arrayToMap(
-        ("a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdo|" + 
-         "big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|" + 
-         "command|datalist|dd|del|details|dfn|dir|div|dl|dt|em|embed|fieldset|" + 
-         "figcaption|figure|font|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|" + 
-         "header|hgroup|hr|html|i|iframe|img|input|ins|keygen|kbd|label|legend|li|" + 
-         "link|map|mark|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|" + 
-         "option|output|p|param|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|" + 
-         "small|source|span|strike|strong|style|sub|summary|sup|table|tbody|td|" + 
+        ("a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdo|" +
+         "big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|" +
+         "command|datalist|dd|del|details|dfn|dir|div|dl|dt|em|embed|fieldset|" +
+         "figcaption|figure|font|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|" +
+         "header|hgroup|hr|html|i|iframe|img|input|ins|keygen|kbd|label|legend|li|" +
+         "link|map|mark|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|" +
+         "option|output|p|param|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|" +
+         "small|source|span|strike|strong|style|sub|summary|sup|table|tbody|td|" +
          "textarea|tfoot|th|thead|time|title|tr|tt|u|ul|var|video|wbr|xmp").split("|")
     );
 }());
 
 function MaskHighlightRules () {
-
     this.$rules = {
         "start" : [
             Token("comment", "\\/\\/.*$"),
@@ -1248,20 +1238,20 @@ function MaskHighlightRules () {
                 Token("comment", ".*?\\*\\/", "start"),
                 Token("comment", ".+")
             ]),
-            
+
             Blocks.string("'''"),
             Blocks.string('"""'),
             Blocks.string('"'),
             Blocks.string("'"),
-            
+
             Blocks.syntax(/(markdown|md)\b/, "md-multiline", "multiline"),
             Blocks.syntax(/html\b/, "html-multiline", "multiline"),
             Blocks.syntax(/(slot|event)\b/, "js-block", "block"),
             Blocks.syntax(/style\b/, "css-block", "block"),
             Blocks.syntax(/var\b/, "js-statement", "attr"),
-            
+
             Blocks.tag(),
-            
+
             Token(token_LPARE, "[[({>]"),
             Token(token_RPARE, "[\\])};]", "start"),
             {
@@ -1270,14 +1260,14 @@ function MaskHighlightRules () {
         ]
     };
     var rules = this;
-    
+
     addJavaScript("interpolation", /\]/, token_RPARE + "." + token_ITALIC);
     addJavaScript("statement", /\)|}|;/);
     addJavaScript("block", /\}/);
     addCss();
     addMarkdown();
     addHtml();
-    
+
     function addJavaScript(name, escape, closeType) {
         var prfx  =  "js-" + name + "-",
             rootTokens = name === "block" ? ["start"] : ["start", "no_regex"];
@@ -1368,7 +1358,7 @@ var Blocks = {
                     return "support.function";
                 if (void 0 !== const_TAGS[value.toLowerCase()])
                     return token_TAG;
-                
+
                 return token_COMPO;
             },
             regex : /([@\w\-_:+]+)|((^|\s)(?=\s*(\.|#)))/,
@@ -1377,7 +1367,7 @@ var Blocks = {
                 Blocks.tagHead(/#/) ,
                 Blocks.expression(),
                 Blocks.attribute(),
-                
+
                 Token(token_LPARE, /[;>{]/, "pop")
             ]
         };
@@ -1439,7 +1429,6 @@ var Blocks = {
     }
 };
 
-
 function Token(token, rgx, mix) {
     var push, next, onMatch;
     if (arguments.length === 4) {
@@ -1464,7 +1453,6 @@ function Token(token, rgx, mix) {
         onMatch: onMatch
     };
 }
-
 });
 
 define("ace/mode/matching_brace_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
@@ -1475,7 +1463,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -1501,7 +1488,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -1516,7 +1502,6 @@ var CstyleBehaviour = require("./cstyle").CstyleBehaviour;
 var TokenIterator = require("../../token_iterator").TokenIterator;
 
 var CssBehaviour = function () {
-
     this.inherit(CstyleBehaviour);
 
     this.add("colon", "insertion", function (state, action, editor, session, text) {
@@ -1593,7 +1578,6 @@ var CssBehaviour = function () {
             }
         }
     });
-
 };
 oop.inherits(CssBehaviour, CstyleBehaviour);
 
@@ -1620,7 +1604,6 @@ var FoldMode = exports.FoldMode = function(commentRegex) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-    
     this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
     this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
@@ -1629,42 +1612,42 @@ oop.inherits(FoldMode, BaseFoldMode);
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
-    
+
         if (this.singleLineBlockCommentRe.test(line)) {
             if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
                 return "";
         }
-    
+
         var fw = this._getFoldWidgetBase(session, foldStyle, row);
-    
+
         if (!fw && this.startRegionRe.test(line))
             return "start"; // lineCommentRegionStart
-    
+
         return fw;
     };
 
     this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
         var line = session.getLine(row);
-        
+
         if (this.startRegionRe.test(line))
             return this.getCommentRegionBlock(session, line, row);
-        
+
         var match = line.match(this.foldingStartMarker);
         if (match) {
             var i = match.index;
 
             if (match[1])
                 return this.openingBracketBlock(session, match[1], row, i);
-                
+
             var range = session.getCommentFoldRange(row, i + match[0].length, 1);
-            
+
             if (range && !range.isMultiLine()) {
                 if (forceMultiline) {
                     range = this.getSectionRange(session, row);
                 } else if (foldStyle != "all")
                     range = null;
             }
-            
+
             return range;
         }
 
@@ -1681,7 +1664,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return session.getCommentFoldRange(row, i, -1);
         }
     };
-    
+
     this.getSectionRange = function(session, row) {
         var line = session.getLine(row);
         var startIndent = line.search(/\S/);
@@ -1698,7 +1681,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             if  (startIndent > indent)
                 break;
             var subRange = this.getFoldWidgetRange(session, "all", row);
-            
+
             if (subRange) {
                 if (subRange.start.row <= startRow) {
                     break;
@@ -1710,14 +1693,14 @@ oop.inherits(FoldMode, BaseFoldMode);
             }
             endRow = row;
         }
-        
+
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
-        
+
         var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
@@ -1735,9 +1718,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, startColumn, endRow, line.length);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/mask",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/mask_highlight_rules","ace/mode/matching_brace_outdent","ace/mode/behaviour/css","ace/mode/folding/cstyle"], function(require, exports, module) {
@@ -1759,7 +1740,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-   
     this.lineCommentStart = "//";
     this.blockComment = {start: "/*", end: "*/"};
 
@@ -1790,7 +1770,6 @@ oop.inherits(Mode, TextMode);
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/mask"], function(m) {
@@ -1799,4 +1778,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

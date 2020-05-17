@@ -39,7 +39,6 @@ var instanceVariable = exports.instanceVariable = {
 };
 
 var RubyHighlightRules = function() {
-
     var builtinFunctions = (
         "abort|Array|assert|assert_equal|assert_not_equal|assert_same|assert_not_same|" +
         "assert_nil|assert_not_nil|assert_match|assert_no_match|assert_in_delta|assert_throws|" +
@@ -298,7 +297,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -324,7 +322,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -341,7 +338,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -412,9 +408,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/ruby",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/ruby_highlight_rules","ace/mode/matching_brace_outdent","ace/range","ace/mode/behaviour/cstyle","ace/mode/folding/coffee"], function(require, exports, module) {
@@ -437,8 +431,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
-
     this.lineCommentStart = "#";
 
     this.getNextLineIndent = function(state, line, tab) {
@@ -494,4 +486,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

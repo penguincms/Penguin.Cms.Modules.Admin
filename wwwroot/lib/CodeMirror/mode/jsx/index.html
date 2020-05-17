@@ -71,11 +71,10 @@ var content = <Container>{window.isLoggedIn ? <Nav /> : <Login />}</Container>;
 var content = (
         <Nav>
     {/* child comment, put {} around */}
-        <Person
-      /* multi
-         line
-         comment */
-      name={window.isLoggedIn ? window.name : ''} // end of line comment />
+        <Person /* multi
+                line
+                comment * /
+                name={window.isLoggedIn ? window.name : '' } // end of line comment />
   </Nav>
 );
 </textarea>

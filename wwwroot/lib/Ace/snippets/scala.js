@@ -3,7 +3,6 @@ define("ace/snippets/scala",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "scala";
-
 });
                 (function() {
                     window.require(["ace/snippets/scala"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "scala";
                         }
                     });
                 })();
-            

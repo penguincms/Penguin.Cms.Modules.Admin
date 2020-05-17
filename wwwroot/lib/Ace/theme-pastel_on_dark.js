@@ -1,5 +1,4 @@
 define("ace/theme/pastel_on_dark",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-pastel-on-dark";
 exports.cssText = ".ace-pastel-on-dark .ace_gutter {\
@@ -113,4 +112,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

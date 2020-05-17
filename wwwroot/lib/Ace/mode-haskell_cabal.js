@@ -24,7 +24,6 @@ var CabalHighlightRules = function() {
                 regex : /^(\w.*)$/
             }
         ]};
-
 };
 
 oop.inherits(CabalHighlightRules, TextHighlightRules);
@@ -66,7 +65,6 @@ oop.inherits(FoldMode, BaseFoldMode);
       return "";
   };
 
-
   this.getFoldWidgetRange = function(session, foldStyle, row) {
       var line = session.getLine(row);
       var startColumn = line.length;
@@ -104,9 +102,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         return new Range(row, startColumn, endRow, endColumn);
       }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/haskell_cabal",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/haskell_cabal_highlight_rules","ace/mode/folding/haskell_cabal"], function(require, exports, module) {
@@ -139,4 +135,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

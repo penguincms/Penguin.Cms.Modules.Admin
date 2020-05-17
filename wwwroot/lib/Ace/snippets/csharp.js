@@ -3,7 +3,6 @@ define("ace/snippets/csharp",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "csharp";
-
 });
                 (function() {
                     window.require(["ace/snippets/csharp"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "csharp";
                         }
                     });
                 })();
-            

@@ -1,5 +1,4 @@
 define("ace/theme/gob",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-gob";
 exports.cssText = ".ace-gob .ace_gutter {\
@@ -117,4 +116,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

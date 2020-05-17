@@ -3,7 +3,6 @@ define("ace/snippets/hjson",["require","exports","module"], function(require, ex
 
 exports.snippetText =undefined;
 exports.scope = "";
-
 });
                 (function() {
                     window.require(["ace/snippets/hjson"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "";
                         }
                     });
                 })();
-            

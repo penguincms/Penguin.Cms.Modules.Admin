@@ -1,5 +1,4 @@
 define("ace/theme/merbivore",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-merbivore";
 exports.cssText = ".ace-merbivore .ace_gutter {\
@@ -100,4 +99,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

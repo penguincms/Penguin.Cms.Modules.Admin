@@ -33,7 +33,6 @@ snippet fn\n\
 	\n\
 ";
 exports.scope = "textile";
-
 });
                 (function() {
                     window.require(["ace/snippets/textile"], function(m) {
@@ -42,4 +41,3 @@ exports.scope = "textile";
                         }
                     });
                 })();
-            

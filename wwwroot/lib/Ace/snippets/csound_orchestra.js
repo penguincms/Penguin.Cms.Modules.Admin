@@ -50,7 +50,6 @@ snippet while\n\
 	od\n\
 ";
 exports.scope = "csound_orchestra";
-
 });
                 (function() {
                     window.require(["ace/snippets/csound_orchestra"], function(m) {
@@ -59,4 +58,3 @@ exports.scope = "csound_orchestra";
                         }
                     });
                 })();
-            

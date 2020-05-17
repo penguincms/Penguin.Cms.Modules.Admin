@@ -3,7 +3,6 @@ define("ace/snippets/red",["require","exports","module"], function(require, expo
 
 exports.snippetText = " ";
 exports.scope = "red";
-
 });
                 (function() {
                     window.require(["ace/snippets/red"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "red";
                         }
                     });
                 })();
-            

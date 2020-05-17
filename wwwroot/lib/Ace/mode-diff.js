@@ -109,9 +109,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return;
         return  Range.fromPoints(start, {row: row - 1, column: line.length});
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/diff",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/diff_highlight_rules","ace/mode/folding/diff"], function(require, exports, module) {
@@ -129,12 +127,10 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.$id = "ace/mode/diff";
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/diff"], function(m) {
@@ -143,4 +139,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

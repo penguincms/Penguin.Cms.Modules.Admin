@@ -91,7 +91,6 @@ var MixalHighlightRules = function() {
 oop.inherits(MixalHighlightRules, TextHighlightRules);
 
 exports.MixalHighlightRules = MixalHighlightRules;
-
 });
 
 define("ace/mode/mixal",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/mixal_highlight_rules"], function(require, exports, module) {
@@ -120,4 +119,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

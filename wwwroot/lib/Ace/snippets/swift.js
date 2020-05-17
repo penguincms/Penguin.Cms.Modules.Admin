@@ -3,7 +3,6 @@ define("ace/snippets/swift",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "swift";
-
 });
                 (function() {
                     window.require(["ace/snippets/swift"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "swift";
                         }
                     });
                 })();
-            

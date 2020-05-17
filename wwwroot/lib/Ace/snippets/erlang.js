@@ -163,7 +163,6 @@ snippet gen_server\n\
 \n\
 ";
 exports.scope = "erlang";
-
 });
                 (function() {
                     window.require(["ace/snippets/erlang"], function(m) {
@@ -172,4 +171,3 @@ exports.scope = "erlang";
                         }
                     });
                 })();
-            

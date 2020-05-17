@@ -3,7 +3,6 @@ define("ace/snippets/ftl",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "ftl";
-
 });
                 (function() {
                     window.require(["ace/snippets/ftl"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "ftl";
                         }
                     });
                 })();
-            

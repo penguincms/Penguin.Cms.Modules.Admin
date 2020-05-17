@@ -3,7 +3,6 @@ define("ace/snippets/gcode",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "gcode";
-
 });
                 (function() {
                     window.require(["ace/snippets/gcode"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "gcode";
                         }
                     });
                 })();
-            

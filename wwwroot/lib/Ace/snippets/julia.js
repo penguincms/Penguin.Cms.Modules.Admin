@@ -3,7 +3,6 @@ define("ace/snippets/julia",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "julia";
-
 });
                 (function() {
                     window.require(["ace/snippets/julia"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "julia";
                         }
                     });
                 })();
-            

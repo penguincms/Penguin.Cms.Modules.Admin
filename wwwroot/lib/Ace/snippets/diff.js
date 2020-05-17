@@ -14,7 +14,6 @@ snippet header DEP-3 style header\n\
 \n\
 ";
 exports.scope = "diff";
-
 });
                 (function() {
                     window.require(["ace/snippets/diff"], function(m) {
@@ -23,4 +22,3 @@ exports.scope = "diff";
                         }
                     });
                 })();
-            

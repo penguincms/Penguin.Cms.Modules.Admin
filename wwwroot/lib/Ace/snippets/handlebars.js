@@ -3,7 +3,6 @@ define("ace/snippets/handlebars",["require","exports","module"], function(requir
 
 exports.snippetText = "";
 exports.scope = "handlebars";
-
 });
                 (function() {
                     window.require(["ace/snippets/handlebars"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "handlebars";
                         }
                     });
                 })();
-            

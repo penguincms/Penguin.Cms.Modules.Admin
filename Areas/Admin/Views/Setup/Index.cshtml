@@ -11,14 +11,12 @@
 This page is hardcoded to the EF provider for no reason aside from the lack of need to extend it at this point.
 If the database table does not exist, the user provided must have permissions to create the table
 
-
 <div>
     <label>
         Existing Connection String
     </label>
     <span>@Model.ConnectionString</span>
 </div>
-
 
 <form action="/Admin/Setup/SetConnectionString">
     <label>Database Name</label><br />
@@ -53,6 +51,5 @@ If the database table does not exist, the user provided must have permissions to
             </label>
             <span style="color: red;">@ex.Exception.RecursiveStackTrace()</span>
         </div>
-
     </div>
 }

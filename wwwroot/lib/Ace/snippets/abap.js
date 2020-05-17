@@ -3,7 +3,6 @@ define("ace/snippets/abap",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "abap";
-
 });
                 (function() {
                     window.require(["ace/snippets/abap"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "abap";
                         }
                     });
                 })();
-            

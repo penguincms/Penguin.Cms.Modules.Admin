@@ -1,5 +1,4 @@
 define("ace/theme/clouds",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = false;
 exports.cssClass = "ace-clouds";
 exports.cssText = ".ace-clouds .ace_gutter {\
@@ -100,4 +99,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

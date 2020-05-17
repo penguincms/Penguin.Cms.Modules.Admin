@@ -15,7 +15,6 @@ var pseudoElements = exports.pseudoElements = "(\\:+)\\b(after|before|first-lett
 var pseudoClasses  = exports.pseudoClasses =  "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
 
 var CssHighlightRules = function() {
-
     var keywordMapper = this.createKeywordMapper({
         "support.function": supportFunction,
         "support.constant": supportConstant,
@@ -180,7 +179,6 @@ var CssHighlightRules = function() {
             token : "constant.language.escape",
             regex : /\\([a-fA-F\d]{1,6}|[^a-fA-F\d])/
         }]
-
     };
 
     this.normalizeRules();
@@ -189,7 +187,6 @@ var CssHighlightRules = function() {
 oop.inherits(CssHighlightRules, TextHighlightRules);
 
 exports.CssHighlightRules = CssHighlightRules;
-
 });
 
 define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -203,7 +200,7 @@ var DocCommentHighlightRules = function() {
         "start" : [ {
             token : "comment.doc.tag",
             regex : "@[\\w\\d_]+" // TODO: fix email addresses
-        }, 
+        },
         DocCommentHighlightRules.getTagRule(),
         {
             defaultToken : "comment.doc",
@@ -237,9 +234,7 @@ DocCommentHighlightRules.getEndRule = function (start) {
     };
 };
 
-
 exports.DocCommentHighlightRules = DocCommentHighlightRules;
-
 });
 
 define("ace/mode/javascript_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -542,7 +537,6 @@ var JavaScriptHighlightRules = function(options) {
             }
         ]
     };
-
 
     if (!options || !options.noES6) {
         this.$rules.no_regex.unshift({
@@ -876,9 +870,7 @@ var XmlHighlightRules = function(normalize) {
         this.normalizeRules();
 };
 
-
 (function() {
-
     this.embedTagRules = function(HighlightRules, prefix, tag){
         this.$rules.tag.unshift({
             token : ["meta.tag.punctuation.tag-open.xml", "meta.tag." + tag + ".tag-name.xml"],
@@ -910,7 +902,6 @@ var XmlHighlightRules = function(normalize) {
             regex : "\\]\\]>"
         }]);
     };
-
 }).call(TextHighlightRules.prototype);
 
 oop.inherits(XmlHighlightRules, TextHighlightRules);
@@ -1008,7 +999,6 @@ var HtmlHighlightRules = require("./html_highlight_rules").HtmlHighlightRules;
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var FtlLangHighlightRules = function () {
-
     var stringBuiltIns = "\\?|substring|cap_first|uncap_first|capitalize|chop_linebreak|date|time|datetime|"
         + "ends_with|html|groups|index_of|j_string|js_string|json_string|last_index_of|length|lower_case|"
         + "left_pad|right_pad|contains|matches|number|replace|rtf|url|split|starts_with|string|trim|"
@@ -1176,7 +1166,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.$id = "ace/mode/ftl";
 }).call(Mode.prototype);
 
@@ -1189,4 +1178,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

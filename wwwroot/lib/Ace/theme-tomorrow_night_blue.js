@@ -1,5 +1,4 @@
 define("ace/theme/tomorrow_night_blue",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-tomorrow-night-blue";
 exports.cssText = ".ace-tomorrow-night-blue .ace_gutter {\
@@ -111,4 +110,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

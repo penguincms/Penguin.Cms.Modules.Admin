@@ -3,7 +3,6 @@ define("ace/snippets/scheme",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "scheme";
-
 });
                 (function() {
                     window.require(["ace/snippets/scheme"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "scheme";
                         }
                     });
                 })();
-            

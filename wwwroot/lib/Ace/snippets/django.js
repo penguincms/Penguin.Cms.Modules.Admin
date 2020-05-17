@@ -111,7 +111,6 @@ snippet r2r\n\
 	)\n\
 ";
 exports.scope = "django";
-
 });
                 (function() {
                     window.require(["ace/snippets/django"], function(m) {
@@ -120,4 +119,3 @@ exports.scope = "django";
                         }
                     });
                 })();
-            

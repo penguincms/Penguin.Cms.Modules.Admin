@@ -4,10 +4,7 @@ define("ace/mode/clojure_highlight_rules",["require","exports","module","ace/lib
 var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
-
-
 var ClojureHighlightRules = function() {
-
     var builtinFunctions = (
         '* *1 *2 *3 *agent* *allow-unresolved-vars* *assert* *clojure-version* ' +
         '*command-line-args* *compile-files* *compile-path* *e *err* *file* ' +
@@ -173,7 +170,6 @@ var Range = require("../range").Range;
 var MatchingParensOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -204,7 +200,6 @@ var MatchingParensOutdent = function() {};
 
         return "";
     };
-
 }).call(MatchingParensOutdent.prototype);
 
 exports.MatchingParensOutdent = MatchingParensOutdent;
@@ -226,7 +221,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = ";";
     this.minorIndentFunctions = ["defn", "defn-", "defmacro", "def", "deftest", "testing"];
 
@@ -311,4 +305,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

@@ -970,7 +970,6 @@ snippet zoo\n\
 	zoom: 1;\n\
 ";
 exports.scope = "css";
-
 });
                 (function() {
                     window.require(["ace/snippets/css"], function(m) {
@@ -979,4 +978,3 @@ exports.scope = "css";
                         }
                     });
                 })();
-            

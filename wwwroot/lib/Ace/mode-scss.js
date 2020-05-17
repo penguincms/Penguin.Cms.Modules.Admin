@@ -6,30 +6,28 @@ var lang = require("../lib/lang");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var ScssHighlightRules = function() {
-    
     var properties = lang.arrayToMap( (function () {
-
         var browserPrefix = ("-webkit-|-moz-|-o-|-ms-|-svg-|-pie-|-khtml-").split("|");
-        
-        var prefixProperties = ("appearance|background-clip|background-inline-policy|background-origin|" + 
-             "background-size|binding|border-bottom-colors|border-left-colors|" + 
-             "border-right-colors|border-top-colors|border-end|border-end-color|" + 
-             "border-end-style|border-end-width|border-image|border-start|" + 
-             "border-start-color|border-start-style|border-start-width|box-align|" + 
-             "box-direction|box-flex|box-flexgroup|box-ordinal-group|box-orient|" + 
-             "box-pack|box-sizing|column-count|column-gap|column-width|column-rule|" + 
-             "column-rule-width|column-rule-style|column-rule-color|float-edge|" + 
-             "font-feature-settings|font-language-override|force-broken-image-icon|" + 
-             "image-region|margin-end|margin-start|opacity|outline|outline-color|" + 
-             "outline-offset|outline-radius|outline-radius-bottomleft|" + 
-             "outline-radius-bottomright|outline-radius-topleft|outline-radius-topright|" + 
-             "outline-style|outline-width|padding-end|padding-start|stack-sizing|" + 
-             "tab-size|text-blink|text-decoration-color|text-decoration-line|" + 
-             "text-decoration-style|transform|transform-origin|transition|" + 
-             "transition-delay|transition-duration|transition-property|" + 
+
+        var prefixProperties = ("appearance|background-clip|background-inline-policy|background-origin|" +
+             "background-size|binding|border-bottom-colors|border-left-colors|" +
+             "border-right-colors|border-top-colors|border-end|border-end-color|" +
+             "border-end-style|border-end-width|border-image|border-start|" +
+             "border-start-color|border-start-style|border-start-width|box-align|" +
+             "box-direction|box-flex|box-flexgroup|box-ordinal-group|box-orient|" +
+             "box-pack|box-sizing|column-count|column-gap|column-width|column-rule|" +
+             "column-rule-width|column-rule-style|column-rule-color|float-edge|" +
+             "font-feature-settings|font-language-override|force-broken-image-icon|" +
+             "image-region|margin-end|margin-start|opacity|outline|outline-color|" +
+             "outline-offset|outline-radius|outline-radius-bottomleft|" +
+             "outline-radius-bottomright|outline-radius-topleft|outline-radius-topright|" +
+             "outline-style|outline-width|padding-end|padding-start|stack-sizing|" +
+             "tab-size|text-blink|text-decoration-color|text-decoration-line|" +
+             "text-decoration-style|transform|transform-origin|transition|" +
+             "transition-delay|transition-duration|transition-property|" +
              "transition-timing-function|user-focus|user-input|user-modify|user-select|" +
              "window-shadow|border-radius").split("|");
-        
+
         var properties = ("azimuth|background-attachment|background-color|background-image|" +
             "background-position|background-repeat|background|border-bottom-color|" +
             "border-bottom-style|border-bottom-width|border-bottom|border-collapse|" +
@@ -63,17 +61,14 @@ var ScssHighlightRules = function() {
         }
         Array.prototype.push.apply(ret, prefixProperties);
         Array.prototype.push.apply(ret, properties);
-        
-        return ret;
-        
-    })() );
-    
 
+        return ret;
+    })() );
 
     var functions = lang.arrayToMap(
         ("hsl|hsla|rgb|rgba|url|attr|counter|counters|abs|adjust_color|adjust_hue|" +
-         "alpha|join|blue|ceil|change_color|comparable|complement|darken|desaturate|" + 
-         "floor|grayscale|green|hue|if|invert|join|length|lighten|lightness|mix|" + 
+         "alpha|join|blue|ceil|change_color|comparable|complement|darken|desaturate|" +
+         "floor|grayscale|green|hue|if|invert|join|length|lighten|lightness|mix|" +
          "nth|opacify|opacity|percentage|quote|red|round|saturate|saturation|" +
          "scale_color|transparentize|type_of|unit|unitless|unquote").split("|")
     );
@@ -128,20 +123,20 @@ var ScssHighlightRules = function() {
         "springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|" +
         "wheat|white|whitesmoke|yellow|yellowgreen").split("|")
     );
-    
+
     var keywords = lang.arrayToMap(
         ("@mixin|@extend|@include|@import|@media|@debug|@warn|@if|@for|@each|@while|@else|@font-face|@-webkit-keyframes|if|and|!default|module|def|end|declare").split("|")
     );
-    
+
     var tags = lang.arrayToMap(
-        ("a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdo|" + 
-         "big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|" + 
-         "command|datalist|dd|del|details|dfn|dir|div|dl|dt|em|embed|fieldset|" + 
-         "figcaption|figure|font|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|" + 
-         "header|hgroup|hr|html|i|iframe|img|input|ins|keygen|kbd|label|legend|li|" + 
-         "link|map|mark|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|" + 
-         "option|output|p|param|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|" + 
-         "small|source|span|strike|strong|style|sub|summary|sup|table|tbody|td|" + 
+        ("a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdo|" +
+         "big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|" +
+         "command|datalist|dd|del|details|dfn|dir|div|dl|dt|em|embed|fieldset|" +
+         "figcaption|figure|font|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|" +
+         "header|hgroup|hr|html|i|iframe|img|input|ins|keygen|kbd|label|legend|li|" +
+         "link|map|mark|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|" +
+         "option|output|p|param|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|" +
+         "small|source|span|strike|strong|style|sub|summary|sup|table|tbody|td|" +
          "textarea|tfoot|th|thead|time|title|tr|tt|u|ul|var|video|wbr|xmp").split("|")
     );
     var numRe = "\\-?(?:(?:[0-9]+)|(?:[0-9]*\\.[0-9]+))";
@@ -268,7 +263,6 @@ var ScssHighlightRules = function() {
 oop.inherits(ScssHighlightRules, TextHighlightRules);
 
 exports.ScssHighlightRules = ScssHighlightRules;
-
 });
 
 define("ace/mode/matching_brace_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
@@ -279,7 +273,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -305,7 +298,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -320,7 +312,6 @@ var CstyleBehaviour = require("./cstyle").CstyleBehaviour;
 var TokenIterator = require("../../token_iterator").TokenIterator;
 
 var CssBehaviour = function () {
-
     this.inherit(CstyleBehaviour);
 
     this.add("colon", "insertion", function (state, action, editor, session, text) {
@@ -397,7 +388,6 @@ var CssBehaviour = function () {
             }
         }
     });
-
 };
 oop.inherits(CssBehaviour, CstyleBehaviour);
 
@@ -424,7 +414,6 @@ var FoldMode = exports.FoldMode = function(commentRegex) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-    
     this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
     this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
@@ -433,42 +422,42 @@ oop.inherits(FoldMode, BaseFoldMode);
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
-    
+
         if (this.singleLineBlockCommentRe.test(line)) {
             if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
                 return "";
         }
-    
+
         var fw = this._getFoldWidgetBase(session, foldStyle, row);
-    
+
         if (!fw && this.startRegionRe.test(line))
             return "start"; // lineCommentRegionStart
-    
+
         return fw;
     };
 
     this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
         var line = session.getLine(row);
-        
+
         if (this.startRegionRe.test(line))
             return this.getCommentRegionBlock(session, line, row);
-        
+
         var match = line.match(this.foldingStartMarker);
         if (match) {
             var i = match.index;
 
             if (match[1])
                 return this.openingBracketBlock(session, match[1], row, i);
-                
+
             var range = session.getCommentFoldRange(row, i + match[0].length, 1);
-            
+
             if (range && !range.isMultiLine()) {
                 if (forceMultiline) {
                     range = this.getSectionRange(session, row);
                 } else if (foldStyle != "all")
                     range = null;
             }
-            
+
             return range;
         }
 
@@ -485,7 +474,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return session.getCommentFoldRange(row, i, -1);
         }
     };
-    
+
     this.getSectionRange = function(session, row) {
         var line = session.getLine(row);
         var startIndent = line.search(/\S/);
@@ -502,7 +491,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             if  (startIndent > indent)
                 break;
             var subRange = this.getFoldWidgetRange(session, "all", row);
-            
+
             if (subRange) {
                 if (subRange.start.row <= startRow) {
                     break;
@@ -514,14 +503,14 @@ oop.inherits(FoldMode, BaseFoldMode);
             }
             endRow = row;
         }
-        
+
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
-        
+
         var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
@@ -539,9 +528,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, startColumn, endRow, line.length);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/scss",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/scss_highlight_rules","ace/mode/matching_brace_outdent","ace/mode/behaviour/css","ace/mode/folding/cstyle"], function(require, exports, module) {
@@ -563,7 +550,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-   
     this.lineCommentStart = "//";
     this.blockComment = {start: "/*", end: "*/"};
 
@@ -594,7 +580,6 @@ oop.inherits(Mode, TextMode);
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/scss"], function(m) {
@@ -603,4 +588,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

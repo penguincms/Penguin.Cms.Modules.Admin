@@ -63,7 +63,6 @@ var TomlHighlightRules = function() {
         }
     ]
     };
-
 };
 
 oop.inherits(TomlHighlightRules, TextHighlightRules);
@@ -83,19 +82,18 @@ var FoldMode = exports.FoldMode = function() {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.foldingStartMarker = /^\s*\[([^\])]*)]\s*(?:$|[;#])/;
 
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var re = this.foldingStartMarker;
         var line = session.getLine(row);
-        
+
         var m = line.match(re);
-        
+
         if (!m) return;
-        
+
         var startName = m[1] + ".";
-        
+
         var startColumn = line.length;
         var maxRow = session.getLength();
         var startRow = row;
@@ -117,9 +115,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, startColumn, endRow, endColumn);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/toml",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/toml_highlight_rules","ace/mode/folding/ini"], function(require, exports, module) {
@@ -151,4 +147,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

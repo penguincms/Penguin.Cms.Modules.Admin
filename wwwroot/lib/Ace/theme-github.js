@@ -1,5 +1,4 @@
 define("ace/theme/github",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = false;
 exports.cssClass = "ace-github";
 exports.cssText = ".ace-github .ace_gutter {\
@@ -107,4 +106,3 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
                         }
                     });
                 })();
-            

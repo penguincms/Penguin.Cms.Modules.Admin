@@ -3,7 +3,6 @@ define("ace/snippets/batchfile",["require","exports","module"], function(require
 
 exports.snippetText = "";
 exports.scope = "batchfile";
-
 });
                 (function() {
                     window.require(["ace/snippets/batchfile"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "batchfile";
                         }
                     });
                 })();
-            

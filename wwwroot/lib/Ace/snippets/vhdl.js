@@ -3,7 +3,6 @@ define("ace/snippets/vhdl",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "vhdl";
-
 });
                 (function() {
                     window.require(["ace/snippets/vhdl"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "vhdl";
                         }
                     });
                 })();
-            

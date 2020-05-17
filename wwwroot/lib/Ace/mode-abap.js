@@ -5,10 +5,9 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var AbapHighlightRules = function() {
-
     var keywordMapper = this.createKeywordMapper({
         "variable.language": "this",
-        "keyword": 
+        "keyword":
             "ADD ALIAS ALIASES ASCENDING ASSERT ASSIGN ASSIGNING AT BACK" +
             " CALL CASE CATCH CHECK CLASS CLEAR CLOSE CNT COLLECT COMMIT COMMUNICATION COMPUTE CONCATENATE CONDENSE CONSTANTS CONTINUE CONTROLS CONVERT CREATE CURRENCY" +
             " DATA DEFINE DEFINITION DEFERRED DELETE DESCENDING DESCRIBE DETAIL DIVIDE DO" +
@@ -35,14 +34,14 @@ var AbapHighlightRules = function() {
             " APPENDING CORRESPONDING FIELDS OF TABLE" +
             " LEFT RIGHT OUTER INNER JOIN AS CLIENT SPECIFIED BYPASSING BUFFER UP TO ROWS CONNECTING" +
             " EQ NE LT LE GT GE NOT AND OR XOR IN LIKE BETWEEN",
-        "constant.language": 
+        "constant.language":
             "TRUE FALSE NULL SPACE",
-        "support.type": 
+        "support.type":
             "c n i p f d t x string xstring decfloat16 decfloat34",
         "keyword.operator":
             "abs sign ceil floor trunc frac acos asin atan cos sin tan" +
             " abapOperator cosh sinh tanh exp log log10 sqrt" +
-            " strlen xstrlen charlen numofchar dbmaxlen lines" 
+            " strlen xstrlen charlen numofchar dbmaxlen lines"
     }, "text", true, " ");
 
     var compoundKeywords = "WITH\\W+(?:HEADER\\W+LINE|FRAME|KEY)|NO\\W+STANDARD\\W+PAGE\\W+HEADING|"+
@@ -59,7 +58,7 @@ var AbapHighlightRules = function() {
         "START-OF-SELECTION|SUBTRACT-CORRESPONDING|SYNTAX-CHECK|SYNTAX-TRACE|TOP-OF-PAGE|TYPE-POOL|"+
         "TYPE-POOLS|LINE-SIZE|LINE-COUNT|MESSAGE-ID|DISPLAY-MODE|READ(?:-ONLY)?|"+
         "IS\\W+(?:NOT\\W+)?(?:ASSIGNED|BOUND|INITIAL|SUPPLIED)";
-     
+
     this.$rules = {
         "start" : [
             {token : "string", regex : "`", next  : "string"},
@@ -71,9 +70,9 @@ var AbapHighlightRules = function() {
             {token : "paren.lparen", regex : "[\\[({]"},
             {token : "paren.rparen", regex : "[\\])}]"},
             {token : "constant.numeric", regex: "[+-]?\\d+\\b"},
-            {token : "variable.parameter", regex : /sy|pa?\d\d\d\d\|t\d\d\d\.|innnn/}, 
-            {token : "keyword", regex : compoundKeywords}, 
-            {token : "variable.parameter", regex : /\w+-\w+(?:-\w+)*/}, 
+            {token : "variable.parameter", regex : /sy|pa?\d\d\d\d\|t\d\d\d\.|innnn/},
+            {token : "keyword", regex : compoundKeywords},
+            {token : "variable.parameter", regex : /\w+-\w+(?:-\w+)*/},
             {token : keywordMapper, regex : "\\b\\w+\\b"},
             {caseInsensitive: true}
         ],
@@ -105,7 +104,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -176,9 +174,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/abap",["require","exports","module","ace/mode/abap_highlight_rules","ace/mode/folding/coffee","ace/range","ace/mode/text","ace/lib/oop"], function(require, exports, module) {
@@ -198,19 +194,17 @@ function Mode() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-    
     this.lineCommentStart = '"';
-    
+
     this.getNextLineIndent = function(state, line, tab) {
         var indent = this.$getIndent(line);
         return indent;
-    };    
-    
+    };
+
     this.$id = "ace/mode/abap";
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/abap"], function(m) {
@@ -219,4 +213,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/csp",["require","exports","module"], function(require, expo
 
 exports.snippetText =undefined;
 exports.scope = "";
-
 });
                 (function() {
                     window.require(["ace/snippets/csp"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "";
                         }
                     });
                 })();
-            

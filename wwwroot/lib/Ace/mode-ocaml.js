@@ -5,7 +5,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var OcamlHighlightRules = function() {
-
     var keywords = (
         "and|as|assert|begin|class|constraint|do|done|downto|else|end|"  +
         "exception|external|for|fun|function|functor|if|in|include|"     +
@@ -313,7 +312,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -339,7 +337,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -357,7 +354,7 @@ var Range = require("../range").Range;
 var Mode = function() {
     this.HighlightRules = OcamlHighlightRules;
     this.$behaviour = this.$defaultBehaviour;
-    
+
     this.$outdent   = new MatchingBraceOutdent();
 };
 oop.inherits(Mode, TextMode);
@@ -365,7 +362,6 @@ oop.inherits(Mode, TextMode);
 var indenter = /(?:[({[=:]|[-=]>|\b(?:else|try|with))\s*$/;
 
 (function() {
-
     this.toggleCommentLines = function(state, doc, startRow, endRow) {
         var i, line;
         var outdent = true;
@@ -419,4 +415,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

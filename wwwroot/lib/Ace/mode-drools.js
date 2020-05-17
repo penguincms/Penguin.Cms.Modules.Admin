@@ -9,7 +9,7 @@ var DocCommentHighlightRules = function() {
         "start" : [ {
             token : "comment.doc.tag",
             regex : "@[\\w\\d_]+" // TODO: fix email addresses
-        }, 
+        },
         DocCommentHighlightRules.getTagRule(),
         {
             defaultToken : "comment.doc",
@@ -43,9 +43,7 @@ DocCommentHighlightRules.getEndRule = function (start) {
     };
 };
 
-
 exports.DocCommentHighlightRules = DocCommentHighlightRules;
-
 });
 
 define("ace/mode/java_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -71,7 +69,6 @@ var JavaHighlightRules = function() {
     );
 
     var buildinConstants = ("null|Infinity|NaN|undefined");
-
 
     var langClasses = (
         "AbstractMethodError|AssertionError|ClassCircularityError|"+
@@ -144,7 +141,7 @@ var JavaHighlightRules = function() {
                         next: "start"
                     }, {
                         regex: "\\b(requires|transitive|exports|opens|to|uses|provides|with)\\b",
-                        token: "keyword" 
+                        token: "keyword"
                     }]
                 }, {
                     token : "text",
@@ -190,7 +187,6 @@ var JavaHighlightRules = function() {
         ]
     };
 
-    
     this.embedRules(DocCommentHighlightRules, "doc-",
         [ DocCommentHighlightRules.getEndRule("start") ]);
     this.normalizeRules();
@@ -213,7 +209,6 @@ var identifierRe = "[a-zA-Z\\$_\u00a1-\uffff][a-zA-Z\\d\\$_\u00a1-\uffff]*";
 var packageIdentifierRe = "[a-zA-Z\\$_\u00a1-\uffff][\\.a-zA-Z\\d\\$_\u00a1-\uffff]*";
 
 var DroolsHighlightRules = function() {
-
     var keywords = ("date|effective|expires|lock|on|active|no|loop|auto|focus" +
         "|activation|group|agenda|ruleflow|duration|timer|calendars|refract|direct" +
         "|dialect|salience|enabled|attributes|extends|template" +
@@ -270,7 +265,6 @@ var DroolsHighlightRules = function() {
       }];
     };
 
-
       var basicPreRules = function(blockCommentRules) {
         return [{
             token : "comment",
@@ -323,7 +317,6 @@ var DroolsHighlightRules = function() {
             regex : "\\s+"
         }];
       };
-
 
     this.$rules = {
         "start" : [].concat(basicPreRules("block.comment"), [
@@ -407,7 +400,6 @@ var DroolsHighlightRules = function() {
        regex: "\\bend\\b",
        next  : "start"
     }]);
-
 };
 
 oop.inherits(DroolsHighlightRules, TextHighlightRules);
@@ -427,7 +419,7 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-    this.foldingStartMarker = /\b(rule|declare|query|when|then)\b/; 
+    this.foldingStartMarker = /\b(rule|declare|query|when|then)\b/;
     this.foldingStopMarker = /\bend\b/;
 
     this.getFoldWidgetRange = function(session, foldStyle, row) {
@@ -445,7 +437,7 @@ oop.inherits(FoldMode, BaseFoldMode);
                     seek = "then";
                 }
                 while (token) {
-                    if (token.value == seek) { 
+                    if (token.value == seek) {
                         return Range.fromPoints(position ,{
                             row: iterator.getCurrentTokenRow(),
                             column: iterator.getCurrentTokenColumn()
@@ -454,12 +446,9 @@ oop.inherits(FoldMode, BaseFoldMode);
                     token = iterator.stepForward();
                 }
             }
-
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/drools",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/drools_highlight_rules","ace/mode/folding/drools"], function(require, exports, module) {
@@ -474,7 +463,6 @@ var Mode = function() {
     this.HighlightRules = DroolsHighlightRules;
     this.foldingRules = new DroolsFoldMode();
     this.$behaviour = this.$defaultBehaviour;
-
 };
 oop.inherits(Mode, TextMode);
 
@@ -484,7 +472,6 @@ oop.inherits(Mode, TextMode);
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/drools"], function(m) {
@@ -493,4 +480,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/html_elixir",["require","exports","module"], function(requi
 
 exports.snippetText = "";
 exports.scope = "html_elixir";
-
 });
                 (function() {
                     window.require(["ace/snippets/html_elixir"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "html_elixir";
                         }
                     });
                 })();
-            

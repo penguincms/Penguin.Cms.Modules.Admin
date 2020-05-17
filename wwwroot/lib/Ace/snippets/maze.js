@@ -12,7 +12,6 @@ scope maze\n\
 	-> IF ${2:**} THEN %${3:L} ELSE %${4:R}\n\
 ";
 exports.scope = "maze";
-
 });
                 (function() {
                     window.require(["ace/snippets/maze"], function(m) {
@@ -21,4 +20,3 @@ exports.scope = "maze";
                         }
                     });
                 })();
-            

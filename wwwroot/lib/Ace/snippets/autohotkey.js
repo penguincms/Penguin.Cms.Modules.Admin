@@ -3,7 +3,6 @@ define("ace/snippets/autohotkey",["require","exports","module"], function(requir
 
 exports.snippetText = "";
 exports.scope = "autohotkey";
-
 });
                 (function() {
                     window.require(["ace/snippets/autohotkey"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "autohotkey";
                         }
                     });
                 })();
-            

@@ -5,7 +5,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var PropertiesHighlightRules = function() {
-
     var escapeRe = /\\u[0-9a-fA-F]{4}|\\/;
 
     this.$rules = {
@@ -44,7 +43,6 @@ var PropertiesHighlightRules = function() {
             }
         ]
     };
-
 };
 
 oop.inherits(PropertiesHighlightRules, TextHighlightRules);
@@ -78,4 +76,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

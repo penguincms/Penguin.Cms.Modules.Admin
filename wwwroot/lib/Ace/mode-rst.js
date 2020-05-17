@@ -6,7 +6,6 @@ var lang = require("../lib/lang");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var RSTHighlightRules = function() {
-
   var tokens = {
     title: "markup.heading",
     list: "markup.heading",
@@ -245,7 +244,6 @@ oop.inherits(Mode, TextMode);
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/rst"], function(m) {
@@ -254,4 +252,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

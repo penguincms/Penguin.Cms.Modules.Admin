@@ -3,7 +3,6 @@ define("ace/snippets/livescript",["require","exports","module"], function(requir
 
 exports.snippetText = "";
 exports.scope = "livescript";
-
 });
                 (function() {
                     window.require(["ace/snippets/livescript"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "livescript";
                         }
                     });
                 })();
-            

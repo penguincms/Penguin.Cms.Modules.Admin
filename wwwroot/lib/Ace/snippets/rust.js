@@ -3,7 +3,6 @@ define("ace/snippets/rust",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "rust";
-
 });
                 (function() {
                     window.require(["ace/snippets/rust"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "rust";
                         }
                     });
                 })();
-            

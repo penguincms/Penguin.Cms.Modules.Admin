@@ -3,7 +3,6 @@ define("ace/snippets/twig",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "twig";
-
 });
                 (function() {
                     window.require(["ace/snippets/twig"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "twig";
                         }
                     });
                 })();
-            

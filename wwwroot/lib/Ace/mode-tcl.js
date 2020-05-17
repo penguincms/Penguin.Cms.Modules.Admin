@@ -18,7 +18,6 @@ var FoldMode = exports.FoldMode = function(commentRegex) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-    
     this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
     this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
@@ -27,42 +26,42 @@ oop.inherits(FoldMode, BaseFoldMode);
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
-    
+
         if (this.singleLineBlockCommentRe.test(line)) {
             if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
                 return "";
         }
-    
+
         var fw = this._getFoldWidgetBase(session, foldStyle, row);
-    
+
         if (!fw && this.startRegionRe.test(line))
             return "start"; // lineCommentRegionStart
-    
+
         return fw;
     };
 
     this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
         var line = session.getLine(row);
-        
+
         if (this.startRegionRe.test(line))
             return this.getCommentRegionBlock(session, line, row);
-        
+
         var match = line.match(this.foldingStartMarker);
         if (match) {
             var i = match.index;
 
             if (match[1])
                 return this.openingBracketBlock(session, match[1], row, i);
-                
+
             var range = session.getCommentFoldRange(row, i + match[0].length, 1);
-            
+
             if (range && !range.isMultiLine()) {
                 if (forceMultiline) {
                     range = this.getSectionRange(session, row);
                 } else if (foldStyle != "all")
                     range = null;
             }
-            
+
             return range;
         }
 
@@ -79,7 +78,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return session.getCommentFoldRange(row, i, -1);
         }
     };
-    
+
     this.getSectionRange = function(session, row) {
         var line = session.getLine(row);
         var startIndent = line.search(/\S/);
@@ -96,7 +95,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             if  (startIndent > indent)
                 break;
             var subRange = this.getFoldWidgetRange(session, "all", row);
-            
+
             if (subRange) {
                 if (subRange.start.row <= startRow) {
                     break;
@@ -108,14 +107,14 @@ oop.inherits(FoldMode, BaseFoldMode);
             }
             endRow = row;
         }
-        
+
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
-        
+
         var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
@@ -133,9 +132,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, startColumn, endRow, line.length);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/tcl_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -210,7 +207,7 @@ var TclHighlightRules = function() {
                 token : "string", // single line
                 regex : '[ ]*["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]'
             }, {
-                token : "variable.instance", 
+                token : "variable.instance",
                 regex : "[$]",
                 next  : "variable"
             }, {
@@ -236,7 +233,7 @@ var TclHighlightRules = function() {
                 regex : "[a-zA-Z0-9_/]+",
                 next  : "start"
             } ],
-        "commentfollow" : [ 
+        "commentfollow" : [
             {
                 token : "comment",
                 regex : ".*\\\\$",
@@ -246,13 +243,13 @@ var TclHighlightRules = function() {
                 regex : '.+',
                 next  : "start"
         } ],
-        "splitlineStart" : [ 
+        "splitlineStart" : [
             {
                 token : "text",
                 regex : "^.",
                 next  : "start"
             }],
-        "variable" : [ 
+        "variable" : [
             {
                 token : "variable.instance", // variable tcl
                 regex : "[a-zA-Z_\\d]+(?:[(][a-zA-Z_\\d]+[)])?",
@@ -261,7 +258,7 @@ var TclHighlightRules = function() {
                 token : "variable.instance", // variable tcl with braces
                 regex : "{?[a-zA-Z_\\d]+}?",
                 next  : "start"
-            }],  
+            }],
         "qqstring" : [ {
             token : "string", // multi line """ string end
             regex : '(?:[^\\\\]|\\\\.)*?["]',
@@ -286,7 +283,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -312,7 +308,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -337,7 +332,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = "#";
 
     this.getNextLineIndent = function(state, line, tab) {
@@ -349,7 +343,7 @@ oop.inherits(Mode, TextMode);
         if (tokens.length && tokens[tokens.length-1].type == "comment") {
             return indent;
         }
-        
+
         if (state == "start") {
             var match = line.match(/^.*[\{\(\[]\s*$/);
             if (match) {
@@ -380,4 +374,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/logiql",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "logiql";
-
 });
                 (function() {
                     window.require(["ace/snippets/logiql"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "logiql";
                         }
                     });
                 })();
-            

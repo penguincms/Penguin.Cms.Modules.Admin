@@ -3,7 +3,6 @@ define("ace/snippets/redshift",["require","exports","module"], function(require,
 
 exports.snippetText = "";
 exports.scope = "redshift";
-
 });
                 (function() {
                     window.require(["ace/snippets/redshift"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "redshift";
                         }
                     });
                 })();
-            

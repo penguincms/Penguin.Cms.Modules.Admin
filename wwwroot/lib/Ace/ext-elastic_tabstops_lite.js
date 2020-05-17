@@ -229,7 +229,6 @@ var ElasticTabstopsLite = function(editor) {
             expandedSet.push(set);
         }
 
-
         return expandedSet;
     };
     this.$izip = function(widths, tabs) {
@@ -242,7 +241,6 @@ var ElasticTabstopsLite = function(editor) {
         }
         return expandedSet;
     };
-
 }).call(ElasticTabstopsLite.prototype);
 
 exports.ElasticTabstopsLite = ElasticTabstopsLite;
@@ -265,7 +263,6 @@ require("../config").defineOptions(Editor.prototype, "editor", {
         }
     }
 });
-
 });
                 (function() {
                     window.require(["ace/ext/elastic_tabstops_lite"], function(m) {
@@ -274,4 +271,3 @@ require("../config").defineOptions(Editor.prototype, "editor", {
                         }
                     });
                 })();
-            

@@ -5,7 +5,7 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var IoHighlightRules = function() {
-    this.$rules = { start: 
+    this.$rules = { start:
        [ { token: [ 'text', 'meta.empty-parenthesis.io' ],
            regex: '(\\()(\\))',
            comment: 'we match this to overload return inside () --Allan; scoping rules for what gets the scope have changed, so we now group the ) instead of the ( -- Rob' },
@@ -16,21 +16,21 @@ var IoHighlightRules = function() {
            regex: '\\b(?:if|ifTrue|ifFalse|ifTrueIfFalse|for|loop|reverseForeach|foreach|map|continue|break|while|do|return)\\b' },
          { token: 'punctuation.definition.comment.io',
            regex: '/\\*',
-           push: 
+           push:
             [ { token: 'punctuation.definition.comment.io',
                 regex: '\\*/',
                 next: 'pop' },
               { defaultToken: 'comment.block.io' } ] },
          { token: 'punctuation.definition.comment.io',
            regex: '//',
-           push: 
+           push:
             [ { token: 'comment.line.double-slash.io',
                 regex: '$',
                 next: 'pop' },
               { defaultToken: 'comment.line.double-slash.io' } ] },
          { token: 'punctuation.definition.comment.io',
            regex: '#',
-           push: 
+           push:
             [ { token: 'comment.line.number-sign.io', regex: '$', next: 'pop' },
               { defaultToken: 'comment.line.number-sign.io' } ] },
          { token: 'variable.language.io',
@@ -46,7 +46,7 @@ var IoHighlightRules = function() {
            regex: '\\bgl(?:u|ut)?[A-Z]\\w+\\b' },
          { token: 'punctuation.definition.string.begin.io',
            regex: '"""',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.io',
                 regex: '"""',
                 next: 'pop' },
@@ -54,7 +54,7 @@ var IoHighlightRules = function() {
               { defaultToken: 'string.quoted.triple.io' } ] },
          { token: 'punctuation.definition.string.begin.io',
            regex: '"',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.io',
                 regex: '"',
                 next: 'pop' },
@@ -65,7 +65,7 @@ var IoHighlightRules = function() {
          { token: 'variable.other.global.io', regex: 'Lobby\\b' },
          { token: 'constant.language.io',
            regex: '\\b(?:TRUE|true|FALSE|false|NULL|null|Null|Nil|nil|YES|NO)\\b' } ] };
-    
+
     this.normalizeRules();
 };
 
@@ -73,7 +73,6 @@ IoHighlightRules.metaData = { fileTypes: [ 'io' ],
       keyEquivalent: '^~I',
       name: 'Io',
       scopeName: 'source.io' };
-
 
 oop.inherits(IoHighlightRules, TextHighlightRules);
 
@@ -100,7 +99,6 @@ var FoldMode = exports.FoldMode = function(commentRegex) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-    
     this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
     this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
@@ -109,42 +107,42 @@ oop.inherits(FoldMode, BaseFoldMode);
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
-    
+
         if (this.singleLineBlockCommentRe.test(line)) {
             if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
                 return "";
         }
-    
+
         var fw = this._getFoldWidgetBase(session, foldStyle, row);
-    
+
         if (!fw && this.startRegionRe.test(line))
             return "start"; // lineCommentRegionStart
-    
+
         return fw;
     };
 
     this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
         var line = session.getLine(row);
-        
+
         if (this.startRegionRe.test(line))
             return this.getCommentRegionBlock(session, line, row);
-        
+
         var match = line.match(this.foldingStartMarker);
         if (match) {
             var i = match.index;
 
             if (match[1])
                 return this.openingBracketBlock(session, match[1], row, i);
-                
+
             var range = session.getCommentFoldRange(row, i + match[0].length, 1);
-            
+
             if (range && !range.isMultiLine()) {
                 if (forceMultiline) {
                     range = this.getSectionRange(session, row);
                 } else if (foldStyle != "all")
                     range = null;
             }
-            
+
             return range;
         }
 
@@ -161,7 +159,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return session.getCommentFoldRange(row, i, -1);
         }
     };
-    
+
     this.getSectionRange = function(session, row) {
         var line = session.getLine(row);
         var startIndent = line.search(/\S/);
@@ -178,7 +176,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             if  (startIndent > indent)
                 break;
             var subRange = this.getFoldWidgetRange(session, "all", row);
-            
+
             if (subRange) {
                 if (subRange.start.row <= startRow) {
                     break;
@@ -190,14 +188,14 @@ oop.inherits(FoldMode, BaseFoldMode);
             }
             endRow = row;
         }
-        
+
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
-        
+
         var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
@@ -215,9 +213,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, startColumn, endRow, line.length);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/io",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/io_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
@@ -250,4 +246,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

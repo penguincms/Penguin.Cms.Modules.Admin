@@ -3,7 +3,6 @@ define("ace/snippets/jack",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "jack";
-
 });
                 (function() {
                     window.require(["ace/snippets/jack"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "jack";
                         }
                     });
                 })();
-            

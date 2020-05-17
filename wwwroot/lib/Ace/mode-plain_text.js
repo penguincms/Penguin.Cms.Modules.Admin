@@ -30,4 +30,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

@@ -27,14 +27,14 @@ CKEDITOR.editorConfig = function (config) {
 
     config.format_tags = 'p;h1;h2;h3;pre';
 
-	config.removeDialogTabs = 'image:advanced;link:advanced';
+    config.removeDialogTabs = 'image:advanced;link:advanced';
 
-	config.enterMode = CKEDITOR.ENTER_BR;
+    config.enterMode = CKEDITOR.ENTER_BR;
 
-	config.shiftEnterMode = CKEDITOR.ENTER_BR;
+    config.shiftEnterMode = CKEDITOR.ENTER_BR;
 
-	config.protectedSource.push(/\n/g); 
-	config.protectedSource.push(/"/g); 
+    config.protectedSource.push(/\n/g);
+    config.protectedSource.push(/"/g);
 
-	config.allowedContent = true;
+    config.allowedContent = true;
 };

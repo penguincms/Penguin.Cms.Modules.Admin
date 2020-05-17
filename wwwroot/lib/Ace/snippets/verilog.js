@@ -3,7 +3,6 @@ define("ace/snippets/verilog",["require","exports","module"], function(require, 
 
 exports.snippetText = "";
 exports.scope = "verilog";
-
 });
                 (function() {
                     window.require(["ace/snippets/verilog"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "verilog";
                         }
                     });
                 })();
-            

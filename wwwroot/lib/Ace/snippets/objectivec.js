@@ -3,7 +3,6 @@ define("ace/snippets/objectivec",["require","exports","module"], function(requir
 
 exports.snippetText = "";
 exports.scope = "objectivec";
-
 });
                 (function() {
                     window.require(["ace/snippets/objectivec"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "objectivec";
                         }
                     });
                 })();
-            

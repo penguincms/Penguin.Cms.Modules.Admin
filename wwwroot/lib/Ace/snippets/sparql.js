@@ -3,7 +3,6 @@ define("ace/snippets/sparql",["require","exports","module"], function(require, e
 
 exports.snippetText =undefined;
 exports.scope = "";
-
 });
                 (function() {
                     window.require(["ace/snippets/sparql"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "";
                         }
                     });
                 })();
-            

@@ -86,7 +86,6 @@ snippet tryf\n\
 	}\n\
 ";
 exports.scope = "dart";
-
 });
                 (function() {
                     window.require(["ace/snippets/dart"], function(m) {
@@ -95,4 +94,3 @@ exports.scope = "dart";
                         }
                     });
                 })();
-            

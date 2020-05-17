@@ -106,7 +106,6 @@ var YamlHighlightRules = function() {
             }
         ]};
     this.normalizeRules();
-
 };
 
 oop.inherits(YamlHighlightRules, TextHighlightRules);
@@ -122,7 +121,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -148,7 +146,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -165,7 +162,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -236,9 +232,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/yaml",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/yaml_highlight_rules","ace/mode/matching_brace_outdent","ace/mode/folding/coffee"], function(require, exports, module) {
@@ -259,9 +253,8 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = ["#"];
-    
+
     this.getNextLineIndent = function(state, line, tab) {
         var indent = this.$getIndent(line);
 
@@ -283,12 +276,10 @@ oop.inherits(Mode, TextMode);
         this.$outdent.autoOutdent(doc, row);
     };
 
-
     this.$id = "ace/mode/yaml";
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/yaml"], function(m) {
@@ -297,4 +288,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

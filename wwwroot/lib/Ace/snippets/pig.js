@@ -3,7 +3,6 @@ define("ace/snippets/pig",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "pig";
-
 });
                 (function() {
                     window.require(["ace/snippets/pig"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "pig";
                         }
                     });
                 })();
-            

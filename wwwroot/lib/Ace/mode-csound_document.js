@@ -6,7 +6,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var CsoundPreprocessorHighlightRules = function() {
-
     this.semicolonComments = {
         token : "comment.line.semicolon.csound",
         regex : ";.*$"
@@ -209,7 +208,6 @@ var CsoundPreprocessorHighlightRules = function() {
 oop.inherits(CsoundPreprocessorHighlightRules, TextHighlightRules);
 
 (function() {
-
     this.pushRule = function(params) {
         return {
             regex : params.regex, onMatch: function(value, currentState, stack, line) {
@@ -266,7 +264,6 @@ oop.inherits(CsoundPreprocessorHighlightRules, TextHighlightRules);
             }
         };
     };
-
 }).call(CsoundPreprocessorHighlightRules.prototype);
 
 exports.CsoundPreprocessorHighlightRules = CsoundPreprocessorHighlightRules;
@@ -280,7 +277,6 @@ var oop = require("../lib/oop");
 var CsoundPreprocessorHighlightRules = require("./csound_preprocessor_highlight_rules").CsoundPreprocessorHighlightRules;
 
 var CsoundScoreHighlightRules = function() {
-
     CsoundPreprocessorHighlightRules.call(this);
 
     this.quotedStringContents.push({
@@ -430,7 +426,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var LuaHighlightRules = function() {
-
     var keywords = (
         "break|do|else|elseif|end|for|function|if|in|local|repeat|"+
          "return|then|until|while|or|and|not"
@@ -536,7 +531,7 @@ var LuaHighlightRules = function() {
                         }
                         return "string.end";
                     },
-                    
+
                     regex : /\]=*\]/,
                     next  : "start"
                 }, {
@@ -573,7 +568,7 @@ var LuaHighlightRules = function() {
             regex : "\\s+|\\w+"
         } ]
     };
-    
+
     this.normalizeRules();
 };
 
@@ -589,7 +584,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var PythonHighlightRules = function() {
-
     var keywords = (
         "and|as|assert|break|class|continue|def|del|elif|else|except|exec|" +
         "finally|for|from|global|if|import|in|is|lambda|not|or|pass|print|" +
@@ -751,7 +745,6 @@ var LuaHighlightRules = require("./lua_highlight_rules").LuaHighlightRules;
 var PythonHighlightRules = require("./python_highlight_rules").PythonHighlightRules;
 
 var CsoundOrchestraHighlightRules = function() {
-
     CsoundPreprocessorHighlightRules.call(this);
     var opcodes = [
         "ATSadd",
@@ -2673,7 +2666,6 @@ var pseudoElements = exports.pseudoElements = "(\\:+)\\b(after|before|first-lett
 var pseudoClasses  = exports.pseudoClasses =  "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
 
 var CssHighlightRules = function() {
-
     var keywordMapper = this.createKeywordMapper({
         "support.function": supportFunction,
         "support.constant": supportConstant,
@@ -2838,7 +2830,6 @@ var CssHighlightRules = function() {
             token : "constant.language.escape",
             regex : /\\([a-fA-F\d]{1,6}|[^a-fA-F\d])/
         }]
-
     };
 
     this.normalizeRules();
@@ -2847,7 +2838,6 @@ var CssHighlightRules = function() {
 oop.inherits(CssHighlightRules, TextHighlightRules);
 
 exports.CssHighlightRules = CssHighlightRules;
-
 });
 
 define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -2861,7 +2851,7 @@ var DocCommentHighlightRules = function() {
         "start" : [ {
             token : "comment.doc.tag",
             regex : "@[\\w\\d_]+" // TODO: fix email addresses
-        }, 
+        },
         DocCommentHighlightRules.getTagRule(),
         {
             defaultToken : "comment.doc",
@@ -2895,9 +2885,7 @@ DocCommentHighlightRules.getEndRule = function (start) {
     };
 };
 
-
 exports.DocCommentHighlightRules = DocCommentHighlightRules;
-
 });
 
 define("ace/mode/javascript_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -3200,7 +3188,6 @@ var JavaScriptHighlightRules = function(options) {
             }
         ]
     };
-
 
     if (!options || !options.noES6) {
         this.$rules.no_regex.unshift({
@@ -3534,9 +3521,7 @@ var XmlHighlightRules = function(normalize) {
         this.normalizeRules();
 };
 
-
 (function() {
-
     this.embedTagRules = function(HighlightRules, prefix, tag){
         this.$rules.tag.unshift({
             token : ["meta.tag.punctuation.tag-open.xml", "meta.tag." + tag + ".tag-name.xml"],
@@ -3568,7 +3553,6 @@ var XmlHighlightRules = function(normalize) {
             regex : "\\]\\]>"
         }]);
     };
-
 }).call(TextHighlightRules.prototype);
 
 oop.inherits(XmlHighlightRules, TextHighlightRules);
@@ -3669,7 +3653,6 @@ var HtmlHighlightRules = require("./html_highlight_rules").HtmlHighlightRules;
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var CsoundDocumentHighlightRules = function() {
-
     this.$rules = {
         "start": [
             {
@@ -3746,4 +3729,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

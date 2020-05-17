@@ -3,7 +3,6 @@ define("ace/snippets/nix",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "nix";
-
 });
                 (function() {
                     window.require(["ace/snippets/nix"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "nix";
                         }
                     });
                 })();
-            

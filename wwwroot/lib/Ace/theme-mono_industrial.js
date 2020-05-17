@@ -1,5 +1,4 @@
 define("ace/theme/mono_industrial",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-mono-industrial";
 exports.cssText = ".ace-mono-industrial .ace_gutter {\
@@ -112,4 +111,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

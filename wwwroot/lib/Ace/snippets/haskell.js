@@ -85,7 +85,6 @@ snippet where\n\
 		${1:fn} = ${2:undefined}\n\
 ";
 exports.scope = "haskell";
-
 });
                 (function() {
                     window.require(["ace/snippets/haskell"], function(m) {
@@ -94,4 +93,3 @@ exports.scope = "haskell";
                         }
                     });
                 })();
-            

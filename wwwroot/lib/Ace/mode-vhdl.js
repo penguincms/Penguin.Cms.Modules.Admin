@@ -5,9 +5,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var VHDLHighlightRules = function() {
-
-
-    
     var keywords = "access|after|ailas|all|architecture|assert|attribute|"+
                    "begin|block|buffer|bus|case|component|configuration|"+
                    "disconnect|downto|else|elsif|end|entity|file|for|function|"+
@@ -16,21 +13,20 @@ var VHDLHighlightRules = function() {
                    "others|out|port|process|pure|range|record|reject|"+
                    "report|return|select|shared|subtype|then|to|transport|"+
                    "type|unaffected|united|until|wait|when|while|with";
-    
+
     var storageType = "bit|bit_vector|boolean|character|integer|line|natural|"+
                       "positive|real|register|severity|signal|signed|"+
                       "std_logic|std_logic_vector|string||text|time|unsigned|"+
                       "variable";
-    
+
     var storageModifiers = "array|constant";
-    
+
     var keywordOperators = "abs|and|mod|nand|nor|not|rem|rol|ror|sla|sll|sra"+
                            "srl|xnor|xor";
-    
+
     var builtinConstants = (
         "true|false|null"
     );
-
 
     var keywordMapper = this.createKeywordMapper({
         "keyword.operator": keywordOperators,
@@ -61,7 +57,7 @@ var VHDLHighlightRules = function() {
             regex : "[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
         }, {
             token : "keyword.operator",
-            regex : "&|\\*|\\+|\\-|\\/|<|=|>|\\||=>|\\*\\*|:=|\\/=|>=|<=|<>" 
+            regex : "&|\\*|\\+|\\-|\\/|<|=|>|\\||=>|\\*\\*|:=|\\/=|>=|<=|<>"
         }, {
               token : "punctuation.operator",
               regex : "\\'|\\:|\\,|\\;|\\."
@@ -75,8 +71,6 @@ var VHDLHighlightRules = function() {
             token : "text",
             regex : "\\s+"
         } ]
-
-       
     };
 };
 
@@ -99,14 +93,12 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = "--";
 
     this.$id = "ace/mode/vhdl";
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/vhdl"], function(m) {
@@ -115,4 +107,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

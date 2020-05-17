@@ -3,7 +3,6 @@ define("ace/snippets/curly",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "curly";
-
 });
                 (function() {
                     window.require(["ace/snippets/curly"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "curly";
                         }
                     });
                 })();
-            

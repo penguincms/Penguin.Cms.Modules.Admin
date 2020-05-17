@@ -9,7 +9,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -80,9 +79,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/snippets",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/text_highlight_rules","ace/mode/folding/coffee"], function(require, exports, module) {
@@ -93,7 +90,6 @@ var TextMode = require("./text").Mode;
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var SnippetHighlightRules = function() {
-
     var builtins = "SELECTION|CURRENT_WORD|SELECTED_TEXT|CURRENT_LINE|LINE_INDEX|" +
         "LINE_NUMBER|SOFT_TABS|TAB_SIZE|FILENAME|FILEPATH|FULLNAME";
 
@@ -172,7 +168,6 @@ var SnippetGroupHighlightRules = function() {
             return this.tokenName;
         }, tokenName: "text", regex: "^(?!\t)", next: "start"}
     ]);
-    
 };
 
 oop.inherits(SnippetGroupHighlightRules, TextHighlightRules);
@@ -194,8 +189,6 @@ oop.inherits(Mode, TextMode);
     this.$id = "ace/mode/snippets";
 }).call(Mode.prototype);
 exports.Mode = Mode;
-
-
 });
                 (function() {
                     window.require(["ace/mode/snippets"], function(m) {
@@ -204,4 +197,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

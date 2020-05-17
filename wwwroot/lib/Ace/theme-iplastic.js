@@ -1,5 +1,4 @@
 define("ace/theme/iplastic",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = false;
 exports.cssClass = "ace-iplastic";
 exports.cssText = ".ace-iplastic .ace_gutter {\
@@ -126,4 +125,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

@@ -193,7 +193,6 @@ snippet frac\n\
 snippet sum\n\
 	\\sum^{${1:n}}_{${2:i=1}}{${3}}";
 exports.scope = "tex";
-
 });
                 (function() {
                     window.require(["ace/snippets/tex"], function(m) {
@@ -202,4 +201,3 @@ exports.scope = "tex";
                         }
                     });
                 })();
-            

@@ -86,7 +86,6 @@ snippet getopt\n\
 \n\
 ";
 exports.scope = "sh";
-
 });
                 (function() {
                     window.require(["ace/snippets/sh"], function(m) {
@@ -95,4 +94,3 @@ exports.scope = "sh";
                         }
                     });
                 })();
-            

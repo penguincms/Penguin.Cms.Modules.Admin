@@ -3,7 +3,6 @@ define("ace/snippets/soy_template",["require","exports","module"], function(requ
 
 exports.snippetText = "";
 exports.scope = "soy_template";
-
 });
                 (function() {
                     window.require(["ace/snippets/soy_template"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "soy_template";
                         }
                     });
                 })();
-            

@@ -11,7 +11,7 @@ if (!window.console) {
         postMessage({type: "log", data: msgs});
     };
     window.console.error =
-    window.console.warn = 
+    window.console.warn =
     window.console.log =
     window.console.trace = window.console;
 }
@@ -23,7 +23,7 @@ window.onerror = function(message, file, line, col, err) {
         message: message,
         data: err.data,
         file: file,
-        line: line, 
+        line: line,
         col: col,
         stack: err.stack
     }});
@@ -39,13 +39,13 @@ window.normalizeModule = function(parentId, moduleName) {
     if (moduleName.charAt(0) == ".") {
         var base = parentId.split("/").slice(0, -1).join("/");
         moduleName = (base ? base + "/" : "") + moduleName;
-        
+
         while (moduleName.indexOf(".") !== -1 && previous != moduleName) {
             var previous = moduleName;
             moduleName = moduleName.replace(/^\.\//, "").replace(/\/\.\//, "/").replace(/[^\/]+\/\.\.\//, "");
         }
     }
-    
+
     return moduleName;
 };
 
@@ -67,13 +67,13 @@ window.require = function require(parentId, id) {
         }
         return module.exports;
     }
-   
+
     if (!window.require.tlns)
         return console.log("unable to load " + id);
-    
+
     var path = resolveModuleId(id, window.require.tlns);
     if (path.slice(-3) != ".js") path += ".js";
-    
+
     window.require.id = id;
     window.require.modules[id] = {}; // prevent infinite loop on broken modules
     importScripts(path);
@@ -112,7 +112,7 @@ window.define = function(id, deps, factory) {
         deps = [];
         id = window.require.id;
     }
-    
+
     if (typeof factory != "function") {
         window.require.modules[id] = {
             exports: factory,
@@ -160,16 +160,14 @@ window.initBaseUrls  = function initBaseUrls(topLevelNamespaces) {
 };
 
 window.initSender = function initSender() {
-
     var EventEmitter = window.require("ace/lib/event_emitter").EventEmitter;
     var oop = window.require("ace/lib/oop");
-    
+
     var Sender = function() {};
-    
+
     (function() {
-        
         oop.implement(this, EventEmitter);
-                
+
         this.callback = function(data, callbackId) {
             postMessage({
                 type: "call",
@@ -177,7 +175,7 @@ window.initSender = function initSender() {
                 data: data
             });
         };
-    
+
         this.emit = function(name, data) {
             postMessage({
                 type: "event",
@@ -185,9 +183,8 @@ window.initSender = function initSender() {
                 data: data
             });
         };
-        
     }).call(Sender.prototype);
-    
+
     return new Sender();
 };
 
@@ -242,7 +239,6 @@ exports.mixin = function(obj, mixin) {
 exports.implement = function(proto, mixin) {
     exports.mixin(proto, mixin);
 };
-
 });
 
 define("ace/range",[], function(require, exports, module) {
@@ -469,7 +465,6 @@ var Range = function(startRow, startColumn, endRow, endColumn) {
         this.end.row += row;
         this.end.column += column;
     };
-
 }).call(Range.prototype);
 Range.fromPoints = function(start, end) {
     return new Range(start.row, start.column, end.row, end.column);
@@ -479,7 +474,6 @@ Range.comparePoints = comparePoints;
 Range.comparePoints = function(p1, p2) {
     return p1.row - p2.row || p1.column - p2.column;
 };
-
 
 exports.Range = Range;
 });
@@ -581,11 +575,10 @@ EventEmitter._dispatchEvent = function(eventName, e) {
         if (e.propagationStopped)
             break;
     }
-    
+
     if (defaultHandler && !e.defaultPrevented)
         return defaultHandler(e, this);
 };
-
 
 EventEmitter._signal = function(eventName, e) {
     var listeners = (this._eventRegistry || {})[eventName];
@@ -604,12 +597,11 @@ EventEmitter.once = function(eventName, callback) {
     });
 };
 
-
 EventEmitter.setDefaultHandler = function(eventName, callback) {
     var handlers = this._defaultHandlers;
     if (!handlers)
         handlers = this._defaultHandlers = {_disabled_: {}};
-    
+
     if (handlers[eventName]) {
         var old = handlers[eventName];
         var disabled = handlers._disabled_[eventName];
@@ -617,7 +609,7 @@ EventEmitter.setDefaultHandler = function(eventName, callback) {
             handlers._disabled_[eventName] = disabled = [];
         disabled.push(old);
         var i = disabled.indexOf(callback);
-        if (i != -1) 
+        if (i != -1)
             disabled.splice(i, 1);
     }
     handlers[eventName] = callback;
@@ -627,7 +619,7 @@ EventEmitter.removeDefaultHandler = function(eventName, callback) {
     if (!handlers)
         return;
     var disabled = handlers._disabled_[eventName];
-    
+
     if (handlers[eventName] == callback) {
         if (disabled)
             this.setDefaultHandler(eventName, disabled.pop());
@@ -670,7 +662,6 @@ EventEmitter.removeAllListeners = function(eventName) {
 };
 
 exports.EventEmitter = EventEmitter;
-
 });
 
 define("ace/anchor",[], function(require, exports, module) {
@@ -682,7 +673,7 @@ var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var Anchor = exports.Anchor = function(doc, row, column) {
     this.$onChange = this.onChange.bind(this);
     this.attach(doc);
-    
+
     if (typeof column == "undefined")
         this.setPosition(row.row, row.column);
     else
@@ -690,7 +681,6 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 };
 
 (function() {
-
     oop.implement(this, EventEmitter);
     this.getPosition = function() {
         return this.$clipPositionToDocument(this.row, this.column);
@@ -705,16 +695,16 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 
         if (delta.start.row > this.row)
             return;
-            
+
         var point = $getTransformedPoint(delta, {row: this.row, column: this.column}, this.$insertRight);
         this.setPosition(point.row, point.column, true);
     };
-    
+
     function $pointsInOrder(point1, point2, equalPointsInOrder) {
         var bColIsAfter = equalPointsInOrder ? point1.column <= point2.column : point1.column < point2.column;
         return (point1.row < point2.row) || (point1.row == point2.row && bColIsAfter);
     }
-            
+
     function $getTransformedPoint(delta, point, moveIfEqual) {
         var deltaIsInsert = delta.action == "insert";
         var deltaRowShift = (deltaIsInsert ? 1 : -1) * (delta.end.row    - delta.start.row);
@@ -792,9 +782,7 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 
         return pos;
     };
-
 }).call(Anchor.prototype);
-
 });
 
 define("ace/document",[], function(require, exports, module) {
@@ -818,7 +806,6 @@ var Document = function(textOrLines) {
 };
 
 (function() {
-
     oop.implement(this, EventEmitter);
     this.setValue = function(text) {
         var len = this.getLength() - 1;
@@ -840,7 +827,6 @@ var Document = function(textOrLines) {
             return text.split(/\r\n|\r|\n/);
         };
     }
-
 
     this.$detectNewLine = function(text) {
         var match = text.match(/^.*?(\r\n|\r|\n)/m);
@@ -916,23 +902,23 @@ var Document = function(textOrLines) {
     this.insert = function(position, text) {
         if (this.getLength() <= 1)
             this.$detectNewLine(text);
-        
+
         return this.insertMergedLines(position, this.$split(text));
     };
     this.insertInLine = function(position, text) {
         var start = this.clippedPos(position.row, position.column);
         var end = this.pos(position.row, position.column + text.length);
-        
+
         this.applyDelta({
             start: start,
             end: end,
             action: "insert",
             lines: [text]
         }, true);
-        
+
         return this.clonePos(end);
     };
-    
+
     this.clippedPos = function(row, column) {
         var length = this.getLength();
         if (row === undefined) {
@@ -949,15 +935,15 @@ var Document = function(textOrLines) {
         column = Math.min(Math.max(column, 0), line.length);
         return {row: row, column: column};
     };
-    
+
     this.clonePos = function(pos) {
         return {row: pos.row, column: pos.column};
     };
-    
+
     this.pos = function(row, column) {
         return {row: row, column: column};
     };
-    
+
     this.$clipPosition = function(position) {
         var length = this.getLength();
         if (position.row >= length) {
@@ -988,14 +974,14 @@ var Document = function(textOrLines) {
             row: start.row + lines.length - 1,
             column: (lines.length == 1 ? start.column : 0) + lines[lines.length - 1].length
         };
-        
+
         this.applyDelta({
             start: start,
             end: end,
             action: "insert",
             lines: lines
         });
-        
+
         return this.clonePos(end);
     };
     this.remove = function(range) {
@@ -1012,14 +998,14 @@ var Document = function(textOrLines) {
     this.removeInLine = function(row, startColumn, endColumn) {
         var start = this.clippedPos(row, startColumn);
         var end = this.clippedPos(row, endColumn);
-        
+
         this.applyDelta({
             start: start,
             end: end,
             action: "remove",
             lines: this.getLinesForRange({start: start, end: end})
         }, true);
-        
+
         return this.clonePos(start);
     };
     this.removeFullLines = function(firstRow, lastRow) {
@@ -1030,10 +1016,10 @@ var Document = function(textOrLines) {
         var startRow = ( deleteFirstNewLine ? firstRow - 1                  : firstRow                    );
         var startCol = ( deleteFirstNewLine ? this.getLine(startRow).length : 0                           );
         var endRow   = ( deleteLastNewLine  ? lastRow + 1                   : lastRow                     );
-        var endCol   = ( deleteLastNewLine  ? 0                             : this.getLine(endRow).length ); 
+        var endCol   = ( deleteLastNewLine  ? 0                             : this.getLine(endRow).length );
         var range = new Range(startRow, startCol, endRow, endCol);
         var deletedLines = this.$lines.slice(firstRow, lastRow + 1);
-        
+
         this.applyDelta({
             start: range.start,
             end: range.end,
@@ -1068,7 +1054,7 @@ var Document = function(textOrLines) {
         else {
             end = range.start;
         }
-        
+
         return end;
     };
     this.applyDeltas = function(deltas) {
@@ -1087,7 +1073,7 @@ var Document = function(textOrLines) {
             : !Range.comparePoints(delta.start, delta.end)) {
             return;
         }
-        
+
         if (isInsert && delta.lines.length > 20000) {
             this.$splitAndapplyLargeDelta(delta, 20000);
         }
@@ -1096,11 +1082,11 @@ var Document = function(textOrLines) {
             this._signal("change", delta);
         }
     };
-    
+
     this.$splitAndapplyLargeDelta = function(delta, MAX) {
         var lines = delta.lines;
         var l = lines.length - MAX + 1;
-        var row = delta.start.row; 
+        var row = delta.start.row;
         var column = delta.start.column;
         for (var from = 0, to = 0; from < l; from = to) {
             to += MAX - 1;
@@ -1146,7 +1132,6 @@ var Document = function(textOrLines) {
 
         return index + pos.column;
     };
-
 }).call(Document.prototype);
 
 exports.Document = Document;
@@ -1199,7 +1184,7 @@ exports.copyArray = function(array){
     for (var i=0, l=array.length; i<l; i++) {
         if (array[i] && typeof array[i] == "object")
             copy[i] = this.copyObject(array[i]);
-        else 
+        else
             copy[i] = array[i];
     }
     return copy;
@@ -1218,7 +1203,7 @@ exports.deepCopy = function deepCopy(obj) {
     }
     if (Object.prototype.toString.call(obj) !== "[object Object]")
         return obj;
-    
+
     copy = {};
     for (var key in obj)
         copy[key] = deepCopy(obj[key]);
@@ -1231,7 +1216,6 @@ exports.arrayToMap = function(arr) {
         map[arr[i]] = 1;
     }
     return map;
-
 };
 
 exports.createMap = function(props) {
@@ -1295,14 +1279,13 @@ exports.deferredCall = function(fcn) {
         timer = null;
         return deferred;
     };
-    
+
     deferred.isPending = function() {
         return timer;
     };
 
     return deferred;
 };
-
 
 exports.delayedCall = function(fcn, defaultTimeout) {
     var timer = null;
@@ -1346,13 +1329,13 @@ define("ace/worker/mirror",[], function(require, exports, module) {
 var Range = require("../range").Range;
 var Document = require("../document").Document;
 var lang = require("../lib/lang");
-    
+
 var Mirror = exports.Mirror = function(sender) {
     this.sender = sender;
     var doc = this.doc = new Document("");
-    
+
     var deferredUpdate = this.deferredUpdate = lang.delayedCall(this.onUpdate.bind(this));
-    
+
     var _self = this;
     sender.on("change", function(e) {
         var data = e.data;
@@ -1375,31 +1358,28 @@ var Mirror = exports.Mirror = function(sender) {
 };
 
 (function() {
-    
     this.$timeout = 500;
-    
+
     this.setTimeout = function(timeout) {
         this.$timeout = timeout;
     };
-    
+
     this.setValue = function(value) {
         this.doc.setValue(value);
         this.deferredUpdate.schedule(this.$timeout);
     };
-    
+
     this.getValue = function(callbackId) {
         this.sender.callback(this.doc.getValue(), callbackId);
     };
-    
+
     this.onUpdate = function() {
     };
-    
+
     this.isPending = function() {
         return this.deferredUpdate.isPending();
     };
-    
 }).call(Mirror.prototype);
-
 });
 
 define("ace/mode/coffee/coffee",[], function(require, exports, module) {
@@ -1416,7 +1396,6 @@ var coffee = require("../mode/coffee/coffee");
 
 window.addEventListener = function() {};
 
-
 var Worker = exports.Worker = function(sender) {
     Mirror.call(this, sender);
     this.setTimeout(250);
@@ -1425,7 +1404,6 @@ var Worker = exports.Worker = function(sender) {
 oop.inherits(Worker, Mirror);
 
 (function() {
-
     this.onUpdate = function() {
         var value = this.doc.getValue();
         var errors = [];
@@ -1446,13 +1424,10 @@ oop.inherits(Worker, Mirror);
         }
         this.sender.emit("annotate", errors);
     };
-
 }).call(Worker.prototype);
-
 });
 
 define("ace/lib/es5-shim",[], function(require, exports, module) {
-
 //
 //
 function Empty() {}
@@ -1465,7 +1440,6 @@ if (!Function.prototype.bind) {
         }
         var args = slice.call(arguments, 1); // for normal call
         var bound = function () {
-
             if (this instanceof bound) {
                 var result = target.apply(
                     this,
@@ -1475,15 +1449,12 @@ if (!Function.prototype.bind) {
                     return result;
                 }
                 return this;
-
             } else {
                 return target.apply(
                     that,
                     args.concat(slice.call(arguments))
                 );
-
             }
-
         };
         if(target.prototype) {
             Empty.prototype = target.prototype;
@@ -1522,7 +1493,7 @@ if ([1,2].splice(0).length != 2) {
             return a;
         }
         var array = [], lengthBefore;
-        
+
         array.splice.apply(array, makeArray(20));
         array.splice.apply(array, makeArray(26));
 
@@ -1563,7 +1534,7 @@ if ([1,2].splice(0).length != 2) {
 
             var removed = this.slice(pos, pos+removeCount);
             var insert = slice.call(arguments, 2);
-            var add = insert.length;            
+            var add = insert.length;
             if (pos === length) {
                 if (add) {
                     this.push.apply(this, insert);
@@ -1956,7 +1927,6 @@ if (!Object.defineProperty || definePropertyFallback) {
             }
         }
         if (owns(descriptor, "value")) {
-
             if (supportsAccessors && (lookupGetter(object, property) ||
                                       lookupSetter(object, property)))
             {
@@ -2060,7 +2030,6 @@ if (!Object.keys) {
     }
 
     Object.keys = function keys(object) {
-
         if (
             (typeof object != "object" && typeof object != "function") ||
             object === null
@@ -2085,7 +2054,6 @@ if (!Object.keys) {
         }
         return keys;
     };
-
 }
 
 //
@@ -2095,7 +2063,6 @@ if (!Date.now) {
         return new Date().getTime();
     };
 }
-
 
 //
 //
@@ -2161,5 +2128,4 @@ var toObject = function (o) {
     }
     return Object(o);
 };
-
 });

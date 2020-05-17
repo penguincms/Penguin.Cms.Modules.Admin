@@ -3,7 +3,6 @@ define("ace/snippets/protobuf",["require","exports","module"], function(require,
 
 exports.snippetText = "";
 exports.scope = "protobuf";
-
 });
                 (function() {
                     window.require(["ace/snippets/protobuf"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "protobuf";
                         }
                     });
                 })();
-            

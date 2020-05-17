@@ -3,7 +3,6 @@ define("ace/snippets/tsx",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "tsx";
-
 });
                 (function() {
                     window.require(["ace/snippets/tsx"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "tsx";
                         }
                     });
                 })();
-            

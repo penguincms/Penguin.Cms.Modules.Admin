@@ -350,7 +350,6 @@ snippet debug_trace\n\
 \n\
 ";
 exports.scope = "perl";
-
 });
                 (function() {
                     window.require(["ace/snippets/perl"], function(m) {
@@ -359,4 +358,3 @@ exports.scope = "perl";
                         }
                     });
                 })();
-            

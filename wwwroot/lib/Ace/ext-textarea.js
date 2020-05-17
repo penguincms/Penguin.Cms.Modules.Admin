@@ -360,7 +360,7 @@ function setupApi(editor, editorDiv, settingDiv, ace, options) {
             case "fontSize":
                 editor.$setOption(key, value);
             break;
-            
+
             default:
                 editor.$setOption(key, toBool(value));
         }
@@ -534,7 +534,6 @@ function setupSettingPanel(settingDiv, settingOpener, editor) {
     for (var i = 0; i < cbs.length; i++)
         cbs[i].onclick = onClick;
 
-
     var button = document.createElement("input");
     button.type = "button";
     button.value = "Hide";
@@ -555,7 +554,6 @@ exports.defaultOptions = {
     useSoftTabs:        "true",
     showInvisibles:     "false"
 };
-
 });
                 (function() {
                     window.require(["ace/ext/textarea"], function(m) {
@@ -564,4 +562,3 @@ exports.defaultOptions = {
                         }
                     });
                 })();
-            

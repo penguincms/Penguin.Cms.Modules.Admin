@@ -189,7 +189,6 @@ exports.snippets = [
     }
 ];
 exports.scope = "";
-
 });
                 (function() {
                     window.require(["ace/snippets/vala"], function(m) {
@@ -198,4 +197,3 @@ exports.scope = "";
                         }
                     });
                 })();
-            

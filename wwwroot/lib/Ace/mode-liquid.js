@@ -15,7 +15,6 @@ var pseudoElements = exports.pseudoElements = "(\\:+)\\b(after|before|first-lett
 var pseudoClasses  = exports.pseudoClasses =  "(:)\\b(active|checked|disabled|empty|enabled|first-child|first-of-type|focus|hover|indeterminate|invalid|last-child|last-of-type|link|not|nth-child|nth-last-child|nth-last-of-type|nth-of-type|only-child|only-of-type|required|root|target|valid|visited)\\b";
 
 var CssHighlightRules = function() {
-
     var keywordMapper = this.createKeywordMapper({
         "support.function": supportFunction,
         "support.constant": supportConstant,
@@ -180,7 +179,6 @@ var CssHighlightRules = function() {
             token : "constant.language.escape",
             regex : /\\([a-fA-F\d]{1,6}|[^a-fA-F\d])/
         }]
-
     };
 
     this.normalizeRules();
@@ -189,7 +187,6 @@ var CssHighlightRules = function() {
 oop.inherits(CssHighlightRules, TextHighlightRules);
 
 exports.CssHighlightRules = CssHighlightRules;
-
 });
 
 define("ace/mode/doc_comment_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -203,7 +200,7 @@ var DocCommentHighlightRules = function() {
         "start" : [ {
             token : "comment.doc.tag",
             regex : "@[\\w\\d_]+" // TODO: fix email addresses
-        }, 
+        },
         DocCommentHighlightRules.getTagRule(),
         {
             defaultToken : "comment.doc",
@@ -237,9 +234,7 @@ DocCommentHighlightRules.getEndRule = function (start) {
     };
 };
 
-
 exports.DocCommentHighlightRules = DocCommentHighlightRules;
-
 });
 
 define("ace/mode/javascript_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -542,7 +537,6 @@ var JavaScriptHighlightRules = function(options) {
             }
         ]
     };
-
 
     if (!options || !options.noES6) {
         this.$rules.no_regex.unshift({
@@ -876,9 +870,7 @@ var XmlHighlightRules = function(normalize) {
         this.normalizeRules();
 };
 
-
 (function() {
-
     this.embedTagRules = function(HighlightRules, prefix, tag){
         this.$rules.tag.unshift({
             token : ["meta.tag.punctuation.tag-open.xml", "meta.tag." + tag + ".tag-name.xml"],
@@ -910,7 +902,6 @@ var XmlHighlightRules = function(normalize) {
             regex : "\\]\\]>"
         }]);
     };
-
 }).call(TextHighlightRules.prototype);
 
 oop.inherits(XmlHighlightRules, TextHighlightRules);
@@ -1099,7 +1090,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -1125,14 +1115,12 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
 });
 
 define("ace/mode/liquid",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/liquid_highlight_rules","ace/mode/matching_brace_outdent"], function(require, exports, module) {
-
 var oop = require("../lib/oop");
 var TextMode = require("./text").Mode;
 var LiquidHighlightRules = require("./liquid_highlight_rules").LiquidHighlightRules;
@@ -1146,7 +1134,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.blockComment = {start: "<!--", end: "-->"};
 
     this.getNextLineIndent = function(state, line, tab) {
@@ -1190,4 +1177,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

@@ -1,5 +1,4 @@
 define("ace/theme/cobalt",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-cobalt";
 exports.cssText = ".ace-cobalt .ace_gutter {\
@@ -118,4 +117,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

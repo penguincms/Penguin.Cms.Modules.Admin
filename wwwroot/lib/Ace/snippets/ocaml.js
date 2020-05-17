@@ -3,7 +3,6 @@ define("ace/snippets/ocaml",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "ocaml";
-
 });
                 (function() {
                     window.require(["ace/snippets/ocaml"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "ocaml";
                         }
                     });
                 })();
-            

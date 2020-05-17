@@ -3,7 +3,6 @@ define("ace/snippets/dot",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "dot";
-
 });
                 (function() {
                     window.require(["ace/snippets/dot"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "dot";
                         }
                     });
                 })();
-            

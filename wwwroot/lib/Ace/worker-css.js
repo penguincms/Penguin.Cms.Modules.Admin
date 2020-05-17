@@ -11,7 +11,7 @@ if (!window.console) {
         postMessage({type: "log", data: msgs});
     };
     window.console.error =
-    window.console.warn = 
+    window.console.warn =
     window.console.log =
     window.console.trace = window.console;
 }
@@ -23,7 +23,7 @@ window.onerror = function(message, file, line, col, err) {
         message: message,
         data: err.data,
         file: file,
-        line: line, 
+        line: line,
         col: col,
         stack: err.stack
     }});
@@ -39,13 +39,13 @@ window.normalizeModule = function(parentId, moduleName) {
     if (moduleName.charAt(0) == ".") {
         var base = parentId.split("/").slice(0, -1).join("/");
         moduleName = (base ? base + "/" : "") + moduleName;
-        
+
         while (moduleName.indexOf(".") !== -1 && previous != moduleName) {
             var previous = moduleName;
             moduleName = moduleName.replace(/^\.\//, "").replace(/\/\.\//, "/").replace(/[^\/]+\/\.\.\//, "");
         }
     }
-    
+
     return moduleName;
 };
 
@@ -67,13 +67,13 @@ window.require = function require(parentId, id) {
         }
         return module.exports;
     }
-   
+
     if (!window.require.tlns)
         return console.log("unable to load " + id);
-    
+
     var path = resolveModuleId(id, window.require.tlns);
     if (path.slice(-3) != ".js") path += ".js";
-    
+
     window.require.id = id;
     window.require.modules[id] = {}; // prevent infinite loop on broken modules
     importScripts(path);
@@ -112,7 +112,7 @@ window.define = function(id, deps, factory) {
         deps = [];
         id = window.require.id;
     }
-    
+
     if (typeof factory != "function") {
         window.require.modules[id] = {
             exports: factory,
@@ -160,16 +160,14 @@ window.initBaseUrls  = function initBaseUrls(topLevelNamespaces) {
 };
 
 window.initSender = function initSender() {
-
     var EventEmitter = window.require("ace/lib/event_emitter").EventEmitter;
     var oop = window.require("ace/lib/oop");
-    
+
     var Sender = function() {};
-    
+
     (function() {
-        
         oop.implement(this, EventEmitter);
-                
+
         this.callback = function(data, callbackId) {
             postMessage({
                 type: "call",
@@ -177,7 +175,7 @@ window.initSender = function initSender() {
                 data: data
             });
         };
-    
+
         this.emit = function(name, data) {
             postMessage({
                 type: "event",
@@ -185,9 +183,8 @@ window.initSender = function initSender() {
                 data: data
             });
         };
-        
     }).call(Sender.prototype);
-    
+
     return new Sender();
 };
 
@@ -242,7 +239,6 @@ exports.mixin = function(obj, mixin) {
 exports.implement = function(proto, mixin) {
     exports.mixin(proto, mixin);
 };
-
 });
 
 define("ace/lib/lang",[], function(require, exports, module) {
@@ -292,7 +288,7 @@ exports.copyArray = function(array){
     for (var i=0, l=array.length; i<l; i++) {
         if (array[i] && typeof array[i] == "object")
             copy[i] = this.copyObject(array[i]);
-        else 
+        else
             copy[i] = array[i];
     }
     return copy;
@@ -311,7 +307,7 @@ exports.deepCopy = function deepCopy(obj) {
     }
     if (Object.prototype.toString.call(obj) !== "[object Object]")
         return obj;
-    
+
     copy = {};
     for (var key in obj)
         copy[key] = deepCopy(obj[key]);
@@ -324,7 +320,6 @@ exports.arrayToMap = function(arr) {
         map[arr[i]] = 1;
     }
     return map;
-
 };
 
 exports.createMap = function(props) {
@@ -388,14 +383,13 @@ exports.deferredCall = function(fcn) {
         timer = null;
         return deferred;
     };
-    
+
     deferred.isPending = function() {
         return timer;
     };
 
     return deferred;
 };
-
 
 exports.delayedCall = function(fcn, defaultTimeout) {
     var timer = null;
@@ -657,7 +651,6 @@ var Range = function(startRow, startColumn, endRow, endColumn) {
         this.end.row += row;
         this.end.column += column;
     };
-
 }).call(Range.prototype);
 Range.fromPoints = function(start, end) {
     return new Range(start.row, start.column, end.row, end.column);
@@ -667,7 +660,6 @@ Range.comparePoints = comparePoints;
 Range.comparePoints = function(p1, p2) {
     return p1.row - p2.row || p1.column - p2.column;
 };
-
 
 exports.Range = Range;
 });
@@ -769,11 +761,10 @@ EventEmitter._dispatchEvent = function(eventName, e) {
         if (e.propagationStopped)
             break;
     }
-    
+
     if (defaultHandler && !e.defaultPrevented)
         return defaultHandler(e, this);
 };
-
 
 EventEmitter._signal = function(eventName, e) {
     var listeners = (this._eventRegistry || {})[eventName];
@@ -792,12 +783,11 @@ EventEmitter.once = function(eventName, callback) {
     });
 };
 
-
 EventEmitter.setDefaultHandler = function(eventName, callback) {
     var handlers = this._defaultHandlers;
     if (!handlers)
         handlers = this._defaultHandlers = {_disabled_: {}};
-    
+
     if (handlers[eventName]) {
         var old = handlers[eventName];
         var disabled = handlers._disabled_[eventName];
@@ -805,7 +795,7 @@ EventEmitter.setDefaultHandler = function(eventName, callback) {
             handlers._disabled_[eventName] = disabled = [];
         disabled.push(old);
         var i = disabled.indexOf(callback);
-        if (i != -1) 
+        if (i != -1)
             disabled.splice(i, 1);
     }
     handlers[eventName] = callback;
@@ -815,7 +805,7 @@ EventEmitter.removeDefaultHandler = function(eventName, callback) {
     if (!handlers)
         return;
     var disabled = handlers._disabled_[eventName];
-    
+
     if (handlers[eventName] == callback) {
         if (disabled)
             this.setDefaultHandler(eventName, disabled.pop());
@@ -858,7 +848,6 @@ EventEmitter.removeAllListeners = function(eventName) {
 };
 
 exports.EventEmitter = EventEmitter;
-
 });
 
 define("ace/anchor",[], function(require, exports, module) {
@@ -870,7 +859,7 @@ var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var Anchor = exports.Anchor = function(doc, row, column) {
     this.$onChange = this.onChange.bind(this);
     this.attach(doc);
-    
+
     if (typeof column == "undefined")
         this.setPosition(row.row, row.column);
     else
@@ -878,7 +867,6 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 };
 
 (function() {
-
     oop.implement(this, EventEmitter);
     this.getPosition = function() {
         return this.$clipPositionToDocument(this.row, this.column);
@@ -893,16 +881,16 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 
         if (delta.start.row > this.row)
             return;
-            
+
         var point = $getTransformedPoint(delta, {row: this.row, column: this.column}, this.$insertRight);
         this.setPosition(point.row, point.column, true);
     };
-    
+
     function $pointsInOrder(point1, point2, equalPointsInOrder) {
         var bColIsAfter = equalPointsInOrder ? point1.column <= point2.column : point1.column < point2.column;
         return (point1.row < point2.row) || (point1.row == point2.row && bColIsAfter);
     }
-            
+
     function $getTransformedPoint(delta, point, moveIfEqual) {
         var deltaIsInsert = delta.action == "insert";
         var deltaRowShift = (deltaIsInsert ? 1 : -1) * (delta.end.row    - delta.start.row);
@@ -980,9 +968,7 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 
         return pos;
     };
-
 }).call(Anchor.prototype);
-
 });
 
 define("ace/document",[], function(require, exports, module) {
@@ -1006,7 +992,6 @@ var Document = function(textOrLines) {
 };
 
 (function() {
-
     oop.implement(this, EventEmitter);
     this.setValue = function(text) {
         var len = this.getLength() - 1;
@@ -1028,7 +1013,6 @@ var Document = function(textOrLines) {
             return text.split(/\r\n|\r|\n/);
         };
     }
-
 
     this.$detectNewLine = function(text) {
         var match = text.match(/^.*?(\r\n|\r|\n)/m);
@@ -1104,23 +1088,23 @@ var Document = function(textOrLines) {
     this.insert = function(position, text) {
         if (this.getLength() <= 1)
             this.$detectNewLine(text);
-        
+
         return this.insertMergedLines(position, this.$split(text));
     };
     this.insertInLine = function(position, text) {
         var start = this.clippedPos(position.row, position.column);
         var end = this.pos(position.row, position.column + text.length);
-        
+
         this.applyDelta({
             start: start,
             end: end,
             action: "insert",
             lines: [text]
         }, true);
-        
+
         return this.clonePos(end);
     };
-    
+
     this.clippedPos = function(row, column) {
         var length = this.getLength();
         if (row === undefined) {
@@ -1137,15 +1121,15 @@ var Document = function(textOrLines) {
         column = Math.min(Math.max(column, 0), line.length);
         return {row: row, column: column};
     };
-    
+
     this.clonePos = function(pos) {
         return {row: pos.row, column: pos.column};
     };
-    
+
     this.pos = function(row, column) {
         return {row: row, column: column};
     };
-    
+
     this.$clipPosition = function(position) {
         var length = this.getLength();
         if (position.row >= length) {
@@ -1176,14 +1160,14 @@ var Document = function(textOrLines) {
             row: start.row + lines.length - 1,
             column: (lines.length == 1 ? start.column : 0) + lines[lines.length - 1].length
         };
-        
+
         this.applyDelta({
             start: start,
             end: end,
             action: "insert",
             lines: lines
         });
-        
+
         return this.clonePos(end);
     };
     this.remove = function(range) {
@@ -1200,14 +1184,14 @@ var Document = function(textOrLines) {
     this.removeInLine = function(row, startColumn, endColumn) {
         var start = this.clippedPos(row, startColumn);
         var end = this.clippedPos(row, endColumn);
-        
+
         this.applyDelta({
             start: start,
             end: end,
             action: "remove",
             lines: this.getLinesForRange({start: start, end: end})
         }, true);
-        
+
         return this.clonePos(start);
     };
     this.removeFullLines = function(firstRow, lastRow) {
@@ -1218,10 +1202,10 @@ var Document = function(textOrLines) {
         var startRow = ( deleteFirstNewLine ? firstRow - 1                  : firstRow                    );
         var startCol = ( deleteFirstNewLine ? this.getLine(startRow).length : 0                           );
         var endRow   = ( deleteLastNewLine  ? lastRow + 1                   : lastRow                     );
-        var endCol   = ( deleteLastNewLine  ? 0                             : this.getLine(endRow).length ); 
+        var endCol   = ( deleteLastNewLine  ? 0                             : this.getLine(endRow).length );
         var range = new Range(startRow, startCol, endRow, endCol);
         var deletedLines = this.$lines.slice(firstRow, lastRow + 1);
-        
+
         this.applyDelta({
             start: range.start,
             end: range.end,
@@ -1256,7 +1240,7 @@ var Document = function(textOrLines) {
         else {
             end = range.start;
         }
-        
+
         return end;
     };
     this.applyDeltas = function(deltas) {
@@ -1275,7 +1259,7 @@ var Document = function(textOrLines) {
             : !Range.comparePoints(delta.start, delta.end)) {
             return;
         }
-        
+
         if (isInsert && delta.lines.length > 20000) {
             this.$splitAndapplyLargeDelta(delta, 20000);
         }
@@ -1284,11 +1268,11 @@ var Document = function(textOrLines) {
             this._signal("change", delta);
         }
     };
-    
+
     this.$splitAndapplyLargeDelta = function(delta, MAX) {
         var lines = delta.lines;
         var l = lines.length - MAX + 1;
-        var row = delta.start.row; 
+        var row = delta.start.row;
         var column = delta.start.column;
         for (var from = 0, to = 0; from < l; from = to) {
             to += MAX - 1;
@@ -1334,7 +1318,6 @@ var Document = function(textOrLines) {
 
         return index + pos.column;
     };
-
 }).call(Document.prototype);
 
 exports.Document = Document;
@@ -1346,13 +1329,13 @@ define("ace/worker/mirror",[], function(require, exports, module) {
 var Range = require("../range").Range;
 var Document = require("../document").Document;
 var lang = require("../lib/lang");
-    
+
 var Mirror = exports.Mirror = function(sender) {
     this.sender = sender;
     var doc = this.doc = new Document("");
-    
+
     var deferredUpdate = this.deferredUpdate = lang.delayedCall(this.onUpdate.bind(this));
-    
+
     var _self = this;
     sender.on("change", function(e) {
         var data = e.data;
@@ -1375,31 +1358,28 @@ var Mirror = exports.Mirror = function(sender) {
 };
 
 (function() {
-    
     this.$timeout = 500;
-    
+
     this.setTimeout = function(timeout) {
         this.$timeout = timeout;
     };
-    
+
     this.setValue = function(value) {
         this.doc.setValue(value);
         this.deferredUpdate.schedule(this.$timeout);
     };
-    
+
     this.getValue = function(callbackId) {
         this.sender.callback(this.doc.getValue(), callbackId);
     };
-    
+
     this.onUpdate = function() {
     };
-    
+
     this.isPending = function() {
         return this.deferredUpdate.isPending();
     };
-    
 }).call(Mirror.prototype);
-
 });
 
 define("ace/mode/css/csslint",[], function(require, exports, module) {
@@ -1446,8 +1426,6 @@ EventTarget.prototype = {
                     break;
                 }
             }
-
-
         }
     }
 };
@@ -1509,7 +1487,6 @@ StringReader.prototype = {
         }
     },
     readTo: function(pattern){
-
         var buffer = "",
             c;
         while (buffer.length < pattern.length || buffer.lastIndexOf(pattern) != buffer.length - pattern.length){
@@ -1522,10 +1499,8 @@ StringReader.prototype = {
         }
 
         return buffer;
-
     },
     readWhile: function(filter){
-
         var buffer = "",
             c = this.read();
 
@@ -1535,10 +1510,8 @@ StringReader.prototype = {
         }
 
         return buffer;
-
     },
     readMatch: function(matcher){
-
         var source = this._input.substring(this._cursor),
             value = null;
         if (typeof matcher == "string"){
@@ -1562,13 +1535,11 @@ StringReader.prototype = {
 
         return buffer;
     }
-
 };
 function SyntaxError(message, line, col){
     this.col = col;
     this.line = line;
     this.message = message;
-
 }
 SyntaxError.prototype = new Error();
 function SyntaxUnit(text, line, col, type){
@@ -1589,7 +1560,6 @@ SyntaxUnit.prototype = {
     toString: function(){
         return this.text;
     }
-
 };
 function TokenStreamBase(input, tokenData){
     this._reader = input ? new StringReader(input.toString()) : null;
@@ -1601,7 +1571,6 @@ function TokenStreamBase(input, tokenData){
     this._ltIndexCache = [];
 }
 TokenStreamBase.createTokenData = function(tokens){
-
     var nameMap     = [],
         typeMap     = {},
         tokenData     = tokens.concat([]),
@@ -1650,7 +1619,6 @@ TokenStreamBase.prototype = {
         return false;
     },
     mustMatch: function(tokenTypes, channel){
-
         var token;
         if (!(tokenTypes instanceof Array)){
             tokenTypes = [tokenTypes];
@@ -1663,7 +1631,6 @@ TokenStreamBase.prototype = {
         }
     },
     advance: function(tokenTypes, channel){
-
         while(this.LA(0) !== 0 && !this.match(tokenTypes, channel)){
             this.get();
         }
@@ -1671,7 +1638,6 @@ TokenStreamBase.prototype = {
         return this.LA(0);
     },
     get: function(channel){
-
         var tokenInfo   = this._tokenData,
             reader      = this._reader,
             value,
@@ -1681,7 +1647,6 @@ TokenStreamBase.prototype = {
             token,
             info;
         if (this._lt.length && this._ltIndex >= 0 && this._ltIndex < this._lt.length){
-
             i++;
             this._token = this._lt[this._ltIndex++];
             info = tokenInfo[this._token.type];
@@ -1736,19 +1701,16 @@ TokenStreamBase.prototype = {
                 total++;
             }
         } else if (index < 0){
-
             if(this._lt[this._ltIndex+index]){
                 tt = this._lt[this._ltIndex+index].type;
             } else {
                 throw new Error("Too much lookbehind.");
             }
-
         } else {
             tt = this._token.type;
         }
 
         return tt;
-
     },
     LT: function(index){
         this.LA(index);
@@ -1778,9 +1740,7 @@ TokenStreamBase.prototype = {
             throw new Error("Too much lookahead.");
         }
     }
-
 };
-
 
 parserlib.util = {
 StringReader: StringReader,
@@ -1976,7 +1936,6 @@ var Colors = {
     windowtext          :"Text in windows."
 };
 function Combinator(text, line, col){
-
     SyntaxUnit.call(this, text, line, col, Parser.COMBINATOR_TYPE);
     this.type = "unknown";
     if (/^\s+$/.test(text)){
@@ -1988,13 +1947,11 @@ function Combinator(text, line, col){
     } else if (text == "~"){
         this.type = "sibling";
     }
-
 }
 
 Combinator.prototype = new SyntaxUnit();
 Combinator.prototype.constructor = Combinator;
 function MediaFeature(name, value){
-
     SyntaxUnit.call(this, "(" + name + (value !== null ? ":" + value : "") + ")", name.startLine, name.startCol, Parser.MEDIA_FEATURE_TYPE);
     this.name = name;
     this.value = value;
@@ -2003,19 +1960,16 @@ function MediaFeature(name, value){
 MediaFeature.prototype = new SyntaxUnit();
 MediaFeature.prototype.constructor = MediaFeature;
 function MediaQuery(modifier, mediaType, features, line, col){
-
     SyntaxUnit.call(this, (modifier ? modifier + " ": "") + (mediaType ? mediaType : "") + (mediaType && features.length > 0 ? " and " : "") + features.join(" and "), line, col, Parser.MEDIA_QUERY_TYPE);
     this.modifier = modifier;
     this.mediaType = mediaType;
     this.features = features;
-
 }
 
 MediaQuery.prototype = new SyntaxUnit();
 MediaQuery.prototype.constructor = MediaQuery;
 function Parser(options){
     EventTarget.call(this);
-
 
     this.options = options || {};
 
@@ -2033,7 +1987,6 @@ Parser.SELECTOR_PART_TYPE = 8;
 Parser.SELECTOR_SUB_PART_TYPE = 9;
 
 Parser.prototype = function(){
-
     var proto = new EventTarget(),  //new prototype
         prop,
         additions =  {
@@ -2049,7 +2002,6 @@ Parser.prototype = function(){
             SELECTOR_PART_TYPE : 8,
             SELECTOR_SUB_PART_TYPE : 9,
             _stylesheet: function(){
-
                 var tokenStream = this._tokenStream,
                     charset     = null,
                     count,
@@ -2070,9 +2022,7 @@ Parser.prototype = function(){
                 }
                 tt = tokenStream.peek();
                 while(tt > Tokens.EOF){
-
                     try {
-
                         switch(tt){
                             case Tokens.MEDIA_SYM:
                                 this._media();
@@ -2113,7 +2063,6 @@ Parser.prototype = function(){
                                         tokenStream.advance([Tokens.RBRACE]);
                                         count--;
                                     }
-
                                 } else {
                                     throw new SyntaxError("Unknown @ rule.", tokenStream.LT(0).startLine, tokenStream.LT(0).startCol);
                                 }
@@ -2140,7 +2089,6 @@ Parser.prototype = function(){
                                             tokenStream.get();  //get the last token
                                             this._unexpectedToken(tokenStream.token());
                                     }
-
                                 }
                         }
                     } catch(ex) {
@@ -2199,7 +2147,6 @@ Parser.prototype = function(){
             },
 
             _import: function(emit){
-
                 var tokenStream = this._tokenStream,
                     tt,
                     uri,
@@ -2227,11 +2174,9 @@ Parser.prototype = function(){
                         col:    importToken.startCol
                     });
                 }
-
             },
 
             _namespace: function(emit){
-
                 var tokenStream = this._tokenStream,
                     line,
                     col,
@@ -2262,7 +2207,6 @@ Parser.prototype = function(){
                         col:    col
                     });
                 }
-
             },
 
             _media: function(){
@@ -2313,7 +2257,6 @@ Parser.prototype = function(){
             _media_query_list: function(){
                 var tokenStream = this._tokenStream,
                     mediaList   = [];
-
 
                 this._readWhitespace();
 
@@ -2449,7 +2392,6 @@ Parser.prototype = function(){
                     line:   line,
                     col:    col
                 });
-
             },
             _margin: function(){
                 var tokenStream = this._tokenStream,
@@ -2482,7 +2424,6 @@ Parser.prototype = function(){
                 }
             },
             _margin_sym: function(){
-
                 var tokenStream = this._tokenStream;
 
                 if(tokenStream.match([Tokens.TOPLEFTCORNER_SYM, Tokens.TOPLEFT_SYM,
@@ -2497,11 +2438,9 @@ Parser.prototype = function(){
                 } else {
                     return null;
                 }
-
             },
 
             _pseudo_page: function(){
-
                 var tokenStream = this._tokenStream;
 
                 tokenStream.mustMatch(Tokens.COLON);
@@ -2558,11 +2497,9 @@ Parser.prototype = function(){
                         line:   line,
                         col:    col
                     });
-
             },
 
             _operator: function(inFunction){
-
                 var tokenStream = this._tokenStream,
                     token       = null;
 
@@ -2572,11 +2509,9 @@ Parser.prototype = function(){
                     this._readWhitespace();
                 }
                 return token ? PropertyValuePart.fromToken(token) : null;
-
             },
 
             _combinator: function(){
-
                 var tokenStream = this._tokenStream,
                     value       = null,
                     token;
@@ -2591,7 +2526,6 @@ Parser.prototype = function(){
             },
 
             _unary_operator: function(){
-
                 var tokenStream = this._tokenStream;
 
                 if (tokenStream.match([Tokens.MINUS, Tokens.PLUS])){
@@ -2602,7 +2536,6 @@ Parser.prototype = function(){
             },
 
             _property: function(){
-
                 var tokenStream = this._tokenStream,
                     value       = null,
                     hack        = null,
@@ -2633,7 +2566,6 @@ Parser.prototype = function(){
                 return value;
             },
             _ruleset: function(){
-
                 var tokenStream = this._tokenStream,
                     tt,
                     selectors;
@@ -2653,14 +2585,12 @@ Parser.prototype = function(){
                         } else {
                             throw ex;
                         }
-
                     } else {
                         throw ex;
                     }
                     return true;
                 }
                 if (selectors){
-
                     this.fire({
                         type:       "startrule",
                         selectors:  selectors,
@@ -2676,11 +2606,9 @@ Parser.prototype = function(){
                         line:       selectors[0].line,
                         col:        selectors[0].col
                     });
-
                 }
 
                 return selectors;
-
             },
             _selectors_group: function(){
                 var tokenStream = this._tokenStream,
@@ -2689,7 +2617,6 @@ Parser.prototype = function(){
 
                 selector = this._selector();
                 if (selector !== null){
-
                     selectors.push(selector);
                     while(tokenStream.match(Tokens.COMMA)){
                         this._readWhitespace();
@@ -2705,7 +2632,6 @@ Parser.prototype = function(){
                 return selectors.length ? selectors : null;
             },
             _selector: function(){
-
                 var tokenStream = this._tokenStream,
                     selector    = [],
                     nextSelector = null,
@@ -2739,7 +2665,6 @@ Parser.prototype = function(){
                                     this._unexpectedToken(tokenStream.LT(1));
                                 }
                             } else {
-
                                 if (combinator !== null){
                                     selector.push(combinator);
                                 } else {
@@ -2751,14 +2676,12 @@ Parser.prototype = function(){
                         } else {
                             break;
                         }
-
                     }
                 } while(true);
 
                 return new Selector(selector, selector[0].line, selector[0].col);
             },
             _simple_selector_sequence: function(){
-
                 var tokenStream = this._tokenStream,
                     elementName = null,
                     modifiers   = [],
@@ -2814,13 +2737,11 @@ Parser.prototype = function(){
                     }
                 }
 
-
                 return selectorText !== "" ?
                         new SelectorPart(elementName, modifiers, selectorText, line, col) :
                         null;
             },
             _type_selector: function(){
-
                 var tokenStream = this._tokenStream,
                     ns          = this._namespace_prefix(),
                     elementName = this._element_name();
@@ -2843,7 +2764,6 @@ Parser.prototype = function(){
                 }
             },
             _class: function(){
-
                 var tokenStream = this._tokenStream,
                     token;
 
@@ -2854,17 +2774,14 @@ Parser.prototype = function(){
                 } else {
                     return null;
                 }
-
             },
             _element_name: function(){
-
                 var tokenStream = this._tokenStream,
                     token;
 
                 if (tokenStream.match(Tokens.IDENT)){
                     token = tokenStream.token();
                     return new SelectorSubPart(token.value, "elementName", token.startLine, token.startCol);
-
                 } else {
                     return null;
                 }
@@ -2873,14 +2790,12 @@ Parser.prototype = function(){
                 var tokenStream = this._tokenStream,
                     value       = "";
                 if (tokenStream.LA(1) === Tokens.PIPE || tokenStream.LA(2) === Tokens.PIPE){
-
                     if(tokenStream.match([Tokens.IDENT, Tokens.STAR])){
                         value += tokenStream.token().value;
                     }
 
                     tokenStream.mustMatch(Tokens.PIPE);
                     value += "|";
-
                 }
 
                 return value.length ? value : null;
@@ -2900,10 +2815,8 @@ Parser.prototype = function(){
                 }
 
                 return value.length ? value : null;
-
            },
             _attrib: function(){
-
                 var tokenStream = this._tokenStream,
                     value       = null,
                     ns,
@@ -2926,7 +2839,6 @@ Parser.prototype = function(){
 
                     if(tokenStream.match([Tokens.PREFIXMATCH, Tokens.SUFFIXMATCH, Tokens.SUBSTRINGMATCH,
                             Tokens.EQUALS, Tokens.INCLUDES, Tokens.DASHMATCH])){
-
                         value += tokenStream.token().value;
                         value += this._readWhitespace();
 
@@ -2943,7 +2855,6 @@ Parser.prototype = function(){
                 }
             },
             _pseudo: function(){
-
                 var tokenStream = this._tokenStream,
                     pseudo      = null,
                     colons      = ":",
@@ -2951,7 +2862,6 @@ Parser.prototype = function(){
                     col;
 
                 if (tokenStream.match(Tokens.COLON)){
-
                     if (tokenStream.match(Tokens.COLON)){
                         colons += ":";
                     }
@@ -2974,7 +2884,6 @@ Parser.prototype = function(){
                 return pseudo;
             },
             _functional_pseudo: function(){
-
                 var tokenStream = this._tokenStream,
                     value = null;
 
@@ -2989,7 +2898,6 @@ Parser.prototype = function(){
                 return value;
             },
             _expression: function(){
-
                 var tokenStream = this._tokenStream,
                     value       = "";
 
@@ -2997,16 +2905,13 @@ Parser.prototype = function(){
                         Tokens.NUMBER, Tokens.STRING, Tokens.IDENT, Tokens.LENGTH,
                         Tokens.FREQ, Tokens.ANGLE, Tokens.TIME,
                         Tokens.RESOLUTION, Tokens.SLASH])){
-
                     value += tokenStream.token().value;
                     value += this._readWhitespace();
                 }
 
                 return value.length ? value : null;
-
             },
             _negation: function(){
-
                 var tokenStream = this._tokenStream,
                     line,
                     col,
@@ -3032,7 +2937,6 @@ Parser.prototype = function(){
                 return subpart;
             },
             _negation_arg: function(){
-
                 var tokenStream = this._tokenStream,
                     args        = [
                         this._type_selector,
@@ -3058,7 +2962,6 @@ Parser.prototype = function(){
                 col = tokenStream.LT(1).startCol;
 
                 while(i < len && arg === null){
-
                     arg = args[i].call(this);
                     i++;
                 }
@@ -3075,7 +2978,6 @@ Parser.prototype = function(){
             },
 
             _declaration: function(){
-
                 var tokenStream = this._tokenStream,
                     property    = null,
                     expr        = null,
@@ -3086,7 +2988,6 @@ Parser.prototype = function(){
 
                 property = this._property();
                 if (property !== null){
-
                     tokenStream.mustMatch(Tokens.COLON);
                     this._readWhitespace();
 
@@ -3099,7 +3000,6 @@ Parser.prototype = function(){
                     propertyName = property.toString();
                     if (this.options.starHack && property.hack == "*" ||
                             this.options.underscoreHack && property.hack == "_") {
-
                         propertyName = property.text;
                     }
 
@@ -3126,7 +3026,6 @@ Parser.prototype = function(){
             },
 
             _prio: function(){
-
                 var tokenStream = this._tokenStream,
                     result      = tokenStream.match(Tokens.IMPORTANT_SYM);
 
@@ -3135,7 +3034,6 @@ Parser.prototype = function(){
             },
 
             _expr: function(inFunction){
-
                 var tokenStream = this._tokenStream,
                     values      = [],
                     value       = null,
@@ -3143,7 +3041,6 @@ Parser.prototype = function(){
 
                 value = this._term(inFunction);
                 if (value !== null){
-
                     values.push(value);
 
                     do {
@@ -3169,7 +3066,6 @@ Parser.prototype = function(){
             },
 
             _term: function(inFunction){
-
                 var tokenStream = this._tokenStream,
                     unary       = null,
                     value       = null,
@@ -3183,14 +3079,12 @@ Parser.prototype = function(){
                     col = tokenStream.token().startCol;
                 }
                 if (tokenStream.peek() == Tokens.IE_FUNCTION && this.options.ieFilters){
-
                     value = this._ie_function();
                     if (unary === null){
                         line = tokenStream.token().startLine;
                         col = tokenStream.token().startCol;
                     }
                 } else if (inFunction && tokenStream.match([Tokens.LPAREN, Tokens.LBRACE, Tokens.LBRACKET])){
-
                     token = tokenStream.token();
                     endChar = token.endChar;
                     value = token.value + this._expr(inFunction).text;
@@ -3204,7 +3098,6 @@ Parser.prototype = function(){
                 } else if (tokenStream.match([Tokens.NUMBER, Tokens.PERCENTAGE, Tokens.LENGTH,
                         Tokens.ANGLE, Tokens.TIME,
                         Tokens.FREQ, Tokens.STRING, Tokens.IDENT, Tokens.URI, Tokens.UNICODE_RANGE])){
-
                     value = tokenStream.token().value;
                     if (unary === null){
                         line = tokenStream.token().startLine;
@@ -3225,7 +3118,6 @@ Parser.prototype = function(){
                                 value = this._function();
                             }
                         }
-
                     } else {
                         value = token.value;
                         if (unary === null){
@@ -3233,17 +3125,14 @@ Parser.prototype = function(){
                             col = token.startCol;
                         }
                     }
-
                 }
 
                 return value !== null ?
                         new PropertyValuePart(unary !== null ? unary + value : value, line, col) :
                         null;
-
             },
 
             _function: function(){
-
                 var tokenStream = this._tokenStream,
                     functionText = null,
                     expr        = null,
@@ -3256,7 +3145,6 @@ Parser.prototype = function(){
                     functionText += expr;
                     if (this.options.ieFilters && tokenStream.peek() == Tokens.EQUALS){
                         do {
-
                             if (this._readWhitespace()){
                                 functionText += tokenStream.token().value;
                             }
@@ -3286,7 +3174,6 @@ Parser.prototype = function(){
             },
 
             _ie_function: function(){
-
                 var tokenStream = this._tokenStream,
                     functionText = null,
                     expr        = null,
@@ -3295,7 +3182,6 @@ Parser.prototype = function(){
                     functionText = tokenStream.token().value;
 
                     do {
-
                         if (this._readWhitespace()){
                             functionText += tokenStream.token().value;
                         }
@@ -3325,7 +3211,6 @@ Parser.prototype = function(){
             },
 
             _hexcolor: function(){
-
                 var tokenStream = this._tokenStream,
                     token = null,
                     color;
@@ -3386,7 +3271,6 @@ Parser.prototype = function(){
 
                 this._readWhitespace();
                 tokenStream.mustMatch(Tokens.RBRACE);
-
             },
 
             _keyframe_name: function(){
@@ -3417,7 +3301,6 @@ Parser.prototype = function(){
                     line:   keyList[0].line,
                     col:    keyList[0].col
                 });
-
             },
 
             _key_list: function(){
@@ -3439,7 +3322,6 @@ Parser.prototype = function(){
             },
 
             _key: function(){
-
                 var tokenStream = this._tokenStream,
                     token;
 
@@ -3464,7 +3346,6 @@ Parser.prototype = function(){
                 var tokenStream = this._tokenStream,
                     tt;
 
-
                 this._readWhitespace();
 
                 if (checkStart){
@@ -3474,9 +3355,7 @@ Parser.prototype = function(){
                 this._readWhitespace();
 
                 try {
-
                     while(true){
-
                         if (tokenStream.match(Tokens.SEMICOLON) || (readMargins && this._margin())){
                         } else if (this._declaration()){
                             if (!tokenStream.match(Tokens.SEMICOLON)){
@@ -3490,7 +3369,6 @@ Parser.prototype = function(){
 
                     tokenStream.mustMatch(Tokens.RBRACE);
                     this._readWhitespace();
-
                 } catch (ex) {
                     if (ex instanceof SyntaxError && !this.options.strict){
                         this.fire({
@@ -3506,15 +3384,12 @@ Parser.prototype = function(){
                         } else if (tt != Tokens.RBRACE){
                             throw ex;
                         }
-
                     } else {
                         throw ex;
                     }
                 }
-
             },
             _readWhitespace: function(){
-
                 var tokenStream = this._tokenStream,
                     ws = "";
 
@@ -3551,7 +3426,6 @@ Parser.prototype = function(){
                 return result;
             },
             parsePropertyValue: function(input){
-
                 this._tokenStream = new TokenStream(input, Tokens);
                 this._readWhitespace();
 
@@ -3570,7 +3444,6 @@ Parser.prototype = function(){
                 return result;
             },
             parseSelector: function(input){
-
                 this._tokenStream = new TokenStream(input, Tokens);
                 this._readWhitespace();
 
@@ -3702,7 +3575,6 @@ var Properties = {
     "border-image-outset"           : { multi: "<length> | <number>", max: 4 },
     "border-image-repeat"           : { multi: "stretch | repeat | round", max: 2 },
     "border-image-slice"            : function(expression) {
-
         var valid   = false,
             numeric = "<number> | <percentage>",
             fill    = false,
@@ -3722,7 +3594,6 @@ var Properties = {
             }
             count++;
         }
-
 
         if (!fill) {
             ValidationTypes.isAny(expression, "fill");
@@ -3746,7 +3617,6 @@ var Properties = {
     "border-left-style"             : "<border-style>",
     "border-left-width"             : "<border-width>",
     "border-radius"                 : function(expression) {
-
         var valid   = false,
             simple = "<length> | <percentage> | inherit",
             slash   = false,
@@ -3758,7 +3628,6 @@ var Properties = {
         while (expression.hasNext() && count < max) {
             valid = ValidationTypes.isAny(expression, simple);
             if (!valid) {
-
                 if (expression.peek() == "/" && count > 0 && !slash) {
                     slash = true;
                     max = count + 5;
@@ -4078,10 +3947,8 @@ var Properties = {
     "zoom"                          : "<number> | <percentage> | normal"
 };
 function PropertyName(text, hack, line, col){
-
     SyntaxUnit.call(this, text, line, col, Parser.PROPERTY_NAME_TYPE);
     this.hack = hack;
-
 }
 
 PropertyName.prototype = new SyntaxUnit();
@@ -4090,10 +3957,8 @@ PropertyName.prototype.toString = function(){
     return (this.hack ? this.hack : "") + this.text;
 };
 function PropertyValue(parts, line, col){
-
     SyntaxUnit.call(this, parts.join(" "), line, col, Parser.PROPERTY_VALUE_TYPE);
     this.parts = parts;
-
 }
 
 PropertyValue.prototype = new SyntaxUnit();
@@ -4103,7 +3968,6 @@ function PropertyValueIterator(value){
     this._parts = value.parts;
     this._marks = [];
     this.value = value;
-
 }
 PropertyValueIterator.prototype.count = function(){
     return this._parts.length;
@@ -4132,7 +3996,6 @@ PropertyValueIterator.prototype.restore = function(){
     }
 };
 function PropertyValuePart(text, line, col){
-
     SyntaxUnit.call(this, text, line, col, Parser.PROPERTY_VALUE_PART_TYPE);
     this.type = "unknown";
     var temp;
@@ -4141,7 +4004,6 @@ function PropertyValuePart(text, line, col){
         this.value = +RegExp.$1;
         this.units = RegExp.$2;
         switch(this.units.toLowerCase()){
-
             case "em":
             case "rem":
             case "ex":
@@ -4180,7 +4042,6 @@ function PropertyValuePart(text, line, col){
                 this.type = "resolution";
                 break;
         }
-
     } else if (/^([+\-]?[\d\.]+)%$/i.test(text)){  //percentage
         this.type = "percentage";
         this.value = +RegExp.$1;
@@ -4190,7 +4051,6 @@ function PropertyValuePart(text, line, col){
     } else if (/^([+\-]?[\d\.]+)$/i.test(text)){  //number
         this.type = "number";
         this.value = +RegExp.$1;
-
     } else if (/^#([a-f0-9]{3,6})/i.test(text)){  //hexcolor
         this.type = "color";
         temp = RegExp.$1;
@@ -4259,7 +4119,6 @@ function PropertyValuePart(text, line, col){
         this.type   = "identifier";
         this.value  = text;
     }
-
 }
 
 PropertyValuePart.prototype = new SyntaxUnit();
@@ -4281,31 +4140,25 @@ Pseudos.isElement = function(pseudo){
     return pseudo.indexOf("::") === 0 || Pseudos[pseudo.toLowerCase()] == Pseudos.ELEMENT;
 };
 function Selector(parts, line, col){
-
     SyntaxUnit.call(this, parts.join(" "), line, col, Parser.SELECTOR_TYPE);
     this.parts = parts;
     this.specificity = Specificity.calculate(this);
-
 }
 
 Selector.prototype = new SyntaxUnit();
 Selector.prototype.constructor = Selector;
 function SelectorPart(elementName, modifiers, text, line, col){
-
     SyntaxUnit.call(this, text, line, col, Parser.SELECTOR_PART_TYPE);
     this.elementName = elementName;
     this.modifiers = modifiers;
-
 }
 
 SelectorPart.prototype = new SyntaxUnit();
 SelectorPart.prototype.constructor = SelectorPart;
 function SelectorSubPart(text, type, line, col){
-
     SyntaxUnit.call(this, text, line, col, Parser.SELECTOR_SUB_PART_TYPE);
     this.type = type;
     this.args = [];
-
 }
 
 SelectorSubPart.prototype = new SyntaxUnit();
@@ -4339,16 +4192,13 @@ Specificity.prototype = {
     toString: function(){
         return this.a + "," + this.b + "," + this.c + "," + this.d;
     }
-
 };
 Specificity.calculate = function(selector){
-
     var i, len,
         part,
         b=0, c=0, d=0;
 
     function updateValues(part){
-
         var i, j, len, num,
             elementName = part.elementName ? part.elementName.text : "",
             modifier;
@@ -4442,7 +4292,6 @@ function TokenStream(input){
 
 TokenStream.prototype = mix(new TokenStreamBase(), {
     _getToken: function(channel){
-
         var c,
             reader = this._reader,
             token   = null,
@@ -4450,7 +4299,6 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
             startCol    = reader.getCol();
 
         c = reader.read();
-
 
         while(c){
             switch(c){
@@ -4531,12 +4379,6 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
                     {
                         token = this.charToken(c, startLine, startCol);
                     }
-
-
-
-
-
-
             }
             break;
         }
@@ -4696,7 +4538,6 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
                 if (/mportant/i.test(temp)){
                     important += c + temp;
                     tt = Tokens.IMPORTANT_SYM;
-
                 }
                 break;  //we're done
             } else {
@@ -4712,8 +4553,6 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
         } else {
             return this.createToken(tt, important, startLine, startCol);
         }
-
-
     },
     notToken: function(first, startLine, startCol){
         var reader      = this._reader,
@@ -4753,7 +4592,6 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
             } else {
                 tt = Tokens.DIMENSION;
             }
-
         } else if (c == "%"){
             value += reader.read();
             tt = Tokens.PERCENTAGE;
@@ -4800,10 +4638,8 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
             if (value.length == 2){
                 reader.reset();
             } else {
-
                 tt = Tokens.UNICODE_RANGE;
                 if (value.indexOf("?") == -1){
-
                     if (reader.peek() == "-"){
                         reader.mark();
                         temp = reader.read();
@@ -4814,7 +4650,6 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
                             value += temp;
                         }
                     }
-
                 }
             }
         }
@@ -4863,7 +4698,6 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
             number  = first,
             hasDot  = (first == "."),
             c       = reader.peek();
-
 
         while(c){
             if (isDigit(c)){
@@ -4951,7 +4785,6 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
         }
 
         return url;
-
     },
     readName: function(first){
         var reader  = this._reader,
@@ -5016,7 +4849,6 @@ TokenStream.prototype = mix(new TokenStreamBase(), {
         } else {
             return "";
         }
-
     }
 });
 
@@ -5142,7 +4974,6 @@ var Tokens  = [
 ];
 
 (function(){
-
     var nameMap = [],
         typeMap = {};
 
@@ -5169,10 +5000,8 @@ var Tokens  = [
     Tokens.type = function(c){
         return typeMap[c] || -1;
     };
-
 })();
 var Validation = {
-
     validate: function(property, value){
         var name        = property.toString().toLowerCase(),
             parts       = value.parts,
@@ -5198,19 +5027,15 @@ var Validation = {
                 } else {
                     this.singleProperty(spec, expression, 1);
                 }
-
             } else if (spec.multi) {
                 this.multiProperty(spec.multi, expression, spec.comma, spec.max || Infinity);
             } else if (typeof spec == "function") {
                 spec(expression);
             }
-
         }
-
     },
 
     singleProperty: function(types, expression, max, partial) {
-
         var result      = false,
             value       = expression.value,
             count       = 0,
@@ -5235,11 +5060,9 @@ var Validation = {
             part = expression.next();
             throw new ValidationError("Expected end of value but found '" + part + "'.", part.line, part.col);
         }
-
     },
 
     multiProperty: function (types, expression, comma, max) {
-
         var result      = false,
             value       = expression.value,
             count       = 0,
@@ -5251,7 +5074,6 @@ var Validation = {
                 count++;
                 if (!expression.hasNext()) {
                     result = true;
-
                 } else if (comma) {
                     if (expression.peek() == ",") {
                         part = expression.next();
@@ -5261,7 +5083,6 @@ var Validation = {
                 }
             } else {
                 break;
-
             }
         }
 
@@ -5277,16 +5098,13 @@ var Validation = {
                     throw new ValidationError("Expected (" + types + ") but found '" + value + "'.", value.line, value.col);
                 }
             }
-
         } else if (expression.hasNext()) {
             part = expression.next();
             throw new ValidationError("Expected end of value but found '" + part + "'.", part.line, part.col);
         }
-
     },
 
     groupProperty: function (types, expression, comma) {
-
         var result      = false,
             value       = expression.value,
             typeCount   = types.split("||").length,
@@ -5326,19 +5144,14 @@ var Validation = {
             throw new ValidationError("Expected end of value but found '" + part + "'.", part.line, part.col);
         }
     }
-
-
-
 };
 function ValidationError(message, line, col){
     this.col = col;
     this.line = line;
     this.message = message;
-
 }
 ValidationError.prototype = new Error();
 var ValidationTypes = {
-
     isLiteral: function (part, literals) {
         var text = part.text.toString().toLowerCase(),
             args = literals.split(" | "),
@@ -5401,10 +5214,7 @@ var ValidationTypes = {
         return result;
     },
 
-
-
     simple: {
-
         "<absolute-size>": function(part){
             return ValidationTypes.isLiteral(part, "xx-small | x-small | small | medium | large | x-large | xx-large");
         },
@@ -5534,7 +5344,6 @@ var ValidationTypes = {
     },
 
     complex: {
-
         "<bg-position>": function(expression){
             var types   = this,
                 result  = false,
@@ -5631,7 +5440,6 @@ var ValidationTypes = {
             }
 
             return result;
-
         },
 
         "<shadow>": function(expression) {
@@ -5642,7 +5450,6 @@ var ValidationTypes = {
                 part;
 
             if (expression.hasNext()) {
-
                 if (ValidationTypes.isAny(expression, "inset")){
                     inset = true;
                 }
@@ -5655,7 +5462,6 @@ var ValidationTypes = {
                     count++;
                 }
 
-
                 if (expression.hasNext()) {
                     if (!color) {
                         ValidationTypes.isAny(expression, "<color>");
@@ -5664,11 +5470,9 @@ var ValidationTypes = {
                     if (!inset) {
                         ValidationTypes.isAny(expression, "inset");
                     }
-
                 }
 
                 result = (count >= 2 && count <= 4);
-
             }
 
             return result;
@@ -5746,7 +5550,6 @@ exports[prop] = parserlib[prop];
 }
 })();
 
-
 function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
@@ -5768,7 +5571,6 @@ var util = {
     return flags;
   }
 };
-
 
 if (typeof module === 'object')
   module.exports = clone;
@@ -5841,7 +5643,6 @@ clone.clonePrototype = function(parent) {
 };
 
 var CSSLint = (function(){
-
     var rules           = [],
         formatters      = [],
         embeddedRuleset = /\/\*csslint([^\*]*)\*\//,
@@ -5920,7 +5721,6 @@ var CSSLint = (function(){
         return formatters.hasOwnProperty(formatId);
     };
     api.verify = function(text, ruleset){
-
         var i = 0,
             reporter,
             lines,
@@ -5972,7 +5772,6 @@ var CSSLint = (function(){
         return report;
     };
     return api;
-
 })();
 function Reporter(lines, ruleset){
     this.messages = [];
@@ -6107,7 +5906,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 CSSLint.addRule({
     id: "box-model",
@@ -6189,7 +5987,6 @@ CSSLint.addRule({
                     boxSizing = true;
                 }
             }
-
         });
 
         parser.addListener("endrule", endRule);
@@ -6198,7 +5995,6 @@ CSSLint.addRule({
         parser.addListener("endpagemargin", endRule);
         parser.addListener("endkeyframerule", endRule);
     }
-
 });
 
 CSSLint.addRule({
@@ -6218,7 +6014,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -6254,8 +6049,6 @@ CSSLint.addRule({
                     ruleFailed = false;
                 }
             }
-
-
         });
         parser.addListener("endfontface", function(){
             fontFaceRule = false;
@@ -6343,7 +6136,6 @@ CSSLint.addRule({
             "word-break"                 : "epub ms",
             "writing-mode"               : "epub ms"
         };
-
 
         for (prop in compatiblePrefixes) {
             if (compatiblePrefixes.hasOwnProperty(prop)) {
@@ -6433,7 +6225,6 @@ CSSLint.addRule({
                                 reporter.report("The property " + item + " is compatible with " + propertiesSpecified + " and should be included as well.", value.actualNodes[0].line, value.actualNodes[0].col, rule);
                             }
                         }
-
                     }
                 }
             }
@@ -6481,11 +6272,9 @@ CSSLint.addRule({
         }
 
         function endRule(){
-
             var display = properties.display ? properties.display.value : null;
             if (display){
                 switch(display){
-
                     case "inline":
                         reportProperty("height", display);
                         reportProperty("width", display);
@@ -6514,7 +6303,6 @@ CSSLint.addRule({
                         }
                 }
             }
-
         }
 
         parser.addListener("startrule", startRule);
@@ -6536,9 +6324,7 @@ CSSLint.addRule({
         parser.addListener("endkeyframerule", endRule);
         parser.addListener("endpagemargin", endRule);
         parser.addListener("endpage", endRule);
-
     }
-
 });
 
 CSSLint.addRule({
@@ -6601,12 +6387,8 @@ CSSLint.addRule({
 
             properties[name] = event.value.text;
             lastProperty = name;
-
         });
-
-
     }
-
 });
 
 CSSLint.addRule({
@@ -6633,7 +6415,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -6647,9 +6428,7 @@ CSSLint.addRule({
         parser.addListener("error", function(event){
             reporter.error(event.message, event.line, event.col, rule);
         });
-
     }
-
 });
 
 CSSLint.addRule({
@@ -6700,7 +6479,6 @@ CSSLint.addRule({
                 while(i < len){
                     if (parts[i].type === "color"){
                         if ("alpha" in parts[i] || "hue" in parts[i]){
-
                             if (/([^\)]+)\(/.test(parts[i])){
                                 colorType = RegExp.$1.toUpperCase();
                             }
@@ -6719,9 +6497,7 @@ CSSLint.addRule({
 
             lastProperty = event;
         });
-
     }
-
 });
 
 CSSLint.addRule({
@@ -6745,7 +6521,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -6757,7 +6532,6 @@ CSSLint.addRule({
         var rule = this,
             count = 0;
 
-
         parser.addListener("startfontface", function(){
             count++;
         });
@@ -6768,7 +6542,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -6791,7 +6564,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -6813,13 +6585,11 @@ CSSLint.addRule({
         });
 
         parser.addListener("property", function(event){
-
             if (/\-(moz|o|webkit)(?:\-(?:linear|radial))\-gradient/i.test(event.value)){
                 gradients[RegExp.$1] = 1;
             } else if (/\-webkit\-gradient/i.test(event.value)){
                 gradients.oldWebkit = 1;
             }
-
         });
 
         parser.addListener("endrule", function(event){
@@ -6844,11 +6614,8 @@ CSSLint.addRule({
             if (missing.length && missing.length < 4){
                 reporter.report("Missing vendor-prefixed CSS gradients for " + missing.join(", ") + ".", event.selectors[0].line, event.selectors[0].col, rule);
             }
-
         });
-
     }
-
 });
 
 CSSLint.addRule({
@@ -6888,10 +6655,8 @@ CSSLint.addRule({
                     reporter.report(idCount + " IDs in the selector, really?", selector.line, selector.col, rule);
                 }
             }
-
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -6905,9 +6670,7 @@ CSSLint.addRule({
         parser.addListener("import", function(event){
             reporter.report("@import prevents parallel downloads, use <link> instead.", event.line, event.col, rule);
         });
-
     }
-
 });
 
 CSSLint.addRule({
@@ -6931,7 +6694,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -6946,10 +6708,8 @@ CSSLint.addRule({
             if (event.invalid) {
                 reporter.report(event.invalid.message, event.line, event.col, rule);
             }
-
         });
     }
-
 });
 CSSLint.addRule({
     id: "order-alphabetical",
@@ -6986,7 +6746,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -7041,7 +6800,6 @@ CSSLint.addRule({
                     lastRule.outline = true;
                 }
             }
-
         });
 
         parser.addListener("endrule", endRule);
@@ -7049,9 +6807,7 @@ CSSLint.addRule({
         parser.addListener("endpage", endRule);
         parser.addListener("endpagemargin", endRule);
         parser.addListener("endkeyframerule", endRule);
-
     }
-
 });
 
 CSSLint.addRule({
@@ -7081,7 +6837,6 @@ CSSLint.addRule({
                             if (part.elementName && modifier.type === "id"){
                                 reporter.report("Element (" + part + ") is overqualified, just use " + modifier + " without element name.", part.line, part.col, rule);
                             } else if (modifier.type === "class"){
-
                                 if (!classes[modifier]){
                                     classes[modifier] = [];
                                 }
@@ -7094,7 +6849,6 @@ CSSLint.addRule({
         });
 
         parser.addListener("endstylesheet", function(){
-
             var prop;
             for (prop in classes){
                 if (classes.hasOwnProperty(prop)){
@@ -7105,7 +6859,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -7136,7 +6889,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -7166,14 +6918,12 @@ CSSLint.addRule({
                                     reporter.report("Attribute selectors with " + RegExp.$1 + " are slow!", modifier.line, modifier.col, rule);
                                 }
                             }
-
                         }
                     }
                 }
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -7191,7 +6941,6 @@ CSSLint.addRule({
             reporter.stat("rule-count", count);
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -7212,7 +6961,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -7233,7 +6981,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -7263,12 +7010,10 @@ CSSLint.addRule({
                         }
                     }
                 }
-
             }
         }
 
         parser.addListener("startrule", startRule);
-
     }
 });
 
@@ -7308,7 +7053,6 @@ CSSLint.addRule({
             properties = {};
         }
         function endRule(event){
-
             var prop, i, len, total;
             for (prop in mapping){
                 if (mapping.hasOwnProperty(prop)){
@@ -7337,9 +7081,7 @@ CSSLint.addRule({
 
         parser.addListener("endrule", endRule);
         parser.addListener("endfontface", endRule);
-
     }
-
 });
 
 CSSLint.addRule({
@@ -7369,7 +7111,6 @@ CSSLint.addRule({
             textIndent,
             direction;
 
-
         function startRule(){
             textIndent = false;
             direction = "inherit";
@@ -7395,9 +7136,7 @@ CSSLint.addRule({
 
         parser.addListener("endrule", endRule);
         parser.addListener("endfontface", endRule);
-
     }
-
 });
 
 CSSLint.addRule({
@@ -7446,7 +7185,6 @@ CSSLint.addRule({
                 part = selector.parts[selector.parts.length-1];
 
                 if (part.elementName && /(h[1-6])/i.test(part.elementName.toString())){
-
                     for (j=0; j < part.modifiers.length; j++){
                         if (part.modifiers[j].type === "pseudo"){
                             pseudo = true;
@@ -7481,7 +7219,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -7508,7 +7245,6 @@ CSSLint.addRule({
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -7520,7 +7256,6 @@ CSSLint.addRule({
         var rule = this;
 
         parser.addListener("startrule", function(event){
-
             var selectors = event.selectors,
                 selector,
                 part,
@@ -7539,11 +7274,9 @@ CSSLint.addRule({
                         }
                     }
                 }
-
             }
         });
     }
-
 });
 
 CSSLint.addRule({
@@ -7644,7 +7377,6 @@ CSSLint.addRule({
                     }
                 }
             }
-
         }
 
         parser.addListener("startrule", startRule);
@@ -7669,7 +7401,6 @@ CSSLint.addRule({
         parser.addListener("endpagemargin", endRule);
         parser.addListener("endkeyframerule", endRule);
     }
-
 });
 
 CSSLint.addRule({
@@ -7690,11 +7421,8 @@ CSSLint.addRule({
                 }
                 i++;
             }
-
         });
-
     }
-
 });
 
 (function() {
@@ -7739,8 +7467,6 @@ CSSLint.addRule({
                 return "net.csslint." + rule.name.replace(/\s/g,"");
             };
 
-
-
             if (messages.length > 0) {
                 output.push("<file name=\""+filename+"\">");
                 CSSLint.Util.forEach(messages, function (message) {
@@ -7755,7 +7481,6 @@ CSSLint.addRule({
             return output.join("");
         }
     });
-
 }());
 
 CSSLint.addFormatter({
@@ -7838,7 +7563,6 @@ CSSLint.addFormatter({
         return "</testsuites>";
     },
     formatResults: function(results, filename/*, options*/) {
-
         var messages = results.messages,
             output = [],
             tests = {
@@ -7852,17 +7576,14 @@ CSSLint.addFormatter({
             return "net.csslint." + rule.name.replace(/\s/g,"");
         };
         var escapeSpecialCharacters = function(str) {
-
             if (!str || str.constructor !== String) {
                 return "";
             }
 
             return str.replace(/\"/g, "'").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
         };
 
         if (messages.length > 0) {
-
             messages.forEach(function (message) {
                 var type = message.type === "warning" ? "error" : message.type;
                 if (!message.rollup) {
@@ -7871,18 +7592,14 @@ CSSLint.addFormatter({
                     output.push("</testcase>");
 
                     tests[type] += 1;
-
                 }
-
             });
 
             output.unshift("<testsuite time=\"0\" tests=\"" + messages.length + "\" skipped=\"0\" errors=\"" + tests.error + "\" failures=\"" + tests.failure + "\" package=\"net.csslint\" name=\"" + filename + "\">");
             output.push("</testsuite>");
-
         }
 
         return output.join("");
-
     }
 });
 
@@ -7906,7 +7623,6 @@ CSSLint.addFormatter({
         };
 
         if (messages.length > 0) {
-
             output.push("<file name=\""+filename+"\">");
             CSSLint.Util.forEach(messages, function (message) {
                 if (message.rollup) {
@@ -7976,7 +7692,6 @@ CSSLint.addFormatter({
 });
 
 module.exports.CSSLint = CSSLint;
-
 });
 
 define("ace/mode/css_worker",[], function(require, exports, module) {
@@ -8022,7 +7737,7 @@ oop.inherits(Worker, Mirror);
             ruleNames.forEach(function(x) {
                 delete all[x];
             });
-            
+
             this.ruleset = all;
         }
         this.doc.getValue() && this.deferredUpdate.schedule(100);
@@ -8045,13 +7760,10 @@ oop.inherits(Worker, Mirror);
             };
         }));
     };
-
 }).call(Worker.prototype);
-
 });
 
 define("ace/lib/es5-shim",[], function(require, exports, module) {
-
 //
 //
 function Empty() {}
@@ -8064,7 +7776,6 @@ if (!Function.prototype.bind) {
         }
         var args = slice.call(arguments, 1); // for normal call
         var bound = function () {
-
             if (this instanceof bound) {
                 var result = target.apply(
                     this,
@@ -8074,15 +7785,12 @@ if (!Function.prototype.bind) {
                     return result;
                 }
                 return this;
-
             } else {
                 return target.apply(
                     that,
                     args.concat(slice.call(arguments))
                 );
-
             }
-
         };
         if(target.prototype) {
             Empty.prototype = target.prototype;
@@ -8121,7 +7829,7 @@ if ([1,2].splice(0).length != 2) {
             return a;
         }
         var array = [], lengthBefore;
-        
+
         array.splice.apply(array, makeArray(20));
         array.splice.apply(array, makeArray(26));
 
@@ -8162,7 +7870,7 @@ if ([1,2].splice(0).length != 2) {
 
             var removed = this.slice(pos, pos+removeCount);
             var insert = slice.call(arguments, 2);
-            var add = insert.length;            
+            var add = insert.length;
             if (pos === length) {
                 if (add) {
                     this.push.apply(this, insert);
@@ -8555,7 +8263,6 @@ if (!Object.defineProperty || definePropertyFallback) {
             }
         }
         if (owns(descriptor, "value")) {
-
             if (supportsAccessors && (lookupGetter(object, property) ||
                                       lookupSetter(object, property)))
             {
@@ -8659,7 +8366,6 @@ if (!Object.keys) {
     }
 
     Object.keys = function keys(object) {
-
         if (
             (typeof object != "object" && typeof object != "function") ||
             object === null
@@ -8684,7 +8390,6 @@ if (!Object.keys) {
         }
         return keys;
     };
-
 }
 
 //
@@ -8694,7 +8399,6 @@ if (!Date.now) {
         return new Date().getTime();
     };
 }
-
 
 //
 //
@@ -8760,5 +8464,4 @@ var toObject = function (o) {
     }
     return Object(o);
 };
-
 });

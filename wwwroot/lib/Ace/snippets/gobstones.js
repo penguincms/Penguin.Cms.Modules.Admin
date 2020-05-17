@@ -37,7 +37,6 @@ snippet if\n\
   }\n\
 ";
 exports.scope = "gobstones";
-
 });
                 (function() {
                     window.require(["ace/snippets/gobstones"], function(m) {
@@ -46,4 +45,3 @@ exports.scope = "gobstones";
                         }
                     });
                 })();
-            

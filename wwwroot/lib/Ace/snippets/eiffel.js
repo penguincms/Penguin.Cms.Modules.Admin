@@ -3,7 +3,6 @@ define("ace/snippets/eiffel",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "eiffel";
-
 });
                 (function() {
                     window.require(["ace/snippets/eiffel"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "eiffel";
                         }
                     });
                 })();
-            

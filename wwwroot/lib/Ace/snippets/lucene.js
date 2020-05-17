@@ -3,7 +3,6 @@ define("ace/snippets/lucene",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "lucene";
-
 });
                 (function() {
                     window.require(["ace/snippets/lucene"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "lucene";
                         }
                     });
                 })();
-            

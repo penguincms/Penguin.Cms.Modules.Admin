@@ -3,7 +3,6 @@ define("ace/snippets/scad",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "scad";
-
 });
                 (function() {
                     window.require(["ace/snippets/scad"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "scad";
                         }
                     });
                 })();
-            

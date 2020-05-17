@@ -5,7 +5,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var LuaHighlightRules = function() {
-
     var keywords = (
         "break|do|else|elseif|end|for|function|if|in|local|repeat|"+
          "return|then|until|while|or|and|not"
@@ -111,7 +110,7 @@ var LuaHighlightRules = function() {
                         }
                         return "string.end";
                     },
-                    
+
                     regex : /\]=*\]/,
                     next  : "start"
                 }, {
@@ -148,7 +147,7 @@ var LuaHighlightRules = function() {
             regex : "\\s+|\\w+"
         } ]
     };
-    
+
     this.normalizeRules();
 };
 
@@ -165,13 +164,11 @@ var BaseFoldMode = require("./fold_mode").FoldMode;
 var Range = require("../../range").Range;
 var TokenIterator = require("../../token_iterator").TokenIterator;
 
-
 var FoldMode = exports.FoldMode = function() {};
 
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.foldingStartMarker = /\b(function|then|do|repeat)\b|{\s*$|(\[=*\[)/;
     this.foldingStopMarker = /\bend\b|^\s*}|\]=*\]/;
 
@@ -286,9 +283,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return new Range(startRow, startColumn, row, stream.getCurrentTokenColumn());
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/lua",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/lua_highlight_rules","ace/mode/folding/lua","ace/range","ace/worker/worker_client"], function(require, exports, module) {
@@ -303,17 +298,16 @@ var WorkerClient = require("../worker/worker_client").WorkerClient;
 
 var Mode = function() {
     this.HighlightRules = LuaHighlightRules;
-    
+
     this.foldingRules = new LuaFoldMode();
     this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 
 (function() {
-   
     this.lineCommentStart = "--";
     this.blockComment = {start: "--[", end: "]--"};
-    
+
     var indentKeywords = {
         "function": 1,
         "then": 1,
@@ -405,15 +399,15 @@ oop.inherits(Mode, TextMode);
     this.createWorker = function(session) {
         var worker = new WorkerClient(["ace"], "ace/mode/lua_worker", "Worker");
         worker.attachToDocument(session.getDocument());
-        
+
         worker.on("annotate", function(e) {
             session.setAnnotations(e.data);
         });
-        
+
         worker.on("terminate", function() {
             session.clearAnnotations();
         });
-        
+
         return worker;
     };
 
@@ -429,4 +423,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

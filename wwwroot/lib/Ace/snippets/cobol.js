@@ -3,7 +3,6 @@ define("ace/snippets/cobol",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "cobol";
-
 });
                 (function() {
                     window.require(["ace/snippets/cobol"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "cobol";
                         }
                     });
                 })();
-            

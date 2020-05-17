@@ -9,7 +9,6 @@ var Editor = require("./editor").Editor;
 var Renderer = require("./virtual_renderer").VirtualRenderer;
 var EditSession = require("./edit_session").EditSession;
 
-
 var Split = function(container, theme, splits) {
     this.BELOW = 1;
     this.BESIDE = 0;
@@ -24,14 +23,12 @@ var Split = function(container, theme, splits) {
     this.setSplits(splits || 1);
     this.$cEditor = this.$editors[0];
 
-
     this.on("focus", function(editor) {
         this.$cEditor = editor;
     }.bind(this));
 };
 
 (function(){
-
     oop.implement(this, EventEmitter);
 
     this.$createEditor = function() {
@@ -106,7 +103,6 @@ var Split = function(container, theme, splits) {
     this.forEach = function(callback, scope) {
         this.$editors.forEach(callback, scope);
     };
-
 
     this.$fontSize = "";
     this.setFontSize = function(size) {
@@ -187,7 +183,6 @@ var Split = function(container, theme, splits) {
             }
         }
     };
-
 }).call(Split.prototype);
 
 exports.Split = Split;
@@ -196,7 +191,6 @@ exports.Split = Split;
 define("ace/ext/split",["require","exports","module","ace/split"], function(require, exports, module) {
 "use strict";
 module.exports = require("../split");
-
 });
                 (function() {
                     window.require(["ace/ext/split"], function(m) {
@@ -205,4 +199,3 @@ module.exports = require("../split");
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/xml",["require","exports","module"], function(require, expo
 
 exports.snippetText = "";
 exports.scope = "xml";
-
 });
                 (function() {
                     window.require(["ace/snippets/xml"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "xml";
                         }
                     });
                 })();
-            

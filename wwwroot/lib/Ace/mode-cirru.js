@@ -84,7 +84,6 @@ var CirruHighlightRules = function() {
             next: 'string'
         }]
     };
-
 };
 
 oop.inherits(CirruHighlightRules, TextHighlightRules);
@@ -103,7 +102,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -174,9 +172,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/cirru",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/cirru_highlight_rules","ace/mode/folding/coffee"], function(require, exports, module) {
@@ -208,4 +204,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

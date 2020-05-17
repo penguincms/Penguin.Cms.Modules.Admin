@@ -3,7 +3,6 @@ define("ace/snippets/typescript",["require","exports","module"], function(requir
 
 exports.snippetText = "";
 exports.scope = "typescript";
-
 });
                 (function() {
                     window.require(["ace/snippets/typescript"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "typescript";
                         }
                     });
                 })();
-            

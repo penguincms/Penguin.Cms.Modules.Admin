@@ -134,7 +134,6 @@ snippet lld\n\
 	}${4}\n\
 ";
 exports.scope = "c_cpp";
-
 });
                 (function() {
                     window.require(["ace/snippets/c_cpp"], function(m) {
@@ -143,4 +142,3 @@ exports.scope = "c_cpp";
                         }
                     });
                 })();
-            

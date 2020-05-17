@@ -97,17 +97,14 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = "//";
     this.blockComment = {start: "/*", end: "*/"};
     this.$quotes = { '"': '"' };
-
 
     this.$id = "ace/mode/verilog";
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/verilog"], function(m) {
@@ -116,4 +113,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

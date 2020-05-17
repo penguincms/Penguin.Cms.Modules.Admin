@@ -5,8 +5,8 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var ElixirHighlightRules = function() {
-    this.$rules = { start: 
-       [ { token: 
+    this.$rules = { start:
+       [ { token:
             [ 'meta.module.elixir',
               'keyword.control.module.elixir',
               'meta.module.elixir',
@@ -14,7 +14,7 @@ var ElixirHighlightRules = function() {
            regex: '^(\\s*)(defmodule)(\\s+)((?:[A-Z]\\w*\\s*\\.\\s*)*[A-Z]\\w*)' },
          { token: 'comment.documentation.heredoc',
            regex: '@(?:module|type)?doc (?:~[a-z])?"""',
-           push: 
+           push:
             [ { token: 'comment.documentation.heredoc',
                 regex: '\\s*"""',
                 next: 'pop' },
@@ -24,7 +24,7 @@ var ElixirHighlightRules = function() {
            comment: '@doc with heredocs is treated as documentation' },
          { token: 'comment.documentation.heredoc',
            regex: '@(?:module|type)?doc ~[A-Z]"""',
-           push: 
+           push:
             [ { token: 'comment.documentation.heredoc',
                 regex: '\\s*"""',
                 next: 'pop' },
@@ -32,7 +32,7 @@ var ElixirHighlightRules = function() {
            comment: '@doc with heredocs is treated as documentation' },
          { token: 'comment.documentation.heredoc',
            regex: '@(?:module|type)?doc (?:~[a-z])?\'\'\'',
-           push: 
+           push:
             [ { token: 'comment.documentation.heredoc',
                 regex: '\\s*\'\'\'',
                 next: 'pop' },
@@ -42,7 +42,7 @@ var ElixirHighlightRules = function() {
            comment: '@doc with heredocs is treated as documentation' },
          { token: 'comment.documentation.heredoc',
            regex: '@(?:module|type)?doc ~[A-Z]\'\'\'',
-           push: 
+           push:
             [ { token: 'comment.documentation.heredoc',
                 regex: '\\s*\'\'\'',
                 next: 'pop' },
@@ -53,7 +53,7 @@ var ElixirHighlightRules = function() {
            comment: '@doc false is treated as documentation' },
          { token: 'comment.documentation.string',
            regex: '@(?:module|type)?doc "',
-           push: 
+           push:
             [ { token: 'comment.documentation.string',
                 regex: '"',
                 next: 'pop' },
@@ -74,11 +74,11 @@ var ElixirHighlightRules = function() {
            regex: '\\b(?:nil|true|false)\\b(?![?!])' },
          { token: 'variable.language.elixir',
            regex: '\\b__(?:CALLER|ENV|MODULE|DIR)__\\b(?![?!])' },
-         { token: 
+         { token:
             [ 'punctuation.definition.variable.elixir',
               'variable.other.readwrite.module.elixir' ],
            regex: '(@)([a-zA-Z_]\\w*)' },
-         { token: 
+         { token:
             [ 'punctuation.definition.variable.elixir',
               'variable.other.anonymous.elixir' ],
            regex: '(&)(\\d*)' },
@@ -90,7 +90,7 @@ var ElixirHighlightRules = function() {
            originalRegex: '\\b(0x\\h(?>_?\\h)*|\\d(?>_?\\d)*(\\.(?![^[:space:][:digit:]])(?>_?\\d)*)?([eE][-+]?\\d(?>_?\\d)*)?|0b[01]+|0o[0-7]+)\\b' },
          { token: 'punctuation.definition.constant.elixir',
            regex: ':\'',
-           push: 
+           push:
             [ { token: 'punctuation.definition.constant.elixir',
                 regex: '\'',
                 next: 'pop' },
@@ -99,7 +99,7 @@ var ElixirHighlightRules = function() {
               { defaultToken: 'constant.other.symbol.single-quoted.elixir' } ] },
          { token: 'punctuation.definition.constant.elixir',
            regex: ':"',
-           push: 
+           push:
             [ { token: 'punctuation.definition.constant.elixir',
                 regex: '"',
                 next: 'pop' },
@@ -110,7 +110,7 @@ var ElixirHighlightRules = function() {
            regex: '(?:\'\'\')',
            TODO: 'FIXME: regexp doesn\'t have js equivalent',
            originalRegex: '(?>\'\'\')',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '^\\s*\'\'\'',
                 next: 'pop' },
@@ -120,7 +120,7 @@ var ElixirHighlightRules = function() {
            comment: 'Single-quoted heredocs' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '\'',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '\'',
                 next: 'pop' },
@@ -132,7 +132,7 @@ var ElixirHighlightRules = function() {
            regex: '(?:""")',
            TODO: 'FIXME: regexp doesn\'t have js equivalent',
            originalRegex: '(?>""")',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '^\\s*"""',
                 next: 'pop' },
@@ -142,7 +142,7 @@ var ElixirHighlightRules = function() {
            comment: 'Double-quoted heredocs' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '"',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '"',
                 next: 'pop' },
@@ -154,7 +154,7 @@ var ElixirHighlightRules = function() {
            regex: '~[a-z](?:""")',
            TODO: 'FIXME: regexp doesn\'t have js equivalent',
            originalRegex: '~[a-z](?>""")',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '^\\s*"""',
                 next: 'pop' },
@@ -164,7 +164,7 @@ var ElixirHighlightRules = function() {
            comment: 'Double-quoted heredocs sigils' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '~[a-z]\\{',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '\\}[a-z]*',
                 next: 'pop' },
@@ -174,7 +174,7 @@ var ElixirHighlightRules = function() {
            comment: 'sigil (allow for interpolation)' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '~[a-z]\\[',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '\\][a-z]*',
                 next: 'pop' },
@@ -184,7 +184,7 @@ var ElixirHighlightRules = function() {
            comment: 'sigil (allow for interpolation)' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '~[a-z]\\<',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '\\>[a-z]*',
                 next: 'pop' },
@@ -194,7 +194,7 @@ var ElixirHighlightRules = function() {
            comment: 'sigil (allow for interpolation)' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '~[a-z]\\(',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '\\)[a-z]*',
                 next: 'pop' },
@@ -204,7 +204,7 @@ var ElixirHighlightRules = function() {
            comment: 'sigil (allow for interpolation)' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '~[a-z][^\\w]',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '[^\\w][a-z]*',
                 next: 'pop' },
@@ -217,7 +217,7 @@ var ElixirHighlightRules = function() {
            regex: '~[A-Z](?:""")',
            TODO: 'FIXME: regexp doesn\'t have js equivalent',
            originalRegex: '~[A-Z](?>""")',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '^\\s*"""',
                 next: 'pop' },
@@ -225,7 +225,7 @@ var ElixirHighlightRules = function() {
            comment: 'Double-quoted heredocs sigils' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '~[A-Z]\\{',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '\\}[a-z]*',
                 next: 'pop' },
@@ -233,7 +233,7 @@ var ElixirHighlightRules = function() {
            comment: 'sigil (without interpolation)' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '~[A-Z]\\[',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '\\][a-z]*',
                 next: 'pop' },
@@ -241,7 +241,7 @@ var ElixirHighlightRules = function() {
            comment: 'sigil (without interpolation)' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '~[A-Z]\\<',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '\\>[a-z]*',
                 next: 'pop' },
@@ -249,7 +249,7 @@ var ElixirHighlightRules = function() {
            comment: 'sigil (without interpolation)' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '~[A-Z]\\(',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '\\)[a-z]*',
                 next: 'pop' },
@@ -257,7 +257,7 @@ var ElixirHighlightRules = function() {
            comment: 'sigil (without interpolation)' },
          { token: 'punctuation.definition.string.begin.elixir',
            regex: '~[A-Z][^\\w]',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.elixir',
                 regex: '[^\\w][a-z]*',
                 next: 'pop' },
@@ -273,7 +273,7 @@ var ElixirHighlightRules = function() {
            TODO: 'FIXME: regexp doesn\'t have js equivalent',
            originalRegex: '(?>[a-zA-Z_][\\w@]*(?>[?!])?)(:)(?!:)',
            comment: 'symbols' },
-         { token: 
+         { token:
             [ 'punctuation.definition.comment.elixir',
               'comment.line.number-sign.elixir' ],
            regex: '(#)(.*)' },
@@ -305,37 +305,37 @@ var ElixirHighlightRules = function() {
          { token: 'punctuation.section.array.elixir', regex: '\\[|\\]' },
          { token: 'punctuation.section.function.elixir',
            regex: '\\(|\\)' } ],
-      '#escaped_char': 
+      '#escaped_char':
        [ { token: 'constant.character.escape.elixir',
            regex: '\\\\(?:x[\\da-fA-F]{1,2}|.)' } ],
-      '#interpolated_elixir': 
-       [ { token: 
+      '#interpolated_elixir':
+       [ { token:
             [ 'source.elixir.embedded.source',
               'source.elixir.embedded.source.empty' ],
            regex: '(#\\{)(\\})' },
-         { todo: 
+         { todo:
             { token: 'punctuation.section.embedded.elixir',
               regex: '#\\{',
-              push: 
+              push:
                [ { token: 'punctuation.section.embedded.elixir',
                    regex: '\\}',
                    next: 'pop' },
                  { include: '#nest_curly_and_self' },
                  { include: '$self' },
                  { defaultToken: 'source.elixir.embedded.source' } ] } } ],
-      '#nest_curly_and_self': 
+      '#nest_curly_and_self':
        [ { token: 'punctuation.section.scope.elixir',
            regex: '\\{',
-           push: 
+           push:
             [ { token: 'punctuation.section.scope.elixir',
                 regex: '\\}',
                 next: 'pop' },
               { include: '#nest_curly_and_self' } ] },
          { include: '$self' } ],
-      '#regex_sub': 
+      '#regex_sub':
        [ { include: '#interpolated_elixir' },
          { include: '#escaped_char' },
-         { token: 
+         { token:
             [ 'punctuation.definition.arbitrary-repitition.elixir',
               'string.regexp.arbitrary-repitition.elixir',
               'string.regexp.arbitrary-repitition.elixir',
@@ -343,7 +343,7 @@ var ElixirHighlightRules = function() {
            regex: '(\\{)(\\d+)((?:,\\d+)?)(\\})' },
          { token: 'punctuation.definition.character-class.elixir',
            regex: '\\[(?:\\^?\\])?',
-           push: 
+           push:
             [ { token: 'punctuation.definition.character-class.elixir',
                 regex: '\\]',
                 next: 'pop' },
@@ -351,19 +351,19 @@ var ElixirHighlightRules = function() {
               { defaultToken: 'string.regexp.character-class.elixir' } ] },
          { token: 'punctuation.definition.group.elixir',
            regex: '\\(',
-           push: 
+           push:
             [ { token: 'punctuation.definition.group.elixir',
                 regex: '\\)',
                 next: 'pop' },
               { include: '#regex_sub' },
               { defaultToken: 'string.regexp.group.elixir' } ] },
-         { token: 
+         { token:
             [ 'punctuation.definition.comment.elixir',
               'comment.line.number-sign.elixir' ],
            regex: '(?:^|\\s)(#)(\\s[[a-zA-Z0-9,. \\t?!-][^\\x00-\\x7F]]*$)',
            originalRegex: '(?<=^|\\s)(#)\\s[[a-zA-Z0-9,. \\t?!-][^\\x{00}-\\x{7F}]]*$',
            comment: 'We are restrictive in what we allow to go after the comment character to avoid false positives, since the availability of comments depend on regexp flags.' } ] };
-    
+
     this.normalizeRules();
 };
 
@@ -375,7 +375,6 @@ ElixirHighlightRules.metaData = { comment: 'Textmate bundle for Elixir Programmi
       keyEquivalent: '^~E',
       name: 'Elixir',
       scopeName: 'source.elixir' };
-
 
 oop.inherits(ElixirHighlightRules, TextHighlightRules);
 
@@ -393,7 +392,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -464,9 +462,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/elixir",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/elixir_highlight_rules","ace/mode/folding/coffee"], function(require, exports, module) {
@@ -498,4 +494,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

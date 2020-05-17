@@ -3,7 +3,6 @@ define("ace/snippets/toml",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "toml";
-
 });
                 (function() {
                     window.require(["ace/snippets/toml"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "toml";
                         }
                     });
                 })();
-            

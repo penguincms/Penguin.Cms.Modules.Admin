@@ -5,10 +5,10 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var LogiQLHighlightRules = function() {
-    this.$rules = { start: 
+    this.$rules = { start:
        [ { token: 'comment.block',
            regex: '/\\*',
-           push: 
+           push:
             [ { token: 'comment.block', regex: '\\*/', next: 'pop' },
               { defaultToken: 'comment.block' } ]
             },
@@ -20,7 +20,7 @@ var LogiQLHighlightRules = function() {
             },
          { token: 'string',
            regex: '"',
-           push: 
+           push:
             [ { token: 'string', regex: '"', next: 'pop' },
               { defaultToken: 'string' } ]
             },
@@ -44,7 +44,7 @@ var LogiQLHighlightRules = function() {
          { token: 'keyword', regex: '::', comment: 'Colon colon' },
          { token: 'support.function',
            regex: '\\b(agg\\s*<<)',
-           push: 
+           push:
             [ { include: '$self' },
               { token: 'support.function',
                 regex: '>>',
@@ -62,7 +62,7 @@ var LogiQLHighlightRules = function() {
          { token: 'variable.parameter',
            regex: '([a-zA-Z][a-zA-Z_0-9]*|_)\\s*(?=(,|\\.|<-|->|\\)|\\]|=))'
             } ] };
-    
+
     this.normalizeRules();
 };
 
@@ -82,7 +82,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -153,9 +152,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/matching_brace_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
@@ -166,7 +163,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -192,7 +188,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -228,7 +223,7 @@ oop.inherits(Mode, TextMode);
         var tokenizedLine = this.getTokenizer().getLineTokens(line, state);
         var tokens = tokenizedLine.tokens;
         var endState = tokenizedLine.state;
-        if (/comment|string/.test(endState))  
+        if (/comment|string/.test(endState))
             return indent;
         if (tokens.length && tokens[tokens.length - 1].type == "comment.single")
             return indent;
@@ -245,7 +240,7 @@ oop.inherits(Mode, TextMode);
 
         if (input !== "\n" && input !== "\r\n")
             return false;
-            
+
         if (!/^\s+/.test(line))
             return false;
 
@@ -314,4 +309,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

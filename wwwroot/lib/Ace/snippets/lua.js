@@ -24,7 +24,6 @@ snippet fori\n\
 	end\n\
 ";
 exports.scope = "lua";
-
 });
                 (function() {
                     window.require(["ace/snippets/lua"], function(m) {
@@ -33,4 +32,3 @@ exports.scope = "lua";
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/stylus",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "stylus";
-
 });
                 (function() {
                     window.require(["ace/snippets/stylus"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "stylus";
                         }
                     });
                 })();
-            

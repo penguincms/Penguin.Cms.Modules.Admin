@@ -83,14 +83,12 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = "*";
 
     this.$id = "ace/mode/cobol";
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/cobol"], function(m) {
@@ -99,4 +97,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

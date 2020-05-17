@@ -9,7 +9,7 @@ var DocCommentHighlightRules = function() {
         "start" : [ {
             token : "comment.doc.tag",
             regex : "@[\\w\\d_]+" // TODO: fix email addresses
-        }, 
+        },
         DocCommentHighlightRules.getTagRule(),
         {
             defaultToken : "comment.doc",
@@ -43,9 +43,7 @@ DocCommentHighlightRules.getEndRule = function (start) {
     };
 };
 
-
 exports.DocCommentHighlightRules = DocCommentHighlightRules;
-
 });
 
 define("ace/mode/d_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -56,7 +54,6 @@ var DocCommentHighlightRules = require("./doc_comment_highlight_rules").DocComme
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var DHighlightRules = function() {
-
     var keywords = (
         "this|super|import|module|body|mixin|__traits|invariant|alias|asm|delete|"+
         "typeof|typeid|sizeof|cast|new|in|is|typedef|__vector|__parameters"
@@ -66,7 +63,7 @@ var DHighlightRules = function() {
         "break|case|continue|default|do|else|for|foreach|foreach_reverse|goto|if|" +
         "return|switch|while|catch|try|throw|finally|version|assert|unittest|with"
     );
-    
+
     var types = (
         "auto|bool|char|dchar|wchar|byte|ubyte|float|double|real|" +
         "cfloat|creal|cdouble|cent|ifloat|ireal|idouble|" +
@@ -79,11 +76,11 @@ var DHighlightRules = function() {
         "ref|immutable|lazy|nothrow|override|package|pragma|private|protected|" +
         "public|pure|scope|shared|__gshared|synchronized|static|volatile"
     );
-    
+
     var storages = (
         "class|struct|union|template|interface|enum|macro"
     );
-    
+
     var stringEscapesSeq =  {
         token: "constant.language.escape",
         regex: "\\\\(?:(?:x[0-9A-F]{2})|(?:[0-7]{1,3})|(?:['\"\\?0abfnrtv\\\\])|" +
@@ -95,7 +92,7 @@ var DHighlightRules = function() {
         "__DATE__|__EOF__|__TIME__|__TIMESTAMP__|__VENDOR__|__VERSION__|"+
         "__FILE__|__MODULE__|__LINE__|__FUNCTION__|__PRETTY_FUNCTION__"
     );
-    
+
     var operators = (
         "/|/\\=|&|&\\=|&&|\\|\\|\\=|\\|\\||\\-|\\-\\=|\\-\\-|\\+|" +
         "\\+\\=|\\+\\+|\\<|\\<\\=|\\<\\<|\\<\\<\\=|\\<\\>|\\<\\>\\=|\\>|\\>\\=|\\>\\>\\=|" +
@@ -114,7 +111,7 @@ var DHighlightRules = function() {
         "keyword.operator" : operators,
         "constant.language": builtinConstants
     }, "identifier");
-    
+
     var identifierRe = "[a-zA-Z_\u00a1-\uffff][a-zA-Z\\d_\u00a1-\uffff]*\\b";
     this.$rules = {
         "start" : [
@@ -222,7 +219,7 @@ var DHighlightRules = function() {
                 defaultToken: 'comment'
             }
         ],
-        
+
         "quote-string" : [
            stringEscapesSeq,
            {
@@ -233,7 +230,7 @@ var DHighlightRules = function() {
                 defaultToken: 'string'
             }
         ],
-        
+
         "backtick-string" : [
            stringEscapesSeq,
            {
@@ -244,7 +241,7 @@ var DHighlightRules = function() {
                 defaultToken: 'string'
             }
         ],
-        
+
         "operator-heredoc-string": [
             {
                 onMatch: function(value, currentState, state) {
@@ -255,7 +252,7 @@ var DHighlightRules = function() {
                     if(value != state[1]) return "string";
                     state.shift();
                     state.shift();
-                    
+
                     return "string";
                 },
                 regex: '(?:[\\]\\)}>]+)"',
@@ -265,7 +262,7 @@ var DHighlightRules = function() {
                 regex: '[^\\]\\)}>]+'
             }
         ],
-        
+
         "identifier-heredoc-string": [
             {
                 onMatch: function(value, currentState, state) {
@@ -273,7 +270,7 @@ var DHighlightRules = function() {
                     if(value != state[1]) return "string";
                     state.shift();
                     state.shift();
-                    
+
                     return "string";
                 },
                 regex: '^(?:[A-Za-z_][a-zA-Z0-9]+)"',
@@ -283,7 +280,7 @@ var DHighlightRules = function() {
                 regex: '[^\\]\\)}>]+'
             }
         ],
-        
+
         "d-asm": [
             {
                 token: "paren.rparen",
@@ -292,7 +289,7 @@ var DHighlightRules = function() {
             }, {
                 token: 'keyword.instruction',
                 regex: '[a-zA-Z]+',
-                next: 'd-asm-instruction' 
+                next: 'd-asm-instruction'
             }, {
                 token: "text",
                 regex: "\\s+"
@@ -367,7 +364,6 @@ var FoldMode = exports.FoldMode = function(commentRegex) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-    
     this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
     this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
@@ -376,42 +372,42 @@ oop.inherits(FoldMode, BaseFoldMode);
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
-    
+
         if (this.singleLineBlockCommentRe.test(line)) {
             if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
                 return "";
         }
-    
+
         var fw = this._getFoldWidgetBase(session, foldStyle, row);
-    
+
         if (!fw && this.startRegionRe.test(line))
             return "start"; // lineCommentRegionStart
-    
+
         return fw;
     };
 
     this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
         var line = session.getLine(row);
-        
+
         if (this.startRegionRe.test(line))
             return this.getCommentRegionBlock(session, line, row);
-        
+
         var match = line.match(this.foldingStartMarker);
         if (match) {
             var i = match.index;
 
             if (match[1])
                 return this.openingBracketBlock(session, match[1], row, i);
-                
+
             var range = session.getCommentFoldRange(row, i + match[0].length, 1);
-            
+
             if (range && !range.isMultiLine()) {
                 if (forceMultiline) {
                     range = this.getSectionRange(session, row);
                 } else if (foldStyle != "all")
                     range = null;
             }
-            
+
             return range;
         }
 
@@ -428,7 +424,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return session.getCommentFoldRange(row, i, -1);
         }
     };
-    
+
     this.getSectionRange = function(session, row) {
         var line = session.getLine(row);
         var startIndent = line.search(/\S/);
@@ -445,7 +441,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             if  (startIndent > indent)
                 break;
             var subRange = this.getFoldWidgetRange(session, "all", row);
-            
+
             if (subRange) {
                 if (subRange.start.row <= startRow) {
                     break;
@@ -457,14 +453,14 @@ oop.inherits(FoldMode, BaseFoldMode);
             }
             endRow = row;
         }
-        
+
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
-        
+
         var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
@@ -482,9 +478,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, startColumn, endRow, line.length);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/d",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/d_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
@@ -517,4 +511,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

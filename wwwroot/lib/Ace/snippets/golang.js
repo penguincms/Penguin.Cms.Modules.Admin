@@ -3,7 +3,6 @@ define("ace/snippets/golang",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "golang";
-
 });
                 (function() {
                     window.require(["ace/snippets/golang"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "golang";
                         }
                     });
                 })();
-            

@@ -4,8 +4,7 @@ define("ace/mode/latex_highlight_rules",["require","exports","module","ace/lib/o
 var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
-var LatexHighlightRules = function() {  
-
+var LatexHighlightRules = function() {
     this.$rules = {
         "start" : [{
             token : "comment",
@@ -63,9 +62,9 @@ var LatexHighlightRules = function() {
             token : "constant.character.escape",
             regex : "\\\\(?:[^a-zA-Z]|[a-zA-Z]+)"
         }, {
-            token : "error", 
-            regex : "^\\s*$", 
-            next : "start" 
+            token : "error",
+            regex : "^\\s*$",
+            next : "start"
         }, {
             defaultToken : "string"
         }],
@@ -84,13 +83,12 @@ var LatexHighlightRules = function() {
             defaultToken : "text"
         }]
     };
-    
+
     this.normalizeRules();
 };
 oop.inherits(LatexHighlightRules, TextHighlightRules);
 
 exports.LatexHighlightRules = LatexHighlightRules;
-
 });
 
 define("ace/mode/rdoc_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/text_highlight_rules","ace/mode/latex_highlight_rules"], function(require, exports, module) {
@@ -177,7 +175,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -203,7 +200,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -240,4 +236,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

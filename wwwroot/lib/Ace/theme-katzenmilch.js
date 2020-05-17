@@ -1,5 +1,4 @@
 define("ace/theme/katzenmilch",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = false;
 exports.cssClass = "ace-katzenmilch";
 exports.cssText = ".ace-katzenmilch .ace_gutter,\
@@ -126,4 +125,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

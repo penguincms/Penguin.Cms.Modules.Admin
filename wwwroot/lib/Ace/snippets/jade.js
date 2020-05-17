@@ -3,7 +3,6 @@ define("ace/snippets/jade",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "jade";
-
 });
                 (function() {
                     window.require(["ace/snippets/jade"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "jade";
                         }
                     });
                 })();
-            

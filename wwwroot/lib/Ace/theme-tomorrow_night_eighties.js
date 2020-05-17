@@ -1,5 +1,4 @@
 define("ace/theme/tomorrow_night_eighties",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
-
 exports.isDark = true;
 exports.cssClass = "ace-tomorrow-night-eighties";
 exports.cssText = ".ace-tomorrow-night-eighties .ace_gutter {\
@@ -113,4 +112,3 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         }
                     });
                 })();
-            

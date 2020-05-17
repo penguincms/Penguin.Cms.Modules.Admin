@@ -5,7 +5,7 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var JuliaHighlightRules = function() {
-    this.$rules = { start: 
+    this.$rules = { start:
        [ { include: '#function_decl' },
          { include: '#function_call' },
          { include: '#type_decl' },
@@ -14,18 +14,18 @@ var JuliaHighlightRules = function() {
          { include: '#number' },
          { include: '#string' },
          { include: '#comment' } ],
-      '#bracket': 
+      '#bracket':
        [ { token: 'keyword.bracket.julia',
            regex: '\\(|\\)|\\[|\\]|\\{|\\}|,' } ],
-      '#comment': 
-       [ { token: 
+      '#comment':
+       [ { token:
             [ 'punctuation.definition.comment.julia',
               'comment.line.number-sign.julia' ],
            regex: '(#)(?!\\{)(.*$)'} ],
-      '#function_call': 
+      '#function_call':
        [ { token: [ 'support.function.julia', 'text' ],
            regex: '([a-zA-Z0-9_]+!?)([\\w\\xff-\\u218e\\u2455-\\uffff]*\\()'} ],
-      '#function_decl': 
+      '#function_decl':
        [ { token: [ 'keyword.other.julia', 'meta.function.julia',
                'entity.name.function.julia', 'meta.function.julia','text' ],
            regex: '(function|macro)(\\s*)([a-zA-Z0-9_\\{]+!?)([\\w\\xff-\\u218e\\u2455-\\uffff]*)([(\\\\{])'} ],
@@ -37,10 +37,10 @@ var JuliaHighlightRules = function() {
          { token: 'storage.modifier.variable.julia',
            regex: '\\b(?:global|local|const|export|import|importall|using)\\b' },
          { token: 'variable.macro.julia', regex: '@[\\w\\xff-\\u218e\\u2455-\\uffff]+\\b' } ],
-      '#number': 
+      '#number':
        [ { token: 'constant.numeric.julia',
            regex: '\\b0(?:x|X)[0-9a-fA-F]*|(?:\\b[0-9]+\\.?[0-9]*|\\.[0-9]+)(?:(?:e|E)(?:\\+|-)?[0-9]*)?(?:im)?|\\bInf(?:32)?\\b|\\bNaN(?:32)?\\b|\\btrue\\b|\\bfalse\\b' } ],
-      '#operator': 
+      '#operator':
        [ { token: 'keyword.operator.update.julia',
            regex: '=|:=|\\+=|-=|\\*=|/=|//=|\\.//=|\\.\\*=|\\\\=|\\.\\\\=|^=|\\.^=|%=|\\|=|&=|\\$=|<<=|>>=' },
          { token: 'keyword.operator.ternary.julia', regex: '\\?|:' },
@@ -65,10 +65,10 @@ var JuliaHighlightRules = function() {
            regex: '\\[|\\('},
          { token: [ 'text', 'keyword.operator.transposed-matrix.julia' ],
             regex: "([\\]\\)])((?:'|\\.')*\\.?')"} ],
-      '#string': 
+      '#string':
        [ { token: 'punctuation.definition.string.begin.julia',
            regex: '\'',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.julia',
                 regex: '\'',
                 next: 'pop' },
@@ -76,7 +76,7 @@ var JuliaHighlightRules = function() {
               { defaultToken: 'string.quoted.single.julia' } ] },
          { token: 'punctuation.definition.string.begin.julia',
            regex: '"',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.julia',
                 regex: '"',
                 next: 'pop' },
@@ -84,7 +84,7 @@ var JuliaHighlightRules = function() {
               { defaultToken: 'string.quoted.double.julia' } ] },
          { token: 'punctuation.definition.string.begin.julia',
            regex: '\\b[\\w\\xff-\\u218e\\u2455-\\uffff]+"',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.julia',
                 regex: '"[\\w\\xff-\\u218e\\u2455-\\uffff]*',
                 next: 'pop' },
@@ -92,18 +92,18 @@ var JuliaHighlightRules = function() {
               { defaultToken: 'string.quoted.custom-double.julia' } ] },
          { token: 'punctuation.definition.string.begin.julia',
            regex: '`',
-           push: 
+           push:
             [ { token: 'punctuation.definition.string.end.julia',
                 regex: '`',
                 next: 'pop' },
               { include: '#string_escaped_char' },
               { defaultToken: 'string.quoted.backtick.julia' } ] } ],
       '#string_custom_escaped_char': [ { token: 'constant.character.escape.julia', regex: '\\\\"' } ],
-      '#string_escaped_char': 
+      '#string_escaped_char':
        [ { token: 'constant.character.escape.julia',
            regex: '\\\\(?:\\\\|[0-3]\\d{,2}|[4-7]\\d?|x[a-fA-F0-9]{,2}|u[a-fA-F0-9]{,4}|U[a-fA-F0-9]{,8}|.)' } ],
-      '#type_decl': 
-       [ { token: 
+      '#type_decl':
+       [ { token:
             [ 'keyword.control.type.julia',
               'meta.type.julia',
               'entity.name.type.julia',
@@ -113,7 +113,7 @@ var JuliaHighlightRules = function() {
            regex: '(type|immutable)(\\s+)([a-zA-Z0-9_]+)(?:(\\s*)(<:)(\\s*[.a-zA-Z0-9_:]+))?' },
          { token: [ 'other.typed-variable.julia', 'support.type.julia' ],
            regex: '([a-zA-Z0-9_]+)(::[a-zA-Z0-9_{}]+)' } ] };
-    
+
     this.normalizeRules();
 };
 
@@ -123,7 +123,6 @@ JuliaHighlightRules.metaData = { fileTypes: [ 'jl' ],
       foldingStopMarker: '^\\s*(?:end)\\b.*$',
       name: 'Julia',
       scopeName: 'source.julia' };
-
 
 oop.inherits(JuliaHighlightRules, TextHighlightRules);
 
@@ -150,7 +149,6 @@ var FoldMode = exports.FoldMode = function(commentRegex) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-    
     this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/;
     this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/;
     this.singleLineBlockCommentRe= /^\s*(\/\*).*\*\/\s*$/;
@@ -159,42 +157,42 @@ oop.inherits(FoldMode, BaseFoldMode);
     this._getFoldWidgetBase = this.getFoldWidget;
     this.getFoldWidget = function(session, foldStyle, row) {
         var line = session.getLine(row);
-    
+
         if (this.singleLineBlockCommentRe.test(line)) {
             if (!this.startRegionRe.test(line) && !this.tripleStarBlockCommentRe.test(line))
                 return "";
         }
-    
+
         var fw = this._getFoldWidgetBase(session, foldStyle, row);
-    
+
         if (!fw && this.startRegionRe.test(line))
             return "start"; // lineCommentRegionStart
-    
+
         return fw;
     };
 
     this.getFoldWidgetRange = function(session, foldStyle, row, forceMultiline) {
         var line = session.getLine(row);
-        
+
         if (this.startRegionRe.test(line))
             return this.getCommentRegionBlock(session, line, row);
-        
+
         var match = line.match(this.foldingStartMarker);
         if (match) {
             var i = match.index;
 
             if (match[1])
                 return this.openingBracketBlock(session, match[1], row, i);
-                
+
             var range = session.getCommentFoldRange(row, i + match[0].length, 1);
-            
+
             if (range && !range.isMultiLine()) {
                 if (forceMultiline) {
                     range = this.getSectionRange(session, row);
                 } else if (foldStyle != "all")
                     range = null;
             }
-            
+
             return range;
         }
 
@@ -211,7 +209,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return session.getCommentFoldRange(row, i, -1);
         }
     };
-    
+
     this.getSectionRange = function(session, row) {
         var line = session.getLine(row);
         var startIndent = line.search(/\S/);
@@ -228,7 +226,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             if  (startIndent > indent)
                 break;
             var subRange = this.getFoldWidgetRange(session, "all", row);
-            
+
             if (subRange) {
                 if (subRange.start.row <= startRow) {
                     break;
@@ -240,14 +238,14 @@ oop.inherits(FoldMode, BaseFoldMode);
             }
             endRow = row;
         }
-        
+
         return new Range(startRow, startColumn, endRow, session.getLine(endRow).length);
     };
     this.getCommentRegionBlock = function(session, line, row) {
         var startColumn = line.search(/\s*$/);
         var maxRow = session.getLength();
         var startRow = row;
-        
+
         var re = /^\s*(?:\/\*|\/\/|--)#?(end)?region\b/;
         var depth = 1;
         while (++row < maxRow) {
@@ -265,9 +263,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return new Range(startRow, startColumn, endRow, line.length);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/julia",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/julia_highlight_rules","ace/mode/folding/cstyle"], function(require, exports, module) {
@@ -300,4 +296,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

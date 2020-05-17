@@ -3,7 +3,6 @@ define("ace/snippets/mysql",["require","exports","module"], function(require, ex
 
 exports.snippetText = "";
 exports.scope = "mysql";
-
 });
                 (function() {
                     window.require(["ace/snippets/mysql"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "mysql";
                         }
                     });
                 })();
-            

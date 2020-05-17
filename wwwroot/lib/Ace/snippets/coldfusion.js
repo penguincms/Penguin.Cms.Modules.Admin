@@ -3,7 +3,6 @@ define("ace/snippets/coldfusion",["require","exports","module"], function(requir
 
 exports.snippetText = "";
 exports.scope = "coldfusion";
-
 });
                 (function() {
                     window.require(["ace/snippets/coldfusion"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "coldfusion";
                         }
                     });
                 })();
-            

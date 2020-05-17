@@ -1,15 +1,15 @@
 ﻿$(document).ready(function () {
-	$('button').button();
+    $('button').button();
 
-	$('.ToggleLeftPane').click(function () {
-		if ($('#LeftPane').hasClass('visible')) {
-			$('#LeftPane').removeClass('visible');
-			$('#LeftPane').hide("slide", { direction: "left" }, "slow");
-		} else {
-			$('#LeftPane').addClass('visible');
-			$('#LeftPane').show("slide", { direction: "left" }, "slow");
-		}
-	});
+    $('.ToggleLeftPane').click(function () {
+        if ($('#LeftPane').hasClass('visible')) {
+            $('#LeftPane').removeClass('visible');
+            $('#LeftPane').hide("slide", { direction: "left" }, "slow");
+        } else {
+            $('#LeftPane').addClass('visible');
+            $('#LeftPane').show("slide", { direction: "left" }, "slow");
+        }
+    });
 });
 
 function elementHasProperty(element, name) {
@@ -86,7 +86,6 @@ var Site = {
         }
     },
     PostJsonAsForm: function (jsonObject, Url, CallBack) {
-
         Site.ShowLoader();
         if (CallBack) {
             if (!Url) {
@@ -128,14 +127,12 @@ var Site = {
             $('body').append(form);
 
             $('#jsonForm').submit();
-
         }
     }
 };
 
 var Functions = {
     XmlToJson: function (xml) {
-
         // Create the return object
         var obj = {};
 

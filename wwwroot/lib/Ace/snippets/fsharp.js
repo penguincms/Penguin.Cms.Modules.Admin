@@ -3,7 +3,6 @@ define("ace/snippets/fsharp",["require","exports","module"], function(require, e
 
     exports.snippetText = "";
     exports.scope = "fsharp";
-
 });
                 (function() {
                     window.require(["ace/snippets/fsharp"], function(m) {
@@ -12,4 +11,3 @@ define("ace/snippets/fsharp",["require","exports","module"], function(require, e
                         }
                     });
                 })();
-            

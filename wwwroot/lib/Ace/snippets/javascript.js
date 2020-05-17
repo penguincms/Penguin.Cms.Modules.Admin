@@ -198,7 +198,6 @@ guard ^\\s*\n\
 	$0\n\
 ";
 exports.scope = "javascript";
-
 });
                 (function() {
                     window.require(["ace/snippets/javascript"], function(m) {
@@ -207,4 +206,3 @@ exports.scope = "javascript";
                         }
                     });
                 })();
-            

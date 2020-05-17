@@ -93,7 +93,6 @@ snippet when-let\n\
 		${3:body})\n\
 ";
 exports.scope = "clojure";
-
 });
                 (function() {
                     window.require(["ace/snippets/clojure"], function(m) {
@@ -102,4 +101,3 @@ exports.scope = "clojure";
                         }
                     });
                 })();
-            

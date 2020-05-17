@@ -12,7 +12,6 @@ snippet v\n\
 	{VISUAL}\n\
 ";
 exports.scope = "snippets";
-
 });
                 (function() {
                     window.require(["ace/snippets/snippets"], function(m) {
@@ -21,4 +20,3 @@ exports.scope = "snippets";
                         }
                     });
                 })();
-            

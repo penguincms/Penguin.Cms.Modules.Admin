@@ -9,7 +9,7 @@ var DocCommentHighlightRules = function() {
         "start" : [ {
             token : "comment.doc.tag",
             regex : "@[\\w\\d_]+" // TODO: fix email addresses
-        }, 
+        },
         DocCommentHighlightRules.getTagRule(),
         {
             defaultToken : "comment.doc",
@@ -43,9 +43,7 @@ DocCommentHighlightRules.getEndRule = function (start) {
     };
 };
 
-
 exports.DocCommentHighlightRules = DocCommentHighlightRules;
-
 });
 
 define("ace/mode/perl_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
@@ -55,7 +53,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var PerlHighlightRules = function() {
-
     var keywords = (
         "base|constant|continue|else|elsif|for|foreach|format|goto|if|last|local|my|next|" +
          "no|package|parent|redo|require|scalar|sub|unless|until|while|use|vars"
@@ -164,7 +161,7 @@ var PerlHighlightRules = function() {
         ],
         "block_comment": [
             {
-                token: "comment.doc", 
+                token: "comment.doc",
                 regex: "^=cut\\b",
                 next: "start"
             },
@@ -187,7 +184,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var PythonHighlightRules = function() {
-
     var keywords = (
         "and|as|assert|break|class|continue|def|del|elif|else|except|exec|" +
         "finally|for|from|global|if|import|in|is|lambda|not|or|pass|print|" +
@@ -405,7 +401,6 @@ var JsonHighlightRules = function() {
             }
         ]
     };
-    
 };
 
 oop.inherits(JsonHighlightRules, TextHighlightRules);
@@ -714,7 +709,6 @@ var JavaScriptHighlightRules = function(options) {
         ]
     };
 
-
     if (!options || !options.noES6) {
         this.$rules.no_regex.unshift({
             regex: "[{}]", onMatch: function(val, state, stack) {
@@ -887,7 +881,6 @@ exports.JavaScriptHighlightRules = JavaScriptHighlightRules;
 });
 
 define("ace/mode/pgsql_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/doc_comment_highlight_rules","ace/mode/text_highlight_rules","ace/mode/perl_highlight_rules","ace/mode/python_highlight_rules","ace/mode/json_highlight_rules","ace/mode/javascript_highlight_rules"], function(require, exports, module) {
-
 var oop = require("../lib/oop");
 var lang = require("../lib/lang");
 var DocCommentHighlightRules = require("./doc_comment_highlight_rules").DocCommentHighlightRules;
@@ -942,7 +935,6 @@ var PgsqlHighlightRules = function() {
         "with|without|work|wrapper|write|xid|xml|xmlattributes|xmlconcat|xmlelement|xmlexists|" +
         "xmlforest|xmlparse|xmlpi|xmlroot|xmlserialize|year|yes|zone"
     );
-
 
     var builtinFunctions = (
         "RI_FKey_cascade_del|RI_FKey_cascade_upd|RI_FKey_check_ins|RI_FKey_check_upd|" +
@@ -1301,7 +1293,6 @@ var PgsqlHighlightRules = function() {
         "keyword": keywords
     }, "identifier", true);
 
-
     var sqlRules = [{
             token : "string", // single line string -- assume dollar strings if multi-line for now
             regex : "['](?:(?:\\\\.)|(?:[^'\\\\]))*?[']"
@@ -1331,7 +1322,6 @@ var PgsqlHighlightRules = function() {
             regex : "\\s+"
         }
     ];
-
 
     this.$rules = {
         "start" : [{
@@ -1470,7 +1460,6 @@ exports.PgsqlHighlightRules = PgsqlHighlightRules;
 });
 
 define("ace/mode/pgsql",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/pgsql_highlight_rules"], function(require, exports, module) {
-
 var oop = require("../lib/oop");
 var TextMode = require("../mode/text").Mode;
 var PgsqlHighlightRules = require("./pgsql_highlight_rules").PgsqlHighlightRules;
@@ -1485,7 +1474,7 @@ oop.inherits(Mode, TextMode);
     this.lineCommentStart = "--";
     this.blockComment = {start: "/*", end: "*/"};
 
-    this.getNextLineIndent = function(state, line, tab) { 
+    this.getNextLineIndent = function(state, line, tab) {
         if (state == "start" || state == "keyword.statementEnd") {
             return "";
         } else {
@@ -1505,4 +1494,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

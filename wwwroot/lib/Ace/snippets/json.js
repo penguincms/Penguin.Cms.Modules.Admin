@@ -3,7 +3,6 @@ define("ace/snippets/json",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "json";
-
 });
                 (function() {
                     window.require(["ace/snippets/json"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "json";
                         }
                     });
                 })();
-            

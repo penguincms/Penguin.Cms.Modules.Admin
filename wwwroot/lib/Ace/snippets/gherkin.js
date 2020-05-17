@@ -3,7 +3,6 @@ define("ace/snippets/gherkin",["require","exports","module"], function(require, 
 
 exports.snippetText = "";
 exports.scope = "gherkin";
-
 });
                 (function() {
                     window.require(["ace/snippets/gherkin"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "gherkin";
                         }
                     });
                 })();
-            

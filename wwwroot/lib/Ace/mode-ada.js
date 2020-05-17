@@ -77,7 +77,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = "--";
 
     this.getNextLineIndent = function(state, line, tab) {
@@ -109,7 +108,6 @@ oop.inherits(Mode, TextMode);
     };
 
     this.autoOutdent = function(state, session, row) {
-
         var line = session.getLine(row);
         var prevLine = session.getLine(row - 1);
         var prevIndent = this.$getIndent(prevLine).length;
@@ -121,12 +119,10 @@ oop.inherits(Mode, TextMode);
         session.outdentRows(new Range(row, 0, row + 2, 0));
     };
 
-
     this.$id = "ace/mode/ada";
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/ada"], function(m) {
@@ -135,4 +131,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

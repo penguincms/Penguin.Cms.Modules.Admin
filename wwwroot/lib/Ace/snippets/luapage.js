@@ -3,7 +3,6 @@ define("ace/snippets/luapage",["require","exports","module"], function(require, 
 
 exports.snippetText = "";
 exports.scope = "luapage";
-
 });
                 (function() {
                     window.require(["ace/snippets/luapage"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "luapage";
                         }
                     });
                 })();
-            

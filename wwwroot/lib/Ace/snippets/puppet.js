@@ -3,7 +3,6 @@ define("ace/snippets/puppet",["require","exports","module"], function(require, e
 
 exports.snippetText = "";
 exports.scope = "puppet";
-
 });
                 (function() {
                     window.require(["ace/snippets/puppet"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "puppet";
                         }
                     });
                 })();
-            

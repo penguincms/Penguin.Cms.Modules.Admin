@@ -3,7 +3,6 @@ define("ace/snippets/applescript",["require","exports","module"], function(requi
 
 exports.snippetText = "";
 exports.scope = "applescript";
-
 });
                 (function() {
                     window.require(["ace/snippets/applescript"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "applescript";
                         }
                     });
                 })();
-            

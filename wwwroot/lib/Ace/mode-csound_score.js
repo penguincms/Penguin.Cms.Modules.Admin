@@ -6,7 +6,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var CsoundPreprocessorHighlightRules = function() {
-
     this.semicolonComments = {
         token : "comment.line.semicolon.csound",
         regex : ";.*$"
@@ -209,7 +208,6 @@ var CsoundPreprocessorHighlightRules = function() {
 oop.inherits(CsoundPreprocessorHighlightRules, TextHighlightRules);
 
 (function() {
-
     this.pushRule = function(params) {
         return {
             regex : params.regex, onMatch: function(value, currentState, stack, line) {
@@ -266,7 +264,6 @@ oop.inherits(CsoundPreprocessorHighlightRules, TextHighlightRules);
             }
         };
     };
-
 }).call(CsoundPreprocessorHighlightRules.prototype);
 
 exports.CsoundPreprocessorHighlightRules = CsoundPreprocessorHighlightRules;
@@ -280,7 +277,6 @@ var oop = require("../lib/oop");
 var CsoundPreprocessorHighlightRules = require("./csound_preprocessor_highlight_rules").CsoundPreprocessorHighlightRules;
 
 var CsoundScoreHighlightRules = function() {
-
     CsoundPreprocessorHighlightRules.call(this);
 
     this.quotedStringContents.push({
@@ -436,10 +432,8 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = ";";
     this.blockComment = {start: "/*", end: "*/"};
-
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
@@ -451,4 +445,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

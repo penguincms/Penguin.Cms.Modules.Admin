@@ -207,7 +207,7 @@ var ShHighlightRules = function() {
             push : "start"
         }]
     };
-    
+
     this.normalizeRules();
 };
 
@@ -231,7 +231,7 @@ var MakefileHighlightRules = function() {
         "invalid.deprecated": "debugger"
     }, "string");
 
-    this.$rules = 
+    this.$rules =
         {
     "start": [
         {
@@ -268,11 +268,11 @@ var MakefileHighlightRules = function() {
         {
             token: keywordMapper,
             regex : "[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
-        }, 
+        },
         {
             token: "string",
             regex : "\\w+"
-        }, 
+        },
         {
             token : "string.interpolated.backtick.makefile",
             regex : "`",
@@ -280,7 +280,6 @@ var MakefileHighlightRules = function() {
         }
     ]
 };
-
 };
 
 oop.inherits(MakefileHighlightRules, TextHighlightRules);
@@ -299,7 +298,6 @@ var FoldMode = exports.FoldMode = function() {};
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var range = this.indentationBlock(session, row);
         if (range)
@@ -370,9 +368,7 @@ oop.inherits(FoldMode, BaseFoldMode);
         else
             return "";
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/makefile",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/makefile_highlight_rules","ace/mode/folding/coffee"], function(require, exports, module) {
@@ -391,10 +387,9 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-       
-    this.lineCommentStart = "#";    
+    this.lineCommentStart = "#";
     this.$indentWithTabs = true;
-    
+
     this.$id = "ace/mode/makefile";
 }).call(Mode.prototype);
 
@@ -407,4 +402,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

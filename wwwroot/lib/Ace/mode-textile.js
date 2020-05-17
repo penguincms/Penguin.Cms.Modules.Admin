@@ -59,7 +59,6 @@ var TextileHighlightRules = function() {
 oop.inherits(TextileHighlightRules, TextHighlightRules);
 
 exports.TextileHighlightRules = TextileHighlightRules;
-
 });
 
 define("ace/mode/matching_brace_outdent",["require","exports","module","ace/range"], function(require, exports, module) {
@@ -70,7 +69,6 @@ var Range = require("../range").Range;
 var MatchingBraceOutdent = function() {};
 
 (function() {
-
     this.checkOutdent = function(line, input) {
         if (! /^\s+$/.test(line))
             return false;
@@ -96,7 +94,6 @@ var MatchingBraceOutdent = function() {};
     this.$getIndent = function(line) {
         return line.match(/^\s*/)[0];
     };
-
 }).call(MatchingBraceOutdent.prototype);
 
 exports.MatchingBraceOutdent = MatchingBraceOutdent;
@@ -122,7 +119,7 @@ oop.inherits(Mode, TextMode);
     this.getNextLineIndent = function(state, line, tab) {
         if (state == "intag")
             return tab;
-        
+
         return "";
     };
 
@@ -133,12 +130,11 @@ oop.inherits(Mode, TextMode);
     this.autoOutdent = function(state, doc, row) {
         this.$outdent.autoOutdent(doc, row);
     };
-    
+
     this.$id = "ace/mode/textile";
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
-
 });
                 (function() {
                     window.require(["ace/mode/textile"], function(m) {
@@ -147,4 +143,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

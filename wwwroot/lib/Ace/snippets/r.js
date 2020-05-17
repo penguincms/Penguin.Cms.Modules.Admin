@@ -124,7 +124,6 @@ snippet kvt \n\
 	kv.test(${1:x}, ${2:y})\n\
 ";
 exports.scope = "r";
-
 });
                 (function() {
                     window.require(["ace/snippets/r"], function(m) {
@@ -133,4 +132,3 @@ exports.scope = "r";
                         }
                     });
                 })();
-            

@@ -3,7 +3,6 @@ define("ace/snippets/haxe",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "haxe";
-
 });
                 (function() {
                     window.require(["ace/snippets/haxe"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "haxe";
                         }
                     });
                 })();
-            

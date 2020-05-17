@@ -3,7 +3,6 @@ define("ace/snippets/dockerfile",["require","exports","module"], function(requir
 
 exports.snippetText = "";
 exports.scope = "dockerfile";
-
 });
                 (function() {
                     window.require(["ace/snippets/dockerfile"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "dockerfile";
                         }
                     });
                 })();
-            

@@ -5,7 +5,6 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var PythonHighlightRules = function() {
-
     var keywords = (
         "and|as|assert|break|class|continue|def|del|elif|else|except|exec|" +
         "finally|for|from|global|if|import|in|is|lambda|not|or|pass|print|" +
@@ -167,7 +166,6 @@ var FoldMode = exports.FoldMode = function(markers) {
 oop.inherits(FoldMode, BaseFoldMode);
 
 (function() {
-
     this.getFoldWidgetRange = function(session, foldStyle, row) {
         var line = session.getLine(row);
         var match = line.match(this.foldingStartMarker);
@@ -179,9 +177,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             return this.indentationBlock(session, row);
         }
     };
-
 }).call(FoldMode.prototype);
-
 });
 
 define("ace/mode/python",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/python_highlight_rules","ace/mode/folding/pythonic","ace/range"], function(require, exports, module) {
@@ -201,7 +197,6 @@ var Mode = function() {
 oop.inherits(Mode, TextMode);
 
 (function() {
-
     this.lineCommentStart = "#";
 
     this.getNextLineIndent = function(state, line, tab) {
@@ -231,22 +226,22 @@ oop.inherits(Mode, TextMode);
         "break": 1,
         "continue": 1
     };
-    
+
     this.checkOutdent = function(state, line, input) {
         if (input !== "\r\n" && input !== "\r" && input !== "\n")
             return false;
 
         var tokens = this.getTokenizer().getLineTokens(line.trim(), state).tokens;
-        
+
         if (!tokens)
             return false;
         do {
             var last = tokens.pop();
         } while (last && (last.type == "comment" || (last.type == "text" && last.value.match(/^\s+$/))));
-        
+
         if (!last)
             return false;
-        
+
         return (last.type == "keyword" && outdents[last.value]);
     };
 
@@ -270,4 +265,3 @@ exports.Mode = Mode;
                         }
                     });
                 })();
-            

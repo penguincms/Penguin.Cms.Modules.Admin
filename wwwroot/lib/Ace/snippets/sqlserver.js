@@ -72,7 +72,6 @@ snippet createfn\n\
 	END\n\
 	GO";
 exports.scope = "sqlserver";
-
 });
                 (function() {
                     window.require(["ace/snippets/sqlserver"], function(m) {
@@ -81,4 +80,3 @@ exports.scope = "sqlserver";
                         }
                     });
                 })();
-            

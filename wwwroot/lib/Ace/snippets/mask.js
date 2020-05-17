@@ -3,7 +3,6 @@ define("ace/snippets/mask",["require","exports","module"], function(require, exp
 
 exports.snippetText = "";
 exports.scope = "mask";
-
 });
                 (function() {
                     window.require(["ace/snippets/mask"], function(m) {
@@ -12,4 +11,3 @@ exports.scope = "mask";
                         }
                     });
                 })();
-            

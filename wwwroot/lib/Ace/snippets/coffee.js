@@ -98,7 +98,6 @@ snippet exp\n\
 	${1:root} = exports ? this\n\
 ";
 exports.scope = "coffee";
-
 });
                 (function() {
                     window.require(["ace/snippets/coffee"], function(m) {
@@ -107,4 +106,3 @@ exports.scope = "coffee";
                         }
                     });
                 })();
-            
