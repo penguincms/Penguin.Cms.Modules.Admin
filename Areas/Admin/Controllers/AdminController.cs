@@ -47,11 +47,6 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
         protected IServiceProvider ServiceProvider { get; set; }
         protected IUserSession UserSession { get; set; }
-        public class QueryResults
-        {
-            public IEnumerable<object> Results { get; set; }
-            public int TotalCount { get; set; }
-        }
 
         public class QueryResults
         {
@@ -59,9 +54,10 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
             public int TotalCount { get; set; }
         }
 
-        public AdminController(IServiceProvider serviceProvider)
+        public AdminController(IServiceProvider serviceProvider, IUserSession userSession)
         {
             this.ServiceProvider = serviceProvider;
+            this.UserSession = userSession;
         }
 
         public PagedListContainer<T> GenerateList<T>(int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
@@ -95,9 +91,8 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             if (this.ServiceProvider.GetRepositoryForType<IKeyedObjectRepository>(t) is IKeyedObjectRepository TypedRepository)
             {
-
                 DBResult = this.GetType().GetMethod(nameof(AdminController.QueryDatabase)).MakeGenericMethod(t).Invoke(this, new object[] { count, page, text }) as QueryResults;
-               
+
                 DBResult.Results = DBResult.Results.Select(Converter);
             }
             else
@@ -128,13 +123,10 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
                 results = results.Where(ExpressionBuilder.AnyPropertyContains<T>(text));
                 //totalCount = repository.Where(ExpressionBuilder.AnyPropertyContains<T>(text)).Count();
             }
-             else
+            else
             {
                 repository.Count();
             }
-            
-            
-            
 
             ISecurityProvider<T> securityProvider = this.ServiceProvider.GetService<ISecurityProvider<T>>();
 
