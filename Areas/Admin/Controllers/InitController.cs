@@ -6,8 +6,6 @@ using System.Diagnostics.CodeAnalysis;
 namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 {
     [Area("admin")]
-    [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
-    [SuppressMessage("Design", "CA1054:Uri parameters should not be strings")]
     public partial class InitController : Controller
     {
         private MessageBus MessageBus { get; set; }

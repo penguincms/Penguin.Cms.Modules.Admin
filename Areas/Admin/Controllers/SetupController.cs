@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Penguin.Cms.Modules.Admin.Areas.Admin.Models;
@@ -8,6 +7,7 @@ using Penguin.Persistence.Abstractions;
 using Penguin.Web.Mvc.Attributes;
 using System;
 using System.Linq;
+using IHostApplicationLifetime = Microsoft.Extensions.Hosting.IHostApplicationLifetime;
 
 namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 {
@@ -15,10 +15,10 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
     public class SetupController : Controller
     {
         private const string CONNECTION_STRINGS = "ConnectionStrings";
-        protected IApplicationLifetime AppLifetime { get; set; }
+        protected IHostApplicationLifetime AppLifetime { get; set; }
         private IServiceProvider ServiceProvider { get; }
 
-        public SetupController(IApplicationLifetime appLifetime, IServiceProvider serviceProvider)
+        public SetupController(IHostApplicationLifetime appLifetime, IServiceProvider serviceProvider)
         {
             this.AppLifetime = appLifetime;
             this.ServiceProvider = serviceProvider;

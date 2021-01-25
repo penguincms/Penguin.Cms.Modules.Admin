@@ -9,7 +9,6 @@ using Penguin.Extensions.Collections;
 using Penguin.Persistence.Abstractions;
 using Penguin.Persistence.Repositories.Interfaces;
 using Penguin.Reflection;
-using Penguin.Reflection.Serialization.Abstractions.Interfaces;
 using Penguin.Reflection.Serialization.Constructors;
 using Penguin.Security.Abstractions.Constants;
 using Penguin.Security.Abstractions.Extensions;
@@ -19,14 +18,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [RequiresRole(RoleNames.ADMIN_ACCESS)]
-    [SuppressMessage("Globalization", "CA1307:Specify StringComparison")]
     [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
     public class AdminController : ModuleController
     {
@@ -70,7 +67,6 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
             return this.GenerateList(TypeFactory.GetTypeByFullName(type, typeof(Entity), false), count, page, text, Converter);
         }
 
-        [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
         public PagedListContainer<T> GenerateList<T>(Type t, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
         {
             Converter ??= new Func<object, T>((o) =>
@@ -132,7 +128,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             List<T> ResultsList = results.ToList();
 
-            if (securityProvider != null && !UserSession.LoggedInUser.HasRole(RoleNames.SYS_ADMIN))
+            if (securityProvider != null && !this.UserSession.LoggedInUser.HasRole(RoleNames.SYS_ADMIN))
             {
                 ResultsList = ResultsList.Where(r => securityProvider.CheckAccess(r)).ToList();
             }
