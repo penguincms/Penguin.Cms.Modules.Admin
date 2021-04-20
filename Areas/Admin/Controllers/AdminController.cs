@@ -24,7 +24,6 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [RequiresRole(RoleNames.ADMIN_ACCESS)]
-    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
     public class AdminController : ModuleController
     {
         public static MetaConstructor Constructor
