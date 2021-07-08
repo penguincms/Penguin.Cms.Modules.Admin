@@ -35,6 +35,5 @@ namespace Penguin.Cms.Modules.Admin
         {
             return Expression.Call(Expression.Call(Expression.Property(lambdaParam, prop), ToStringMethod), StringContainsMethod, query);
         }
-
     }
 }

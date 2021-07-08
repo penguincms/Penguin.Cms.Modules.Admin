@@ -16,7 +16,6 @@ using Penguin.Security.Abstractions.Interfaces;
 using Penguin.Web.Security.Attributes;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -35,7 +34,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
                 c.Settings.AttributeIncludeSettings = AttributeIncludeSetting.All;
 
                 //Strip off the EF Proxy shell
-                c.Settings.AddTypeGetterOverride((type) => { return type?.Module?.ScopeName == "EntityProxyModule" ? type.BaseType : type; });
+                c.Settings.AddTypeGetterOverride((type) => type?.Module?.ScopeName == "EntityProxyModule" ? type.BaseType : type);
 
                 return c;
             }
@@ -68,10 +67,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
         public PagedListContainer<T> GenerateList<T>(Type t, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
         {
-            Converter ??= new Func<object, T>((o) =>
-            {
-                return (T)o;
-            });
+            Converter ??= new Func<object, T>((o) => (T)o);
 
             PropertyInfo? Key = ContextHelper.GetKeyForType(t);
 

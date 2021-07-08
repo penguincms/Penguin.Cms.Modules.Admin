@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Penguin.Messaging.Application.Messages;
 using Penguin.Messaging.Core;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 {
