@@ -43,10 +43,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
         }
 
         [IsLocal]
-        public ActionResult Index()
-        {
-            return this.View(this.CheckModel());
-        }
+        public ActionResult Index() => this.View(this.CheckModel());
 
         [IsLocal]
         public ActionResult SetConnectionString(string DatabaseName, string Server, string User, string Password)
