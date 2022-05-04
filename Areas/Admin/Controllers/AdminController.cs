@@ -55,9 +55,15 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
             this.UserSession = userSession;
         }
 
-        public PagedListContainer<T> GenerateList<T>(int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class => this.GenerateList(typeof(T), count, page, text, Converter);
+        public PagedListContainer<T> GenerateList<T>(int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
+        {
+            return this.GenerateList(typeof(T), count, page, text, Converter);
+        }
 
-        public PagedListContainer<T> GenerateList<T>(string type, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class => this.GenerateList(TypeFactory.GetTypeByFullName(type, typeof(Entity), false), count, page, text, Converter);
+        public PagedListContainer<T> GenerateList<T>(string type, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
+        {
+            return this.GenerateList(TypeFactory.GetTypeByFullName(type, typeof(Entity), false), count, page, text, Converter);
+        }
 
         public PagedListContainer<T> GenerateList<T>(Type t, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
         {
@@ -110,7 +116,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
             }
             else
             {
-                repository.Count();
+                _ = repository.Count();
             }
 
             ISecurityProvider<T> securityProvider = this.ServiceProvider.GetService<ISecurityProvider<T>>();

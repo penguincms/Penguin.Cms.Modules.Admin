@@ -10,14 +10,14 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin
         //to a static file. I havent double checked to see if ASP.NET core does the same thing. They might be vestigial
         public void RegisterRoutes(IRouteBuilder routes)
         {
-            routes.MapRoute(
+            _ = routes.MapRoute(
                 "Admin_Init",
                 "Admin/Init",
                 new { area = "admin", controller = "Init", action = "Init" }
 
             );
 
-            routes.MapRoute(
+            _ = routes.MapRoute(
                 "Admin_Index",
                 "Admin/Index",
                 new { area = "admin", controller = "Home", action = "Index" }

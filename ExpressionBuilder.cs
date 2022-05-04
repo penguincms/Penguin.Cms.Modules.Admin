@@ -31,6 +31,9 @@ namespace Penguin.Cms.Modules.Admin
             return Expression.Lambda<Func<T, bool>>(body, lambdaParam);
         }
 
-        private static MethodCallExpression PredicateContainsBuilder(Expression lambdaParam, PropertyInfo prop, Expression query) => Expression.Call(Expression.Call(Expression.Property(lambdaParam, prop), ToStringMethod), StringContainsMethod, query);
+        private static MethodCallExpression PredicateContainsBuilder(Expression lambdaParam, PropertyInfo prop, Expression query)
+        {
+            return Expression.Call(Expression.Call(Expression.Property(lambdaParam, prop), ToStringMethod), StringContainsMethod, query);
+        }
     }
 }
