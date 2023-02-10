@@ -41,11 +41,13 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
         }
 
         protected IServiceProvider ServiceProvider { get; set; }
+
         protected IUserSession UserSession { get; set; }
 
         public class QueryResults
         {
             public IEnumerable<object>? Results { get; set; }
+
             public int TotalCount { get; set; }
         }
 

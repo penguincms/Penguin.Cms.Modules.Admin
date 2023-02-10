@@ -15,7 +15,9 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
     public class SetupController : Controller
     {
         private const string CONNECTION_STRINGS = "ConnectionStrings";
+
         protected IHostApplicationLifetime AppLifetime { get; set; }
+
         private IServiceProvider ServiceProvider { get; }
 
         public SetupController(IHostApplicationLifetime appLifetime, IServiceProvider serviceProvider)
