@@ -32,7 +32,7 @@
 
     function searchRegexpForward(doc, regexp, start) {
         regexp = ensureFlags(regexp, "g")
-        for (var line = start.line, ch = start.ch, last = doc.lastLine(); line <= last; line++ , ch = 0) {
+        for (var line = start.line, ch = start.ch, last = doc.lastLine(); line <= last; line++, ch = 0) {
             regexp.lastIndex = ch
             var string = doc.getLine(line), match = regexp.exec(string)
             if (match)
@@ -90,7 +90,7 @@
 
     function searchRegexpBackward(doc, regexp, start) {
         regexp = ensureFlags(regexp, "g")
-        for (var line = start.line, ch = start.ch, first = doc.firstLine(); line >= first; line-- , ch = -1) {
+        for (var line = start.line, ch = start.ch, first = doc.firstLine(); line >= first; line--, ch = -1) {
             var string = doc.getLine(line)
             if (ch > -1) string = string.slice(0, ch)
             var match = lastMatchIn(string, regexp)
@@ -157,7 +157,7 @@
         var fold = caseFold ? doFold : noFold
         var lines = fold(query).split(/\r|\n\r?/)
 
-        search: for (var line = start.line, ch = start.ch, last = doc.lastLine() + 1 - lines.length; line <= last; line++ , ch = 0) {
+        search: for (var line = start.line, ch = start.ch, last = doc.lastLine() + 1 - lines.length; line <= last; line++, ch = 0) {
             var orig = doc.getLine(line).slice(ch), string = fold(orig)
             if (lines.length == 1) {
                 var found = string.indexOf(lines[0])
@@ -187,7 +187,7 @@
         var fold = caseFold ? doFold : noFold
         var lines = fold(query).split(/\r|\n\r?/)
 
-        search: for (var line = start.line, ch = start.ch, first = doc.firstLine() - 1 + lines.length; line >= first; line-- , ch = -1) {
+        search: for (var line = start.line, ch = start.ch, first = doc.firstLine() - 1 + lines.length; line >= first; line--, ch = -1) {
             var orig = doc.getLine(line)
             if (ch > -1) orig = orig.slice(0, ch)
             var string = fold(orig)

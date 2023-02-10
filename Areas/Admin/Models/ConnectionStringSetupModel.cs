@@ -11,7 +11,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Models
         /// <summary>
         /// The last attempted connection string
         /// </summary>
-        public string ConnectionString { get; set; }
+        public string? ConnectionString { get; set; }
 
         /// <summary>
         /// Any exceptions that occurred when initializing the database connection

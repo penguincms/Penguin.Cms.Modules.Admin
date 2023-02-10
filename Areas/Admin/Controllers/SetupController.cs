@@ -20,15 +20,15 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
         public SetupController(IHostApplicationLifetime appLifetime, IServiceProvider serviceProvider)
         {
-            this.AppLifetime = appLifetime;
-            this.ServiceProvider = serviceProvider;
+            AppLifetime = appLifetime;
+            ServiceProvider = serviceProvider;
         }
 
         public ConnectionStringSetupModel CheckModel(string? ToCheck = null)
         {
-            ToCheck ??= this.ServiceProvider.GetService<PersistenceConnectionInfo>()?.ConnectionString;
+            ToCheck ??= ServiceProvider.GetService<PersistenceConnectionInfo>()?.ConnectionString;
 
-            ConnectionStringSetupModel toReturn = new ConnectionStringSetupModel();
+            ConnectionStringSetupModel toReturn = new();
 
             if (string.IsNullOrEmpty(ToCheck))
             {
@@ -45,7 +45,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
         [IsLocal]
         public ActionResult Index()
         {
-            return this.View(this.CheckModel());
+            return View(CheckModel());
         }
 
         [IsLocal]
@@ -72,11 +72,11 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
                 connectionString += $"User ID={User};Password={Password};";
             }
 
-            ConnectionStringSetupModel checkModel = this.CheckModel(connectionString);
+            ConnectionStringSetupModel checkModel = CheckModel(connectionString);
 
             if (checkModel.Exceptions.Any())
             {
-                return this.View("Index", checkModel);
+                return View("Index", checkModel);
             }
 
             string configuration = System.IO.File.ReadAllText(HostBuilder.ApplicationConfig);
@@ -101,9 +101,9 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             System.IO.File.WriteAllText(HostBuilder.ApplicationConfig, config.ToString());
 
-            this.AppLifetime.StopApplication();
+            AppLifetime.StopApplication();
 
-            return this.View();
+            return View();
         }
     }
 }

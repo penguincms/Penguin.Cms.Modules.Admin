@@ -69,7 +69,7 @@
 
         function readBracket(stream) {
             var level = 0;
-            while (stream.eat("="))++level;
+            while (stream.eat("=")) ++level;
             stream.eat("[");
             return level;
         }
@@ -102,7 +102,7 @@
                 var curlev = null, ch;
                 while ((ch = stream.next()) != null) {
                     if (curlev == null) { if (ch == "]") curlev = 0; }
-                    else if (ch == "=")++curlev;
+                    else if (ch == "=") ++curlev;
                     else if (ch == "]" && curlev == level) { state.cur = normal; break; }
                     else curlev = null;
                 }
@@ -137,8 +137,8 @@
                     else if (specials.test(word)) style = "variable-2";
                 }
                 if ((style != "comment") && (style != "string")) {
-                    if (indentTokens.test(word))++state.indentDepth;
-                    else if (dedentTokens.test(word))--state.indentDepth;
+                    if (indentTokens.test(word)) ++state.indentDepth;
+                    else if (dedentTokens.test(word)) --state.indentDepth;
                 }
                 return style;
             },

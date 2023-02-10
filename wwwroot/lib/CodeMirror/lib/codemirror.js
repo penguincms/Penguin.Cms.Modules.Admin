@@ -2247,10 +2247,10 @@
             wrap$1.insertBefore(gutterWrap, lineView.text);
             if (lineView.line.gutterClass) { gutterWrap.className += " " + lineView.line.gutterClass; }
             if (cm.options.lineNumbers && (!markers || !markers["CodeMirror-linenumbers"])) {
-            lineView.lineNumber = gutterWrap.appendChild(
-                elt("div", lineNumberFor(cm.options, lineN),
-                    "CodeMirror-linenumber CodeMirror-gutter-elt",
-                    ("left: " + (dims.gutterLeft["CodeMirror-linenumbers"]) + "px; width: " + (cm.display.lineNumInnerWidth) + "px")));
+                lineView.lineNumber = gutterWrap.appendChild(
+                    elt("div", lineNumberFor(cm.options, lineN),
+                        "CodeMirror-linenumber CodeMirror-gutter-elt",
+                        ("left: " + (dims.gutterLeft["CodeMirror-linenumbers"]) + "px; width: " + (cm.display.lineNumInnerWidth) + "px")));
             }
             if (markers) {
                 for (var k = 0; k < cm.options.gutters.length; ++k) {
@@ -3179,8 +3179,8 @@
         var on = true;
         display.cursorDiv.style.visibility = "";
         if (cm.options.cursorBlinkRate > 0) {
-        display.blinker = setInterval(function () { return display.cursorDiv.style.visibility = (on = !on) ? "" : "hidden"; },
-            cm.options.cursorBlinkRate);
+            display.blinker = setInterval(function () { return display.cursorDiv.style.visibility = (on = !on) ? "" : "hidden"; },
+                cm.options.cursorBlinkRate);
         }
         else if (cm.options.cursorBlinkRate < 0) { display.cursorDiv.style.visibility = "hidden"; }
     }
@@ -4969,8 +4969,8 @@
 
                 this.ranges = [];
                 for (var i = 0; i < ranges.length; i++) {
-                this$1.ranges[i] = new Range(clipPos(doc, ranges[i].anchor),
-                    clipPos(doc, ranges[i].head));
+                    this$1.ranges[i] = new Range(clipPos(doc, ranges[i].anchor),
+                        clipPos(doc, ranges[i].head));
                 }
             },
             origin: options && options.origin
@@ -5116,12 +5116,12 @@
             cancel: function () { return obj.canceled = true; }
         };
         if (update) {
-        obj.update = function (from, to, text, origin) {
-            if (from) { obj.from = clipPos(doc, from); }
-            if (to) { obj.to = clipPos(doc, to); }
-            if (text) { obj.text = text; }
-            if (origin !== undefined) { obj.origin = origin; }
-        };
+            obj.update = function (from, to, text, origin) {
+                if (from) { obj.from = clipPos(doc, from); }
+                if (to) { obj.to = clipPos(doc, to); }
+                if (text) { obj.text = text; }
+                if (origin !== undefined) { obj.origin = origin; }
+            };
         }
         signal(doc, "beforeChange", doc, obj);
         if (doc.cm) { signal(doc.cm, "beforeChange", doc.cm, obj); }
@@ -6078,8 +6078,8 @@
             if (!ranges.length) { return }
             var out = [];
             for (var i = 0; i < ranges.length; i++) {
-            out[i] = new Range(clipPos(this$1, ranges[i].anchor),
-                clipPos(this$1, ranges[i].head));
+                out[i] = new Range(clipPos(this$1, ranges[i].anchor),
+                    clipPos(this$1, ranges[i].head));
             }
             if (primary == null) { primary = Math.min(ranges.length - 1, this.sel.primIndex); }
             setSelection(this, normalizeSelection(this.cm, out, primary), options);
@@ -6339,8 +6339,8 @@
             if (options.to != null && options.to < to) { to = options.to; }
             var copy = new Doc(getLines(this, from, to), options.mode || this.modeOption, from, this.lineSep, this.direction);
             if (options.sharedHist) {
-            copy.history = this.history
-                ;
+                copy.history = this.history
+                    ;
             } (this.linked || (this.linked = [])).push({ doc: copy, sharedHist: options.sharedHist });
             copy.linked = [{ doc: this, isParent: true, sharedHist: options.sharedHist }];
             copySharedMarkers(copy, findSharedMarkers(this));
@@ -7560,8 +7560,8 @@
         function option(name, deflt, handle, notOnInit) {
             CodeMirror.defaults[name] = deflt;
             if (handle) {
-            optionHandlers[name] =
-                notOnInit ? function (cm, val, old) { if (old != Init) { handle(cm, val, old); } } : handle;
+                optionHandlers[name] =
+                    notOnInit ? function (cm, val, old) { if (old != Init) { handle(cm, val, old); } } : handle;
             }
         }
 
@@ -9575,9 +9575,9 @@
     var dontDelegate = "iter insert remove copy getEditor constructor".split(" ");
     for (var prop in Doc.prototype) {
         if (Doc.prototype.hasOwnProperty(prop) && indexOf(dontDelegate, prop) < 0) {
-        CodeMirror.prototype[prop] = (function (method) {
-            return function () { return method.apply(this.doc, arguments) }
-        })(Doc.prototype[prop]);
+            CodeMirror.prototype[prop] = (function (method) {
+                return function () { return method.apply(this.doc, arguments) }
+            })(Doc.prototype[prop]);
         }
     }
 

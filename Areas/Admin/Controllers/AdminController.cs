@@ -29,7 +29,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
         {
             get
             {
-                MetaConstructor c = new MetaConstructor();
+                MetaConstructor c = new();
 
                 c.Settings.AttributeIncludeSettings = AttributeIncludeSetting.All;
 
@@ -45,24 +45,24 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
         public class QueryResults
         {
-            public IEnumerable<object> Results { get; set; }
+            public IEnumerable<object>? Results { get; set; }
             public int TotalCount { get; set; }
         }
 
         public AdminController(IServiceProvider serviceProvider, IUserSession userSession)
         {
-            this.ServiceProvider = serviceProvider;
-            this.UserSession = userSession;
+            ServiceProvider = serviceProvider;
+            UserSession = userSession;
         }
 
         public PagedListContainer<T> GenerateList<T>(int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
         {
-            return this.GenerateList(typeof(T), count, page, text, Converter);
+            return GenerateList(typeof(T), count, page, text, Converter);
         }
 
         public PagedListContainer<T> GenerateList<T>(string type, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
         {
-            return this.GenerateList(TypeFactory.GetTypeByFullName(type, typeof(Entity), false), count, page, text, Converter);
+            return GenerateList(TypeFactory.GetTypeByFullName(type, typeof(Entity), false), count, page, text, Converter);
         }
 
         public PagedListContainer<T> GenerateList<T>(Type t, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
@@ -76,13 +76,13 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
                 throw new Exception($"Unable to find Key for type {t}");
             }
 
-            PagedListContainer<T> pagedList = new PagedListContainer<T>();
+            PagedListContainer<T> pagedList = new();
 
-            QueryResults DBResult;
+            QueryResults? DBResult;
 
-            if (this.ServiceProvider.GetRepositoryForType<IKeyedObjectRepository>(t) is IKeyedObjectRepository TypedRepository)
+            if (ServiceProvider.GetRepositoryForType<IKeyedObjectRepository>(t) is IKeyedObjectRepository TypedRepository)
             {
-                DBResult = this.GetType().GetMethod(nameof(AdminController.QueryDatabase)).MakeGenericMethod(t).Invoke(this, new object[] { count, page, text }) as QueryResults;
+                DBResult = GetType().GetMethod(nameof(AdminController.QueryDatabase)).MakeGenericMethod(t).Invoke(this, new object[] { count, page, text }) as QueryResults;
 
                 DBResult.Results = DBResult.Results.Select(Converter);
             }
@@ -104,7 +104,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
         public QueryResults QueryDatabase<T>(int count = 20, int page = 0, string text = "") where T : KeyedObject
         {
-            IKeyedObjectRepository<T> repository = this.ServiceProvider.GetService<IKeyedObjectRepository<T>>();
+            IKeyedObjectRepository<T> repository = ServiceProvider.GetService<IKeyedObjectRepository<T>>();
 
             IQueryable<T> results = repository.OrderByDescending(i => i._Id).Skip(page * count).Take(count);
             int totalCount = 0;
@@ -119,11 +119,11 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
                 _ = repository.Count();
             }
 
-            ISecurityProvider<T> securityProvider = this.ServiceProvider.GetService<ISecurityProvider<T>>();
+            ISecurityProvider<T> securityProvider = ServiceProvider.GetService<ISecurityProvider<T>>();
 
             List<T> ResultsList = results.ToList();
 
-            if (securityProvider != null && !this.UserSession.LoggedInUser.HasRole(RoleNames.SYS_ADMIN))
+            if (securityProvider != null && !UserSession.LoggedInUser.HasRole(RoleNames.SYS_ADMIN))
             {
                 ResultsList = ResultsList.Where(r => securityProvider.CheckAccess(r)).ToList();
             }
