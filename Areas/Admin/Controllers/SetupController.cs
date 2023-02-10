@@ -37,7 +37,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
             toReturn.ConnectionString = ToCheck;
 
-            toReturn.Exceptions = Startup.Exceptions.ToList();
+            toReturn.Exceptions.AddRange(Startup.Exceptions);
 
             return toReturn;
         }

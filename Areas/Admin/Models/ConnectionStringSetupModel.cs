@@ -16,6 +16,6 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Models
         /// <summary>
         /// Any exceptions that occurred when initializing the database connection
         /// </summary>
-        public List<StartupException> Exceptions { get; set; } = new List<StartupException>();
+        public List<StartupException> Exceptions { get; } = new List<StartupException>();
     }
 }
