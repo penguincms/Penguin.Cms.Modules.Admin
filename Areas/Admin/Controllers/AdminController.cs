@@ -65,7 +65,7 @@ namespace Penguin.Cms.Modules.Admin.Areas.Admin.Controllers
 
         public PagedListContainer<T> GenerateList<T>(string type, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
         {
-            return GenerateList(TypeFactory.GetTypeByFullName(type, typeof(Entity), false), count, page, text, Converter);
+            return GenerateList(TypeFactory.Default.GetTypeByFullName(type, typeof(Entity), false), count, page, text, Converter);
         }
 
         public PagedListContainer<T> GenerateList<T>(Type t, int count = 20, int page = 0, string text = "", Func<object, T>? Converter = null) where T : class
